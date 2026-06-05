@@ -1,6 +1,5 @@
 import { Link } from "wouter";
 import { Reveal } from "@/components/ui/Reveal";
-import { NeuralCanvas } from "@/components/ui/NeuralCanvas";
 import { useState } from "react";
 
 const articles = [
@@ -23,8 +22,7 @@ export function Resources() {
 
   return (
     <div className="pt-[90px]">
-      <section className="py-20 md:py-32 relative bg-navy grid-bg overflow-hidden">
-        <NeuralCanvas opacity={0.20} />
+      <section className="py-20 md:py-32 relative bg-navy grid-bg-fine overflow-hidden">
         <div className="container relative z-10 text-center">
           <Reveal variant="heading">
             <h1 className="text-5xl md:text-7xl font-display font-bold mb-6">

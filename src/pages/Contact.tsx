@@ -11,7 +11,7 @@ export function Contact() {
 
   return (
     <div className="pt-[90px]">
-      <section className="py-20 md:py-24 bg-navy grid-bg border-b border-border-mid">
+      <section className="py-20 md:py-24 bg-navy grid-bg-fine border-b border-border-mid">
         <div className="container">
           <Reveal variant="heading">
             <div className="section-label">Contact</div>

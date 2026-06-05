@@ -1,6 +1,5 @@
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
-import { NeuralCanvas } from "@/components/ui/NeuralCanvas";
 
 export interface ServiceHeroStat {
   value: string;
@@ -142,11 +141,7 @@ export function ServiceHero({
     rightPanel ?? (stats.length > 0 ? <DefaultStatsPanel stats={stats} /> : null);
 
   return (
-    <section className="hero-service relative bg-navy grid-bg overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <NeuralCanvas opacity={0.22} />
-      </div>
-
+    <section className="hero-service relative bg-navy grid-bg-fine overflow-hidden">
       <div className="container relative">
         {/* Breadcrumb */}
         <nav

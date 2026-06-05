@@ -86,7 +86,7 @@ export function Home() {
         ref={heroRef}
         className="hero-home relative min-h-[100dvh] flex items-center overflow-hidden grid-bg pb-20"
       >
-        <NeuralCanvas opacity={0.42} />
+        <NeuralCanvas opacity={0.28} />
 
         {/* Spotlight */}
         <div
