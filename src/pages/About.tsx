@@ -312,7 +312,6 @@ export function About() {
       <section style={{ background: "var(--color-navy-mid)" }}>
         <div className="container">
           <Reveal variant="heading">
-            <div className="section-label">Our Architecture</div>
             <h2
               className="font-display font-extrabold"
               style={{ fontSize: "clamp(28px, 3.5vw, 48px)", lineHeight: 1.1 }}
@@ -404,7 +403,6 @@ export function About() {
       <section style={{ background: "var(--color-navy)" }}>
         <div className="container">
           <Reveal variant="heading">
-            <div className="section-label">How We Work</div>
             <h2
               className="font-display font-extrabold"
               style={{ fontSize: "clamp(28px, 3.5vw, 48px)", lineHeight: 1.1, marginBottom: 56 }}
@@ -630,7 +628,6 @@ export function About() {
         <div className="container">
           <Reveal variant="heading">
             <div className="text-center">
-              <div className="section-label justify-center">Clarity on Positioning</div>
               <h2
                 className="font-display font-extrabold"
                 style={{ fontSize: "clamp(26px, 3vw, 44px)", lineHeight: 1.1, marginBottom: 48 }}

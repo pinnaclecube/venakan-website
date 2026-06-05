@@ -73,7 +73,7 @@ export function Home() {
           <div className="flex flex-col items-start gap-8">
             <Reveal delay={0}>
               <div className="tag tag-blue">
-                <span className="w-2 h-2 rounded-full bg-blue-bright animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-blue-bright" />
                 AI-First. Always.
               </div>
             </Reveal>
@@ -406,7 +406,6 @@ export function Home() {
       <section className="py-24 md:py-32 bg-navy grid-bg">
         <div className="container">
           <Reveal variant="heading">
-            <div className="section-label">What We Do</div>
             <h2 className="text-4xl md:text-5xl font-display font-bold mb-16 max-w-2xl">Five Capabilities. One AI-First Company.</h2>
           </Reveal>
 
@@ -451,7 +450,6 @@ export function Home() {
         <div className="container">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
             <Reveal variant="heading">
-              <div className="section-label">Resources</div>
               <h2 className="text-4xl font-display font-bold">Thinking Out Loud on AI</h2>
             </Reveal>
             <Link href="/resources" className="btn-ghost">View All &rarr;</Link>

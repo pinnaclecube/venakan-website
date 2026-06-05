@@ -110,7 +110,6 @@ export function RD() {
       <section className="bg-navy-mid">
         <div className="container">
           <Reveal variant="heading">
-            <div className="section-label">Engagement Models</div>
             <h2 className="text-4xl font-display font-bold mb-10">How We Work with Partners</h2>
           </Reveal>
 

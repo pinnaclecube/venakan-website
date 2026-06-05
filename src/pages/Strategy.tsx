@@ -65,7 +65,6 @@ export function Strategy() {
       <section className="bg-navy">
         <div className="container max-w-4xl mx-auto">
           <Reveal variant="heading">
-            <div className="section-label">Methodology</div>
             <h2 className="text-4xl font-display font-bold mb-12">The Venakan Strategy Approach</h2>
           </Reveal>
 

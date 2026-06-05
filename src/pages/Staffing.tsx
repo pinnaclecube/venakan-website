@@ -139,7 +139,6 @@ export function Staffing() {
       <section className="bg-navy-mid">
         <div className="container grid md:grid-cols-2 gap-10 items-center">
           <Reveal variant="heading">
-            <div className="section-label">Compliance-First</div>
             <h2 className="text-4xl font-display font-bold mb-5">Workforce Compliance? We Handle It.</h2>
             <p className="text-lg text-white/70 leading-relaxed mb-7">
               Building an AI team is only half the equation. The other half is ensuring every placement meets the employment eligibility and workforce compliance requirements your organization is accountable for. Venakan's staffing practice includes structured compliance verification at the point of placement — so you are never exposed to an audit you did not see coming.
