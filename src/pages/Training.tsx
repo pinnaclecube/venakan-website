@@ -74,7 +74,7 @@ export function Training() {
       <section id="tracks" className="bg-navy-mid scroll-mt-24">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-7">
-            <Reveal delay={0} className="h-full">
+            <Reveal delay={0} className="h-full" variant="card">
               <div className="glass p-7 h-full border-t-4 border-t-brand-blue flex flex-col">
                 <div className="tag tag-blue mb-3 self-start">Track 1</div>
                 <h2 className="text-3xl font-display font-bold mb-2">Executive & Leadership</h2>
@@ -106,7 +106,7 @@ export function Training() {
               </div>
             </Reveal>
 
-            <Reveal delay={100} className="h-full">
+            <Reveal delay={60} className="h-full" variant="card">
               <div className="glass p-7 h-full border-t-4 border-t-brand-violet flex flex-col">
                 <div className="tag tag-violet mb-3 self-start">Track 2</div>
                 <h2 className="text-3xl font-display font-bold mb-2">Technical & Engineering</h2>
@@ -143,18 +143,20 @@ export function Training() {
 
       <section className="bg-navy">
         <div className="container grid md:grid-cols-2 gap-10 items-center">
-          <Reveal>
-            <div className="section-label">Custom Programs</div>
-            <h2 className="text-4xl font-display font-bold mb-5">Designed by practitioners. Not educators.</h2>
-            <p className="text-lg text-white/70 leading-relaxed mb-7">
-              Generic online courses don't translate to enterprise outcomes. We design bespoke training programs built around your specific data, tech stack, and business objectives. When we teach RAG, we teach it using your internal documents.
-            </p>
+          <div>
+            <Reveal variant="heading">
+              <div className="section-label">Custom Programs</div>
+              <h2 className="text-4xl font-display font-bold mb-5">Designed by practitioners. Not educators.</h2>
+              <p className="text-lg text-white/70 leading-relaxed mb-7">
+                Generic online courses don't translate to enterprise outcomes. We design bespoke training programs built around your specific data, tech stack, and business objectives. When we teach RAG, we teach it using your internal documents.
+              </p>
+            </Reveal>
             <Link href="/contact" className="btn-primary">
               Request a Custom Training Proposal &rarr;
             </Link>
-          </Reveal>
+          </div>
 
-          <Reveal delay={200} from="right">
+          <Reveal delay={200} from="right" variant="card">
             <div className="glass p-7 text-center relative overflow-hidden">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,75,204,0.2),transparent_60%)]" />
               <h3 className="text-[110px] font-display font-bold leading-none gradient-text mb-3 relative z-10">360&deg;</h3>

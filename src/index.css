@@ -270,6 +270,14 @@
   100% { transform: translateY(0); opacity: 0; }
 }
 
+/* Respect reduced-motion: reveals fade in only, never move. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: opacity 0.2s ease !important;
+    transform: none !important;
+  }
+}
+
 @keyframes orgPanelIn {
   0% { opacity: 0; transform: translateY(8px); }
   100% { opacity: 1; transform: translateY(0); }

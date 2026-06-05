@@ -107,7 +107,7 @@ export function Home() {
             </Reveal>
 
             <div className="flex flex-col gap-2 hero-h1-stack">
-              <Reveal delay={80}>
+              <Reveal delay={80} variant="heading">
                 <h1
                   className="font-display font-extrabold tracking-[-0.04em] leading-[1.05] text-white hero-h1-line1"
                   style={{ fontSize: "clamp(32px, 7vw, 104px)" }}
@@ -116,7 +116,7 @@ export function Home() {
                 </h1>
               </Reveal>
 
-              <Reveal delay={180}>
+              <Reveal delay={180} variant="heading">
                 <h1
                   className="font-display font-extrabold tracking-[-0.04em] leading-[1.05] gradient-text pb-1 hero-h1-line2"
                   style={{ fontSize: "clamp(26px, 5.5vw, 80px)" }}
@@ -126,7 +126,7 @@ export function Home() {
               </Reveal>
             </div>
 
-            <Reveal delay={280}>
+            <Reveal delay={280} variant="body">
               <p className="text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed">
                 Venakan Info Solutions is an AI-only company &mdash; R&amp;D, Strategy, Training,
                 Development, and Staffing. We go deeper than AI adoption. We build the AI
@@ -134,29 +134,27 @@ export function Home() {
               </p>
             </Reveal>
 
-            {/* Trust metrics row */}
-            <Reveal delay={380}>
-              <div className="flex flex-wrap items-center gap-x-8 gap-y-4 mt-2">
-                {HERO_STATS.map((stat, i) => (
-                  <div key={stat.label} className="flex items-center gap-8">
-                    <div className="flex flex-col">
-                      <span className="font-display text-2xl md:text-3xl font-bold text-white leading-none">
-                        {stat.value}
-                      </span>
-                      <span className="font-mono text-[10px] md:text-[11px] text-blue-bright uppercase tracking-[0.14em] mt-1.5">
-                        {stat.label}
-                      </span>
-                    </div>
-                    {i < HERO_STATS.length - 1 && (
-                      <span className="hidden md:block w-px h-10 bg-white/10" />
-                    )}
+            {/* Trust metrics row — stats are not gated behind a reveal */}
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-4 mt-2">
+              {HERO_STATS.map((stat, i) => (
+                <div key={stat.label} className="flex items-center gap-8">
+                  <div className="flex flex-col">
+                    <span className="font-display text-2xl md:text-3xl font-bold text-white leading-none">
+                      {stat.value}
+                    </span>
+                    <span className="font-mono text-[10px] md:text-[11px] text-blue-bright uppercase tracking-[0.14em] mt-1.5">
+                      {stat.label}
+                    </span>
                   </div>
-                ))}
-              </div>
-            </Reveal>
+                  {i < HERO_STATS.length - 1 && (
+                    <span className="hidden md:block w-px h-10 bg-white/10" />
+                  )}
+                </div>
+              ))}
+            </div>
 
             {/* Social proof row */}
-            <Reveal delay={480}>
+            <Reveal delay={480} variant="body">
               <div className="flex items-center gap-4">
                 <div className="flex -space-x-2">
                   {AVATAR_GRADIENTS.map((bg, i) => (
@@ -188,7 +186,7 @@ export function Home() {
           </div>
 
           {/* RIGHT 35% — Glass Form Card */}
-          <Reveal from="right" delay={200}>
+          <Reveal from="right" delay={200} variant="card">
             <div className="relative w-full max-w-md mx-auto lg:mx-0">
               {/* Gradient top border glow */}
               <div
@@ -398,13 +396,13 @@ export function Home() {
       {/* SEC 2: The Venakan Difference */}
       <section className="py-24 md:py-32 bg-navy-mid relative z-10">
         <div className="container">
-          <Reveal>
+          <Reveal variant="heading">
             <div className="section-label">The Venakan Difference</div>
             <h2 className="text-4xl md:text-5xl font-display font-bold mb-16">We Don't Do IT. We Do AI.</h2>
           </Reveal>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Reveal delay={0}>
+            <Reveal delay={0} variant="card">
               <div className="glass p-8 h-full flex flex-col">
                 <h3 className="text-xl font-display font-bold mb-4 text-white">AI-Only Focus</h3>
                 <p className="text-white/60 leading-relaxed text-sm">
@@ -412,7 +410,7 @@ export function Home() {
                 </p>
               </div>
             </Reveal>
-            <Reveal delay={100}>
+            <Reveal delay={60} variant="card">
               <div className="glass p-8 h-full flex flex-col">
                 <h3 className="text-xl font-display font-bold mb-4 text-white">Full-Stack Capability</h3>
                 <p className="text-white/60 leading-relaxed text-sm">
@@ -420,7 +418,7 @@ export function Home() {
                 </p>
               </div>
             </Reveal>
-            <Reveal delay={200}>
+            <Reveal delay={120} variant="card">
               <div className="glass p-8 h-full flex flex-col">
                 <h3 className="text-xl font-display font-bold mb-4 text-white">Outcome-Driven</h3>
                 <p className="text-white/60 leading-relaxed text-sm">
@@ -435,7 +433,7 @@ export function Home() {
       {/* SEC 3: Five Capabilities */}
       <section className="py-24 md:py-32 bg-navy grid-bg">
         <div className="container">
-          <Reveal>
+          <Reveal variant="heading">
             <div className="section-label">What We Do</div>
             <h2 className="text-4xl md:text-5xl font-display font-bold mb-16 max-w-2xl">Five Capabilities. One AI-First Company.</h2>
           </Reveal>
@@ -448,7 +446,7 @@ export function Home() {
               { path: "/development", title: "AI Development", desc: "AI-native applications, intelligent pipelines, and agentic systems — engineered end to end and handed off with documentation your team can actually use." },
               { path: "/staffing", title: "AI Staffing", desc: "AI-specialized talent vetted against real delivery benchmarks — not résumé keywords. Compliance-first for organizations managing complex workforce requirements." }
             ].map((cap, i) => (
-              <Reveal delay={i * 50} key={cap.title}>
+              <Reveal delay={i * 60} variant="card" key={cap.title}>
                 <Link href={cap.path} className="group block glass p-8 h-full min-h-[280px] relative overflow-hidden">
                   <div className="absolute top-0 left-0 w-1 h-0 bg-brand-blue transition-all duration-300 group-hover:h-full" />
                   <h3 className="text-2xl font-display font-bold mb-4 flex justify-between items-center">
@@ -466,7 +464,7 @@ export function Home() {
       {/* SEC 4: Organization Spectrum */}
       <section className="py-24 bg-navy-mid">
         <div className="container">
-          <Reveal>
+          <Reveal variant="heading">
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-4 text-center">We Serve Every Layer of Your Organization</h2>
             <p className="text-white/60 text-center max-w-2xl mx-auto mb-12">
               Select a layer to see exactly how we engage with that role — from boardroom decisions to production code.
@@ -480,31 +478,29 @@ export function Home() {
       <section className="py-24 bg-navy">
         <div className="container">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
-            <Reveal>
+            <Reveal variant="heading">
               <div className="section-label">Resources</div>
               <h2 className="text-4xl font-display font-bold">Thinking Out Loud on AI</h2>
             </Reveal>
-            <Reveal>
-              <Link href="/resources" className="btn-ghost">View All &rarr;</Link>
-            </Reveal>
+            <Link href="/resources" className="btn-ghost">View All &rarr;</Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Reveal delay={0}>
+            <Reveal delay={0} variant="card">
               <Link href="/resources/why-ai-strategies-fail" className="glass p-8 block h-full group">
                 <div className="tag tag-blue mb-6">AI Strategy</div>
                 <h3 className="text-xl font-display font-bold mb-4 group-hover:text-blue-bright transition-colors">Why Most Enterprise AI Strategies Fail in Year Two</h3>
                 <p className="text-brand-blue text-sm font-medium opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all">Read Article &rarr;</p>
               </Link>
             </Reveal>
-            <Reveal delay={100}>
+            <Reveal delay={60} variant="card">
               <Link href="/resources/ai-readiness-scorecard" className="glass p-8 block h-full group">
                 <div className="tag tag-amber mb-6">Guides</div>
                 <h3 className="text-xl font-display font-bold mb-4 group-hover:text-amber-400 transition-colors">The AI Readiness Scorecard</h3>
                 <p className="text-brand-blue text-sm font-medium opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all">Read Article &rarr;</p>
               </Link>
             </Reveal>
-            <Reveal delay={200}>
+            <Reveal delay={120} variant="card">
               <Link href="/resources/llm-production-survival" className="glass p-8 block h-full group">
                 <div className="tag tag-violet mb-6">Articles</div>
                 <h3 className="text-xl font-display font-bold mb-4 group-hover:text-violet-bright transition-colors">Building an LLM Application That Survives Production</h3>
@@ -521,7 +517,7 @@ export function Home() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,75,204,0.15),transparent_70%)] z-0" />
         
         <div className="container relative z-10 flex flex-col items-center text-center">
-          <Reveal>
+          <Reveal variant="heading">
             <div className="flex items-center justify-center mb-12">
               <img
                 src={logoMark}
@@ -539,10 +535,10 @@ export function Home() {
             <p className="text-lg text-white/60 mb-10 max-w-xl mx-auto">
               No pitch decks. No generic discovery calls. Tell us what you're working on — and we'll tell you honestly whether and how we can help.
             </p>
-            <Link href="/contact" className="btn-primary text-lg px-8 py-4">
-              Schedule an AI Readiness Call &rarr;
-            </Link>
           </Reveal>
+          <Link href="/contact" className="btn-primary text-lg px-8 py-4">
+            Schedule an AI Readiness Call &rarr;
+          </Link>
         </div>
       </section>
     </div>

@@ -110,7 +110,7 @@ export function About() {
       <section id="story" className="scroll-mt-24" style={{ background: "var(--color-navy-mid)" }}>
         <div className="container">
           <div className="two-col two-col-55-45">
-            <Reveal from="left">
+            <Reveal from="left" variant="heading">
               <div className="section-label">Why We Exist</div>
               <h2
                 className="font-display font-extrabold"
@@ -132,7 +132,7 @@ export function About() {
               </div>
             </Reveal>
 
-            <Reveal from="right" delay={180}>
+            <Reveal from="right" delay={180} variant="card">
               <div
                 style={{
                   background:
@@ -217,7 +217,7 @@ export function About() {
       {/* SECTION 3 — AI ERA */}
       <section style={{ background: "var(--color-navy)" }}>
         <div className="container">
-          <Reveal>
+          <Reveal variant="heading">
             <div className="text-center max-w-[680px] mx-auto">
               <div className="section-label justify-center">The Context</div>
               <h2
@@ -260,7 +260,7 @@ export function About() {
                 src: "National Foundation for American Policy, 2023",
               },
             ].map((c, i) => (
-              <Reveal key={c.stat} delay={i * 100}>
+              <Reveal key={c.stat} delay={i * 60} variant="card">
                 <div className="glass" style={{ padding: "28px 32px" }}>
                   <div
                     style={{
@@ -311,7 +311,7 @@ export function About() {
       {/* SECTION 4 — HOW WE'RE BUILT */}
       <section style={{ background: "var(--color-navy-mid)" }}>
         <div className="container">
-          <Reveal>
+          <Reveal variant="heading">
             <div className="section-label">Our Architecture</div>
             <h2
               className="font-display font-extrabold"
@@ -328,7 +328,7 @@ export function About() {
             </p>
           </Reveal>
 
-          <Reveal delay={100}>
+          <Reveal delay={100} variant="card">
             <div className="flex flex-col md:flex-row items-stretch md:items-start justify-between gap-6 md:gap-2">
               {CAPABILITIES.map((c, i) => (
                 <Fragment key={c.name}>
@@ -388,7 +388,7 @@ export function About() {
               paddingTop: 32,
             }}
           >
-            <Reveal delay={200}>
+            <Reveal delay={200} variant="body">
               <p
                 className="text-center font-body font-light"
                 style={{ fontSize: 16, color: "var(--white-muted)", lineHeight: 1.7 }}
@@ -403,7 +403,7 @@ export function About() {
       {/* SECTION 5 — PRINCIPLES */}
       <section style={{ background: "var(--color-navy)" }}>
         <div className="container">
-          <Reveal>
+          <Reveal variant="heading">
             <div className="section-label">How We Work</div>
             <h2
               className="font-display font-extrabold"
@@ -423,7 +423,7 @@ export function About() {
             }}
           >
             {PRINCIPLES.map((p, i) => (
-              <Reveal key={p.n} delay={i * 80}>
+              <Reveal key={p.n} delay={i * 60} variant="card">
                 <div
                   className="principle-tile"
                   style={{
@@ -468,7 +468,7 @@ export function About() {
       {/* SECTION 6 — LEADERSHIP */}
       <section style={{ background: "var(--color-navy-mid)" }}>
         <div className="container">
-          <Reveal>
+          <Reveal variant="heading">
             <div className="section-label">Leadership</div>
             <h2
               className="font-display font-extrabold"
@@ -480,7 +480,7 @@ export function About() {
           </Reveal>
 
           <div className="two-col two-col-45-55">
-            <Reveal from="left">
+            <Reveal from="left" variant="card">
               <div className="glass text-center" style={{ padding: 32 }}>
                 <div
                   className="flex items-center justify-center mx-auto"
@@ -563,7 +563,7 @@ export function About() {
               </div>
             </Reveal>
 
-            <Reveal from="right" delay={150}>
+            <Reveal from="right" delay={150} variant="body">
               <div className="section-label">Founder's Note</div>
               <p
                 className="font-body text-white"
@@ -628,7 +628,7 @@ export function About() {
       {/* SECTION 7 — WHAT WE ARE NOT */}
       <section style={{ background: "var(--color-navy)" }}>
         <div className="container">
-          <Reveal>
+          <Reveal variant="heading">
             <div className="text-center">
               <div className="section-label justify-center">Clarity on Positioning</div>
               <h2
@@ -645,7 +645,7 @@ export function About() {
             className="grid gap-6 mx-auto"
             style={{ gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", maxWidth: 860 }}
           >
-            <Reveal from="left">
+            <Reveal from="left" variant="card">
               <div className="glass" style={{ padding: "28px 32px", borderTop: "3px solid #F87171" }}>
                 <div
                   className="font-mono uppercase"
@@ -674,7 +674,7 @@ export function About() {
               </div>
             </Reveal>
 
-            <Reveal from="right" delay={120}>
+            <Reveal from="right" delay={60} variant="card">
               <div className="glass" style={{ padding: "28px 32px", borderTop: "3px solid #86EFAC" }}>
                 <div
                   className="font-mono uppercase"
@@ -717,7 +717,7 @@ export function About() {
         }}
       >
         <div className="container text-center">
-          <Reveal delay={0}>
+          <Reveal delay={0} variant="card">
             <img
               src={venakanLogo}
               alt="Venakan"
@@ -725,7 +725,7 @@ export function About() {
             />
           </Reveal>
 
-          <Reveal delay={100}>
+          <Reveal delay={100} variant="heading">
             <h2
               className="font-display font-extrabold text-white"
               style={{ fontSize: "clamp(28px, 3.5vw, 48px)", lineHeight: 1.1 }}
@@ -733,7 +733,7 @@ export function About() {
               If you're serious about AI,
             </h2>
           </Reveal>
-          <Reveal delay={150}>
+          <Reveal delay={150} variant="heading">
             <h2
               className="font-display font-extrabold gradient-text"
               style={{ fontSize: "clamp(28px, 3.5vw, 48px)", lineHeight: 1.1 }}
@@ -742,7 +742,7 @@ export function About() {
             </h2>
           </Reveal>
 
-          <Reveal delay={220}>
+          <Reveal delay={220} variant="body">
             <p
               className="font-body font-light text-[var(--white-dim)] mx-auto"
               style={{
@@ -757,24 +757,22 @@ export function About() {
             </p>
           </Reveal>
 
-          <Reveal delay={320}>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="btn-primary"
-                style={{ fontSize: 15, padding: "14px 32px" }}
-              >
-                Schedule a Conversation →
-              </Link>
-              <Link
-                href="/rd"
-                className="btn-ghost"
-                style={{ fontSize: 15, padding: "14px 32px" }}
-              >
-                Explore Our Services
-              </Link>
-            </div>
-          </Reveal>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link
+              href="/contact"
+              className="btn-primary"
+              style={{ fontSize: 15, padding: "14px 32px" }}
+            >
+              Schedule a Conversation →
+            </Link>
+            <Link
+              href="/rd"
+              className="btn-ghost"
+              style={{ fontSize: 15, padding: "14px 32px" }}
+            >
+              Explore Our Services
+            </Link>
+          </div>
         </div>
       </section>
     </div>

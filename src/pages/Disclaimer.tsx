@@ -5,7 +5,7 @@ export function Disclaimer() {
     <div className="pt-[90px]">
       <section className="py-20 bg-navy grid-bg border-b border-border-mid">
         <div className="container max-w-3xl text-center">
-          <Reveal>
+          <Reveal variant="heading">
             <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">Disclaimer</h1>
           </Reveal>
         </div>
@@ -13,7 +13,7 @@ export function Disclaimer() {
 
       <section className="py-20 bg-navy">
         <div className="container max-w-3xl">
-          <Reveal delay={100}>
+          <Reveal delay={100} variant="heading">
             <div className="prose prose-invert prose-lg max-w-none text-white/80 font-light leading-relaxed prose-h2:text-white prose-h2:font-display prose-h2:font-bold prose-h2:mt-12 prose-h2:mb-6">
               
               <h2>No Professional Advice</h2>
