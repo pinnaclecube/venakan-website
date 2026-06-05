@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { Reveal } from "@/components/ui/Reveal";
 import { NeuralCanvas } from "@/components/ui/NeuralCanvas";
 import logoMark from "@/assets/venakan-logo.png";
-import { useEffect, useId, useRef, useState } from "react";
+import { useId, useRef, useState } from "react";
 import { Crown, Compass, Layers3, Code2, Database, Check, ArrowRight } from "lucide-react";
 
 const INTERESTS = [
@@ -29,9 +29,6 @@ const AVATAR_GRADIENTS = [
 ];
 
 export function Home() {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
-
   // Form state
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -40,20 +37,6 @@ export function Home() {
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (heroRef.current) {
-        const rect = heroRef.current.getBoundingClientRect();
-        setMousePos({
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top,
-        });
-      }
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
 
   const toggleInterest = (interest: string) => {
     setSelectedInterests((prev) =>
@@ -82,19 +65,8 @@ export function Home() {
   return (
     <div className="w-full">
       {/* HERO */}
-      <section
-        ref={heroRef}
-        className="hero-home relative min-h-[100dvh] flex items-center overflow-hidden grid-bg pb-20"
-      >
+      <section className="hero-home relative min-h-[100dvh] flex items-center overflow-hidden grid-bg pb-20">
         <NeuralCanvas opacity={0.28} />
-
-        {/* Spotlight */}
-        <div
-          className="absolute inset-0 pointer-events-none transition-opacity duration-300 z-0"
-          style={{
-            background: `radial-gradient(700px circle at ${mousePos.x}px ${mousePos.y}px, rgba(59,75,204,0.07), transparent 55%)`,
-          }}
-        />
 
         <div className="container hero-grid relative z-10 grid grid-cols-1 lg:grid-cols-[1.85fr_1fr] gap-12 lg:gap-16 items-center">
           {/* LEFT 65% */}
