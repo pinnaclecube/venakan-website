@@ -41,7 +41,6 @@ export function Strategy() {
   return (
     <div className="pt-[90px]">
       <ServiceHero
-        eyebrow="AI Strategy"
         h1Line1="Turn AI from Buzzword"
         h1Line2="to Business Advantage."
         subhead="We embed with your leadership team, build a prioritized AI roadmap, and stay accountable through execution. Strategy that ships — not strategy that presents."

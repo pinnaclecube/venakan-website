@@ -52,7 +52,6 @@ export function Staffing() {
   return (
     <div className="pt-[90px]">
       <ServiceHero
-        eyebrow="AI Staffing"
         h1Line1="AI Talent."
         h1Line2="Vetted Against Real Delivery."
         subhead="We place AI practitioners who have shipped systems in production — assessed against our own engineering benchmarks. Compliance-first for organizations managing complex workforce requirements."

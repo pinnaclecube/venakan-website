@@ -7,7 +7,6 @@ export interface ServiceHeroStat {
 }
 
 export interface ServiceHeroProps {
-  eyebrow: string;
   h1Line1: string;
   h1Line2: string;
   subhead: string;
@@ -127,7 +126,6 @@ function DefaultStatsPanel({ stats }: { stats: ServiceHeroStat[] }) {
 }
 
 export function ServiceHero({
-  eyebrow,
   h1Line1,
   h1Line2,
   subhead,
@@ -147,29 +145,9 @@ export function ServiceHero({
       style={{ background: "var(--bg-surface)", borderBottom: "1px solid var(--border)" }}
     >
       <div className="container relative">
-        {/* Breadcrumb */}
-        <nav
-          aria-label="Breadcrumb"
-          className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ink-muted)] mb-5"
-        >
-          <Link href="/" className="hover:text-[var(--color-blue-bright)] transition-colors">
-            Home
-          </Link>
-          <span className="mx-2 opacity-50">→</span>
-          <span className="text-[var(--color-blue-bright)]">{eyebrow}</span>
-        </nav>
-
         <div className="hero-service-grid grid grid-cols-1 lg:grid-cols-[58fr_42fr] gap-12 items-stretch">
           {/* LEFT */}
           <div className="flex flex-col">
-            <div className="tag tag-blue self-start mb-6 gap-2">
-              <span className="relative flex w-1.5 h-1.5">
-                <span className="absolute inset-0 rounded-full bg-[var(--color-blue-bright)] opacity-60 animate-ping" />
-                <span className="relative rounded-full bg-[var(--color-blue-bright)] w-1.5 h-1.5" />
-              </span>
-              {eyebrow}
-            </div>
-
             <h1
               className="font-display font-extrabold leading-[1.02] text-white hero-service-h1"
               style={{ fontSize: "clamp(40px, 5.5vw, 68px)", letterSpacing: "-0.04em" }}

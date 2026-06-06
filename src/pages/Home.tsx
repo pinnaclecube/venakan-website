@@ -74,13 +74,6 @@ export function Home() {
         <div className="container hero-grid relative z-10 grid grid-cols-1 lg:grid-cols-[1.85fr_1fr] gap-12 lg:gap-16 items-center">
           {/* LEFT 65% */}
           <div className="flex flex-col items-start gap-8">
-            <Reveal delay={0}>
-              <div className="tag tag-blue">
-                <span className="w-2 h-2 rounded-full bg-blue-bright" />
-                AI-First. Always.
-              </div>
-            </Reveal>
-
             <div className="flex flex-col gap-2 hero-h1-stack">
               <Reveal delay={80} variant="heading">
                 <h1
@@ -420,7 +413,6 @@ export function Home() {
       >
         <div className="container">
           <Reveal variant="heading">
-            <div className="section-label">The Venakan Difference</div>
             <h2 className="text-4xl md:text-5xl font-display font-bold mb-16">We Don't Do IT. We Do AI.</h2>
           </Reveal>
 
@@ -556,8 +548,7 @@ export function Home() {
                   height: "96px",
                   width: "auto",
                   objectFit: "contain",
-                  display: "block",
-                  filter: "drop-shadow(0 0 24px rgba(96,165,250,0.4))"
+                  display: "block"
                 }}
               />
             </div>
