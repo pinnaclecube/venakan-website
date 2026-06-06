@@ -65,12 +65,13 @@ function StatItem({ value, label }: ServiceHeroStat) {
   return (
     <div ref={ref} className="flex flex-col gap-1">
       <span
-        className="font-display font-extrabold text-[28px] leading-none gradient-text tabular-nums"
+        className="font-display font-extrabold text-[28px] leading-none tabular-nums"
+        style={{ color: "var(--brand-blue)" }}
         aria-label={value}
       >
         {display}
       </span>
-      <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--white-muted)]">
+      <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--ink-muted)]">
         {label}
       </span>
     </div>
@@ -141,12 +142,15 @@ export function ServiceHero({
     rightPanel ?? (stats.length > 0 ? <DefaultStatsPanel stats={stats} /> : null);
 
   return (
-    <section className="hero-service relative bg-navy grid-bg-fine overflow-hidden">
+    <section
+      className="hero-service relative grid-bg-fine overflow-hidden"
+      style={{ background: "var(--bg-surface)", borderBottom: "1px solid var(--border)" }}
+    >
       <div className="container relative">
         {/* Breadcrumb */}
         <nav
           aria-label="Breadcrumb"
-          className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--white-muted)] mb-5"
+          className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ink-muted)] mb-5"
         >
           <Link href="/" className="hover:text-[var(--color-blue-bright)] transition-colors">
             Home
@@ -189,11 +193,11 @@ export function ServiceHero({
                     className="font-mono uppercase tracking-[0.08em]"
                     style={{
                       fontSize: 10,
-                      color: "var(--color-blue-bright)",
+                      color: "var(--brand-blue)",
                       padding: "4px 12px",
                       borderRadius: 100,
-                      border: "1px solid rgba(96,165,250,0.22)",
-                      background: "rgba(59,75,204,0.08)",
+                      border: "1px solid rgba(59,75,204,0.20)",
+                      background: "rgba(59,75,204,0.06)",
                     }}
                   >
                     {chip}
@@ -218,7 +222,15 @@ export function ServiceHero({
 
           {/* RIGHT */}
           {panelContent && (
-            <div className="glass h-full hero-service-right" style={{ padding: 28 }}>
+            <div
+              className="glass h-full hero-service-right"
+              style={{
+                padding: 28,
+                background: "#FFFFFF",
+                border: "1px solid var(--border)",
+                boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
+              }}
+            >
               {panelContent}
             </div>
           )}
@@ -228,7 +240,7 @@ export function ServiceHero({
         {stats.length > 0 && rightPanel && (
           <div
             className="mt-10 pt-7 border-t flex flex-wrap gap-y-6 gap-x-10 justify-between"
-            style={{ borderColor: "var(--ven-border)" }}
+            style={{ borderTopColor: "var(--border)", background: "var(--bg-surface)" }}
           >
             {stats.map((s) => (
               <StatItem key={s.label} value={s.value} label={s.label} />

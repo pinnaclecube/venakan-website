@@ -6,89 +6,87 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --navy: 234 43% 5%;
-  --navy-mid: 234 37% 7%;
-  --navy-light: 234 35% 11%;
-  --brand-blue: 234 58% 51%;
-  --brand-violet: 270 42% 45%;
-  --blue-bright: 213 93% 68%;
-  --violet-bright: 262 83% 76%;
-  --cyan: 188 100% 39%; /* approx for #06B6D4 */
-  --white: 232 100% 96%; /* approx for #EEF2FF */
+  /* Backgrounds — three depth levels */
+  --bg-base:        #FFFFFF;
+  --bg-surface:     #F9FAFB;
+  --bg-inset:       #F3F4F6;
 
-  /* Raw values for non-Tailwind use if needed */
-  --color-navy: #06070F;
-  --color-navy-mid: #0B0E1A;
-  --color-navy-light: #111626;
-  --color-brand-blue: #3B4BCC;
+  /* Ink — text hierarchy */
+  --ink-primary:    #111827;
+  --ink-secondary:  #374151;
+  --ink-tertiary:   #6B7280;
+  --ink-muted:      #9CA3AF;
+
+  /* Brand — unchanged, these are the identity */
+  --brand-blue:     #3B4BCC;
+  --brand-violet:   #6B3FA8;
+  --blue-bright:    #3B4BCC;
+  --violet-bright:  #6B3FA8;
+  --cyan:           #0891B2;
+
+  /* Borders */
+  --border:         rgba(0,0,0,0.08);
+  --border-mid:     rgba(0,0,0,0.12);
+  --border-strong:  rgba(0,0,0,0.18);
+  --border-brand:   rgba(59,75,204,0.25);
+
+  /* Legacy hex aliases — consumed directly by inline styles via var(--color-*).
+     Remapped to light values so existing references flip automatically. */
+  --color-navy:         #FFFFFF;
+  --color-navy-mid:     #F9FAFB;
+  --color-navy-light:   #F3F4F6;
+  --color-brand-blue:   #3B4BCC;
   --color-brand-violet: #6B3FA8;
-  --color-blue-bright: #60A5FA;
-  --color-violet-bright: #A78BFA;
-  --color-cyan: #06B6D4;
-  --color-white: #EEF2FF;
-  
-  --white-dim: rgba(238,242,255,0.70);
-  --white-muted: rgba(238,242,255,0.38);
-  --ven-border: rgba(238,242,255,0.07);
-  --border-mid: rgba(238,242,255,0.13);
-  --border-glow: rgba(96,165,250,0.22);
-  
+  --color-blue-bright:  #3B4BCC;
+  --color-violet-bright:#6B3FA8;
+  --color-cyan:         #0891B2;
+  --color-white:        #111827;  /* drives the `text-white` utility → dark ink */
+
+  /* Legacy short aliases (kept so existing component references do not break) */
+  --navy:        #FFFFFF;
+  --navy-mid:    #F9FAFB;
+  --navy-light:  #F3F4F6;
+  --white:       #111827;
+  --white-dim:   #374151;
+  --white-muted: #6B7280;
+  --ven-border:  rgba(0,0,0,0.08);
+  --border-glow: rgba(59,75,204,0.22);
+
+  /* Fonts — unchanged (the families actually loaded above) */
   --font-display: "Outfit", sans-serif;
   --font-body: "Inter", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 
-  --background: var(--navy);
-  --foreground: var(--white);
-  --border: 234 35% 11%;
-  --input: 234 35% 11%;
-  --ring: 234 58% 51%;
-  --card: var(--navy-mid);
-  --card-foreground: var(--white);
-  --popover: var(--navy-mid);
-  --popover-foreground: var(--white);
-  --primary: var(--brand-blue);
-  --primary-foreground: var(--white);
-  --secondary: var(--navy-light);
-  --secondary-foreground: var(--white);
-  --muted: var(--navy-light);
-  --muted-foreground: 232 100% 96%;
-  --accent: var(--brand-blue);
-  --accent-foreground: var(--white);
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 210 40% 98%;
-
   --radius: 0.5rem;
 }
 
-.dark {
-  --background: var(--navy);
-  --foreground: var(--white);
-}
-
+/* shadcn/ui design tokens — light mode, direct color values (no hsl() wrapper) */
 @theme inline {
-  --color-background: hsl(var(--background));
-  --color-foreground: hsl(var(--foreground));
-  --color-border: hsl(var(--border));
-  --color-input: hsl(var(--input));
-  --color-ring: hsl(var(--ring));
-  --color-card: hsl(var(--card));
-  --color-card-foreground: hsl(var(--card-foreground));
-  --color-primary: hsl(var(--primary));
-  --color-primary-foreground: hsl(var(--primary-foreground));
-  --color-secondary: hsl(var(--secondary));
-  --color-secondary-foreground: hsl(var(--secondary-foreground));
-  --color-muted: hsl(var(--muted));
-  --color-muted-foreground: hsl(var(--muted-foreground));
-  --color-accent: hsl(var(--accent));
-  --color-accent-foreground: hsl(var(--accent-foreground));
-  --color-destructive: hsl(var(--destructive));
-  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-background: var(--bg-base);
+  --color-foreground: var(--ink-primary);
+  --color-border: var(--border);
+  --color-input: var(--border-mid);
+  --color-ring: var(--brand-blue);
+  --color-card: var(--bg-base);
+  --color-card-foreground: var(--ink-primary);
+  --color-popover: var(--bg-base);
+  --color-popover-foreground: var(--ink-primary);
+  --color-primary: var(--brand-blue);
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: var(--bg-inset);
+  --color-secondary-foreground: var(--ink-primary);
+  --color-muted: var(--bg-inset);
+  --color-muted-foreground: var(--ink-tertiary);
+  --color-accent: var(--bg-inset);
+  --color-accent-foreground: var(--ink-primary);
+  --color-destructive: #DC2626;
+  --color-destructive-foreground: #FFFFFF;
 }
 
 @layer base {
   body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
+    background: var(--bg-base);
+    color: var(--ink-primary);
     font-family: var(--font-body);
     font-weight: 300;
   }
@@ -130,129 +128,137 @@
     .cap-arrow { display: none !important; }
     .glass { padding: 20px 24px; }
   }
-  
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 9998;
-    pointer-events: none;
-    opacity: 0.025;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  }
 
   ::-webkit-scrollbar {
     width: 3px;
     height: 3px;
   }
   ::-webkit-scrollbar-track {
-    background: transparent;
+    background: var(--bg-surface);
   }
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom, hsl(var(--brand-blue)), hsl(var(--brand-violet)));
+    background: linear-gradient(180deg, #3B4BCC, #6B3FA8);
     border-radius: 10px;
   }
 }
 
 @layer utilities {
-  .glass { 
-    background:rgba(11,14,26,0.55); 
-    border:1px solid var(--ven-border); 
-    backdrop-filter:blur(24px); 
-    border-radius:16px; 
-    transition:border-color 0.3s,box-shadow 0.3s,transform 0.3s; 
+  .glass {
+    background:#FFFFFF;
+    border:1px solid var(--border);
+    border-radius:16px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.06),0 4px 16px rgba(0,0,0,0.04);
+    transition:border-color 0.3s,box-shadow 0.3s,transform 0.3s;
   }
-  .glass:hover { 
-    border-color:rgba(59,75,204,0.30); 
-    box-shadow:0 0 48px rgba(59,75,204,0.10),0 8px 32px rgba(0,0,0,0.3); 
-    transform:translateY(-2px); 
+  .glass:hover {
+    border-color:rgba(59,75,204,0.30);
+    box-shadow:0 4px 24px rgba(59,75,204,0.10),0 1px 4px rgba(0,0,0,0.08);
+    transform:translateY(-1px);
   }
-  .btn-primary { 
-    display:inline-flex; 
-    align-items:center; 
-    gap:9px; 
-    padding:14px 32px; 
-    background:linear-gradient(135deg,var(--color-brand-blue),var(--color-brand-violet)); 
-    color:white; 
-    border-radius:8px; 
-    font-size:15px; 
-    font-weight:500; 
-    border:none; 
-    cursor:pointer; 
-    text-decoration:none; 
-    transition:opacity 0.2s,transform 0.2s,box-shadow 0.2s; 
+  .btn-primary {
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    padding:14px 32px;
+    background:linear-gradient(135deg,#3B4BCC,#6B3FA8);
+    color:#FFFFFF;
+    border-radius:8px;
+    font-size:15px;
+    font-weight:500;
+    border:none;
+    cursor:pointer;
+    text-decoration:none;
+    transition:opacity 0.2s,transform 0.2s,box-shadow 0.2s;
   }
-  .btn-primary:hover { 
-    opacity:0.92; 
-    transform:translateY(-1px); 
-    box-shadow:0 10px 36px rgba(59,75,204,0.40); 
+  .btn-primary:hover {
+    opacity:0.92;
+    transform:translateY(-1px);
+    box-shadow:0 10px 36px rgba(59,75,204,0.30);
   }
-  .btn-ghost { 
-    display:inline-flex; 
-    align-items:center; 
-    gap:9px; 
-    padding:13px 31px; 
-    border:1px solid var(--border-mid); 
-    color:var(--color-white); 
-    border-radius:8px; 
-    background:none; 
-    cursor:pointer; 
-    text-decoration:none; 
-    transition:border-color 0.25s,background 0.25s,transform 0.2s; 
+  .btn-ghost {
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    padding:13px 31px;
+    border:1.5px solid var(--border-mid);
+    color:var(--ink-primary);
+    border-radius:8px;
+    background:transparent;
+    cursor:pointer;
+    text-decoration:none;
+    transition:border-color 0.25s,background 0.25s,color 0.25s,transform 0.2s;
   }
-  .btn-ghost:hover { 
-    border-color:rgba(96,165,250,0.45); 
-    background:rgba(59,75,204,0.09); 
-    transform:translateY(-1px); 
+  .btn-ghost:hover {
+    border-color:var(--brand-blue);
+    background:rgba(59,75,204,0.05);
+    color:var(--brand-blue);
+    transform:translateY(-1px);
   }
-  .gradient-text { 
-    background:linear-gradient(135deg,#7DA3F8 0%,#9B7FEA 45%,#C084FC 100%); 
-    -webkit-background-clip:text; 
-    -webkit-text-fill-color:transparent; 
-    background-clip:text; 
+  .gradient-text {
+    background:linear-gradient(135deg,#3B4BCC 0%,#6B3FA8 50%,#7C3AED 100%);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
   }
-  .section-label { 
-    font-family:var(--font-mono); 
-    font-size:11px; 
-    letter-spacing:0.16em; 
-    text-transform:uppercase; 
-    color:var(--color-blue-bright); 
-    margin-bottom:18px; 
-    display:flex; 
-    align-items:center; 
-    gap:12px; 
+  .section-label {
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--brand-blue);
+    margin-bottom:18px;
+    display:flex;
+    align-items:center;
+    gap:12px;
   }
-  .section-label::before { 
-    content:""; 
-    display:block; 
-    width:28px; 
-    height:1px; 
-    background:linear-gradient(90deg,var(--color-brand-blue),var(--color-brand-violet)); 
+  .section-label::before {
+    content:"";
+    display:block;
+    width:28px;
+    height:1px;
+    background:linear-gradient(90deg,#3B4BCC,#6B3FA8);
   }
-  .tag { 
-    display:inline-flex; 
-    align-items:center; 
-    gap:6px; 
-    padding:4px 13px; 
-    border-radius:100px; 
-    font-family:var(--font-mono); 
-    font-size:10.5px; 
-    letter-spacing:0.09em; 
-    text-transform:uppercase; 
-    border:1px solid; 
+  .tag {
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:4px 13px;
+    border-radius:100px;
+    font-family:var(--font-mono);
+    font-size:10.5px;
+    letter-spacing:0.09em;
+    text-transform:uppercase;
+    border:1px solid;
   }
-  .tag-blue { background:rgba(59,75,204,0.12); border-color:rgba(96,165,250,0.25); color:var(--color-blue-bright); }
-  .tag-violet { background:rgba(124,58,237,0.12); border-color:rgba(167,139,250,0.25); color:var(--color-violet-bright); }
-  .tag-amber { background:rgba(251,191,36,0.08); border-color:rgba(251,191,36,0.25); color:#FCD34D; }
-  .tag-green { background:rgba(34,197,94,0.08); border-color:rgba(34,197,94,0.25); color:#86EFAC; }
-  
+  .tag-blue { background:rgba(59,75,204,0.08); border-color:rgba(59,75,204,0.20); color:#3B4BCC; }
+  .tag-violet { background:rgba(107,63,168,0.08); border-color:rgba(107,63,168,0.20); color:#6B3FA8; }
+  .tag-amber { background:rgba(217,119,6,0.08); border-color:rgba(217,119,6,0.20); color:#B45309; }
+  .tag-green { background:rgba(5,150,105,0.08); border-color:rgba(5,150,105,0.20); color:#065F46; }
+
+  .form-input {
+    background:var(--bg-base);
+    border:1.5px solid var(--border-mid);
+    color:var(--ink-primary);
+  }
+  .form-input:focus {
+    border-color:var(--brand-blue);
+    background:var(--bg-base);
+    box-shadow:0 0 0 3px rgba(59,75,204,0.10);
+  }
+  .form-input::placeholder { color:var(--ink-muted); }
+  .form-label { color:var(--ink-secondary); }
+
+  .divider {
+    background:linear-gradient(90deg,transparent 0%,rgba(59,75,204,0.15) 30%,rgba(107,63,168,0.15) 70%,transparent 100%);
+  }
+
   .grid-bg {
-    background-image:linear-gradient(rgba(59,75,204,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(59,75,204,0.03) 1px,transparent 1px);
-    background-size:64px 64px;
+    background-image:linear-gradient(rgba(59,75,204,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(59,75,204,0.04) 1px,transparent 1px);
+    background-size:56px 56px;
   }
   /* Quieter grid for service-page heroes (replaces the particle canvas) */
   .grid-bg-fine {
-    background-image:linear-gradient(rgba(59,75,204,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(59,75,204,0.03) 1px,transparent 1px);
+    background-image:linear-gradient(rgba(59,75,204,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(59,75,204,0.04) 1px,transparent 1px);
     background-size:56px 56px;
   }
   .container { max-width:1200px; margin:0 auto; padding:0 48px; }

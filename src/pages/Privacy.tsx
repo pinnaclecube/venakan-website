@@ -3,7 +3,7 @@ import { Reveal } from "@/components/ui/Reveal";
 export function Privacy() {
   return (
     <div className="pt-[90px]">
-      <section className="py-20 bg-navy grid-bg border-b border-border-mid">
+      <section className="py-20 bg-[var(--bg-surface)] grid-bg border-b border-border-mid">
         <div className="container max-w-3xl text-center">
           <Reveal variant="heading">
             <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">Privacy Policy</h1>
@@ -12,11 +12,11 @@ export function Privacy() {
         </div>
       </section>
 
-      <section className="py-20 bg-navy">
+      <section className="py-20 bg-[var(--bg-base)]">
         <div className="container max-w-3xl">
           <Reveal delay={100} variant="heading">
             <div className="prose prose-invert prose-lg max-w-none text-white/80 font-light leading-relaxed prose-h2:text-white prose-h2:font-display prose-h2:font-bold prose-h2:mt-12 prose-h2:mb-6">
-              
+
               <h2>Information We Collect</h2>
               <p>Venakan Info Solutions collects information you provide directly to us when using our website, including contact form submissions (name, email, company, and message content) and newsletter signups. We also automatically collect standard usage data (IP address, browser type, device information) through cookies and analytics services.</p>
 

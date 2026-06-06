@@ -24,7 +24,7 @@ function TalentBarPanel() {
                 i === criteria.length - 1 ? "none" : "1px solid var(--ven-border)",
             }}
           >
-            <span className="text-[14px] mt-0.5" style={{ color: "#86EFAC" }}>✓</span>
+            <span className="text-[14px] mt-0.5" style={{ color: "#059669" }}>✓</span>
             <span className="font-body text-[13px] text-[var(--white-dim)]">{c}</span>
           </div>
         ))}
@@ -69,7 +69,7 @@ export function Staffing() {
         ]}
       />
 
-      <section className="bg-navy-mid">
+      <section className="bg-navy-mid" style={{ background: "var(--bg-surface)" }}>
         <div className="container grid md:grid-cols-2 gap-12 items-center">
           <Reveal variant="body">
             <div className="flex flex-col gap-5">
@@ -80,7 +80,7 @@ export function Staffing() {
                 'Paying premium rates for generic software engineers rebranded as "AI".',
               ].map((t) => (
                 <div key={t} className="flex items-start gap-4">
-                  <span className="text-red-500 font-bold mt-1">✕</span>
+                  <span className="font-bold mt-1" style={{ color: "#DC2626" }}>✕</span>
                   <p className="text-white/80">{t}</p>
                 </div>
               ))}
@@ -136,7 +136,7 @@ export function Staffing() {
         </div>
       </section>
 
-      <section className="bg-navy-mid">
+      <section className="bg-navy-mid" style={{ background: "var(--bg-surface)" }}>
         <div className="container grid md:grid-cols-2 gap-10 items-center">
           <Reveal variant="heading">
             <h2 className="text-4xl font-display font-bold mb-5">Workforce Compliance? We Handle It.</h2>
@@ -162,7 +162,14 @@ export function Staffing() {
         </div>
       </section>
 
-      <section className="bg-navy text-center">
+      <section
+        className="bg-navy text-center"
+        style={{
+          background: "linear-gradient(135deg, rgba(59,75,204,0.05), rgba(107,63,168,0.05))",
+          borderTop: "1px solid rgba(59,75,204,0.10)",
+          borderBottom: "1px solid rgba(59,75,204,0.10)",
+        }}
+      >
         <Link href="/contact" className="btn-primary text-lg px-8 py-4">
           Build Your AI Team &rarr;
         </Link>

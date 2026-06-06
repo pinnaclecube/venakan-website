@@ -62,10 +62,15 @@ export function Strategy() {
         <StrategyProcessFlow />
       </div>
 
-      <section className="bg-navy">
+      <section style={{ background: "#FFFFFF" }}>
         <div className="container max-w-4xl mx-auto">
           <Reveal variant="heading">
-            <h2 className="text-4xl font-display font-bold mb-12">The Venakan Strategy Approach</h2>
+            <h2
+              className="text-4xl font-display font-bold mb-12"
+              style={{ color: "var(--ink-primary)" }}
+            >
+              The Venakan Strategy Approach
+            </h2>
           </Reveal>
 
           <div className="flex flex-col gap-10 relative before:absolute before:inset-0 before:ml-[19px] before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-[2px] before:bg-gradient-to-b before:from-brand-blue before:to-transparent">
@@ -76,12 +81,15 @@ export function Strategy() {
               { num: "04", title: "Execution Partnership", desc: "We provide ongoing strategic oversight as your internal teams or external vendors execute the build." },
             ].map((step, i) => (
               <Reveal key={step.num} delay={i * 60} variant="card" className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-brand-blue bg-navy shrink-0 md:order-1 md:group-odd:-ml-[20px] md:group-even:-mr-[20px] z-10 shadow-[0_0_15px_rgba(59,75,204,0.5)]">
-                  <span className="font-mono text-xs font-bold text-white">{step.num}</span>
+                <div
+                  className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-brand-blue shrink-0 md:order-1 md:group-odd:-ml-[20px] md:group-even:-mr-[20px] z-10 shadow-[0_0_15px_rgba(59,75,204,0.5)]"
+                  style={{ background: "var(--brand-blue)" }}
+                >
+                  <span className="font-mono text-xs font-bold text-[#FFFFFF]">{step.num}</span>
                 </div>
                 <div className="w-[calc(100%-3rem)] md:w-[calc(50%-3rem)] glass p-6 hover:border-brand-blue transition-colors">
-                  <h4 className="text-xl font-display font-bold mb-2">{step.title}</h4>
-                  <p className="text-white/60 text-sm leading-relaxed">{step.desc}</p>
+                  <h4 className="text-xl font-display font-bold mb-2" style={{ color: "var(--brand-blue)" }}>{step.title}</h4>
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--ink-secondary)" }}>{step.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -89,10 +97,10 @@ export function Strategy() {
         </div>
       </section>
 
-      <section className="bg-navy-mid">
+      <section style={{ background: "var(--bg-surface)" }}>
         <div className="container">
           <Reveal variant="heading">
-            <h2 className="text-3xl md:text-4xl font-display font-bold mb-10 text-center">Who We Advise</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-10 text-center" style={{ color: "var(--ink-primary)" }}>Who We Advise</h2>
           </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
@@ -103,8 +111,8 @@ export function Strategy() {
             ].map((a, i) => (
               <Reveal key={a.t} delay={i * 60} variant="card">
                 <div className="glass p-7 text-center h-full">
-                  <h4 className="text-lg font-display font-bold mb-3">{a.t}</h4>
-                  <p className="text-white/60 text-sm">{a.d}</p>
+                  <h4 className="text-lg font-display font-bold mb-3" style={{ color: "var(--brand-blue)" }}>{a.t}</h4>
+                  <p className="text-sm" style={{ color: "var(--ink-secondary)" }}>{a.d}</p>
                 </div>
               </Reveal>
             ))}

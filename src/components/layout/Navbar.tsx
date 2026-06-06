@@ -35,10 +35,24 @@ export function Navbar() {
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 ${
-          scrolled
-            ? "bg-[rgba(6,7,15,0.88)] backdrop-blur-[24px] border-b border-[rgba(238,242,255,0.06)] py-4"
-            : "bg-transparent py-6"
+          scrolled ? "py-4" : "py-6"
         }`}
+        style={
+          scrolled
+            ? {
+                background: "rgba(255,255,255,0.95)",
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+                borderBottom: "1px solid var(--border-mid)",
+                boxShadow: "0 1px 8px rgba(0,0,0,0.06)",
+              }
+            : {
+                background: "rgba(255,255,255,0.85)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                borderBottom: "1px solid var(--border)",
+              }
+        }
       >
         <div className="container flex items-center justify-between">
           <Link href="/" className="shrink-0 flex items-center" aria-label="Venakan">
@@ -65,7 +79,7 @@ export function Navbar() {
                   href={link.path}
                   className={`px-4 py-2 text-sm font-medium transition-colors ${
                     isActive
-                      ? "text-blue-bright bg-[rgba(59,75,204,0.12)] rounded-md"
+                      ? "text-blue-bright bg-[rgba(59,75,204,0.06)] rounded-md"
                       : "text-white/80 hover:text-white"
                   }`}
                 >
@@ -93,9 +107,14 @@ export function Navbar() {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed inset-0 z-[999] bg-navy/95 backdrop-blur-xl transition-opacity duration-300 lg:hidden flex flex-col justify-center items-center ${
+        className={`fixed inset-0 z-[999] transition-opacity duration-300 lg:hidden flex flex-col justify-center items-center ${
           mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
+        style={{
+          background: "rgba(255,255,255,0.98)",
+          backdropFilter: "blur(24px)",
+          WebkitBackdropFilter: "blur(24px)",
+        }}
       >
         <div className="flex flex-col items-center gap-6 text-center">
           {navLinks.map((link, i) => (

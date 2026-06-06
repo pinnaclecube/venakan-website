@@ -16,10 +16,16 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-navy-mid border-t border-[rgba(238,242,255,0.06)] pt-20 pb-8 mt-24">
+    <footer
+      className="pt-20 pb-8 mt-24"
+      style={{
+        background: "var(--bg-surface)",
+        borderTop: "1px solid var(--border)",
+      }}
+    >
       <div className="container">
         {/* Top Banner */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 pb-16 border-b border-[rgba(238,242,255,0.06)]">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 pb-16 border-b" style={{ borderColor: "var(--border)" }}>
           <Link href="/" className="flex items-center" aria-label="Venakan">
             <img
               src={logoMark}
@@ -47,13 +53,13 @@ export function Footer() {
               Venakan Info Solutions is an AI-only company specializing in R&D, Strategy, Training, Development, and Staffing.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full border border-[rgba(238,242,255,0.1)] flex items-center justify-center text-white/60 hover:text-white hover:border-brand-blue hover:bg-brand-blue/10 transition-all">
+              <a href="#" className="w-10 h-10 rounded-full border flex items-center justify-center transition-all bg-[var(--bg-inset)] border-[var(--border)] text-[var(--ink-secondary)] hover:bg-[rgba(59,75,204,0.08)] hover:border-[rgba(59,75,204,0.25)] hover:text-[var(--brand-blue)]">
                 in
               </a>
-              <a href="#" className="w-10 h-10 rounded-full border border-[rgba(238,242,255,0.1)] flex items-center justify-center text-white/60 hover:text-white hover:border-brand-blue hover:bg-brand-blue/10 transition-all">
+              <a href="#" className="w-10 h-10 rounded-full border flex items-center justify-center transition-all bg-[var(--bg-inset)] border-[var(--border)] text-[var(--ink-secondary)] hover:bg-[rgba(59,75,204,0.08)] hover:border-[rgba(59,75,204,0.25)] hover:text-[var(--brand-blue)]">
                 x
               </a>
-              <a href="#" className="w-10 h-10 rounded-full border border-[rgba(238,242,255,0.1)] flex items-center justify-center text-white/60 hover:text-white hover:border-brand-blue hover:bg-brand-blue/10 transition-all">
+              <a href="#" className="w-10 h-10 rounded-full border flex items-center justify-center transition-all bg-[var(--bg-inset)] border-[var(--border)] text-[var(--ink-secondary)] hover:bg-[rgba(59,75,204,0.08)] hover:border-[rgba(59,75,204,0.25)] hover:text-[var(--brand-blue)]">
                 gh
               </a>
             </div>
@@ -94,7 +100,7 @@ export function Footer() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-navy border border-border-mid rounded-md px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-blue transition-colors"
+                  className="bg-[var(--bg-base)] border border-border-mid rounded-md px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-blue transition-colors"
                 />
                 <button type="submit" className="btn-ghost py-2.5 justify-center w-full">Subscribe</button>
               </form>
@@ -103,7 +109,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-8 border-t border-[rgba(238,242,255,0.06)]">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-8 border-t" style={{ borderColor: "var(--border)" }}>
           <p className="text-xs text-white/40">&copy; {new Date().getFullYear()} Venakan Info Solutions. All rights reserved.</p>
           <p className="text-sm font-medium gradient-text">Made with AI. Built for AI.</p>
           <div className="flex items-center gap-6">

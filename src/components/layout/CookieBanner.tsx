@@ -20,8 +20,17 @@ export function CookieBanner() {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 p-4 translate-y-0 transition-transform duration-500">
       <div className="container mx-auto max-w-4xl">
-        <div className="glass p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-gray-300 font-body">
+        <div
+          className="p-5 flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl"
+          style={{
+            background: "rgba(255,255,255,0.97)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            borderTop: "1px solid var(--border)",
+            boxShadow: "0 -4px 24px rgba(0,0,0,0.08)",
+          }}
+        >
+          <p className="text-sm font-body" style={{ color: "var(--ink-secondary)" }}>
             We use cookies to improve your experience and analyze site traffic. 
             By continuing to use this site, you consent to our use of cookies.
           </p>

@@ -8,7 +8,7 @@ interface Node {
   radius: number;
 }
 
-export function NeuralCanvas({ opacity = 0.5 }: { opacity?: number }) {
+export function NeuralCanvas({ opacity = 0.6 }: { opacity?: number }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -53,9 +53,15 @@ export function NeuralCanvas({ opacity = 0.5 }: { opacity?: number }) {
         if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
         if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
 
+        // Glow ring
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.radius * 3, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(59, 75, 204, 0.08)`;
+        ctx.fill();
+
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(96, 165, 250, ${opacity * 0.8})`;
+        ctx.fillStyle = `rgba(59, 75, 204, 0.35)`;
         ctx.fill();
       });
 
@@ -67,7 +73,7 @@ export function NeuralCanvas({ opacity = 0.5 }: { opacity?: number }) {
           const distance = Math.sqrt(dx * dx + dy * dy);
 
           if (distance < maxDistance) {
-            const lineOpacity = (1 - distance / maxDistance) * opacity * 0.5;
+            const lineOpacity = (1 - distance / maxDistance) * 0.15;
             ctx.beginPath();
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
