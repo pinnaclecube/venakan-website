@@ -181,7 +181,7 @@ export function About() {
 
               <div className="grid grid-cols-3 gap-3 mt-5">
                 {[
-                  { v: "2025", l: "Founded" },
+                  { v: "2018", l: "Founded" },
                   { v: "AI-Only", l: "Practice" },
                   { v: "Day 1", l: "Practitioners" },
                 ].map((s) => (
