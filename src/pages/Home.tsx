@@ -2,7 +2,8 @@ import { Link } from "wouter";
 import { Reveal } from "@/components/ui/Reveal";
 import { NeuralCanvas } from "@/components/ui/NeuralCanvas";
 import logoMark from "@/assets/venakan-logo.png";
-import { useId, useRef, useState } from "react";
+import { Fragment, useEffect, useId, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Crown, Compass, Layers3, Code2, Database, Check, ArrowRight } from "lucide-react";
 
 const INTERESTS = [
@@ -14,18 +15,72 @@ const INTERESTS = [
   "Just Exploring",
 ];
 
-const HERO_STATS = [
-  { value: "12+", label: "AI Verticals" },
-  { value: "5", label: "Capabilities" },
-  { value: "100%", label: "AI-Specialized" },
-  { value: "360°", label: "Org Coverage" },
-];
-
-const AVATAR_GRADIENTS = [
-  "linear-gradient(135deg,#3B4BCC,#60A5FA)",
-  "linear-gradient(135deg,#6B3FA8,#A78BFA)",
-  "linear-gradient(135deg,#60A5FA,#22D3EE)",
-  "linear-gradient(135deg,#A78BFA,#3B4BCC)",
+const HERO_CARDS = [
+  {
+    h1Line1: "Pure AI.",
+    h1Line2: "Research to Results.",
+    subheading:
+      "Built exclusively for AI. No legacy IT practice, no generalist consulting. We go from the research that tells you what's possible to the engineering that makes it run in production.",
+    stats: [
+      { value: "6", label: "Active R&D verticals" },
+      { value: "5", label: "Integrated capabilities" },
+      { value: "1", label: "Focus: AI only" },
+    ],
+    primaryCta: { label: "Start the Conversation →", href: "/contact" },
+    secondaryCta: { label: "Explore Our Work", href: "/rd" },
+  },
+  {
+    h1Line1: "Enterprise AI.",
+    h1Line2: "Built for the Midwest.",
+    subheading:
+      "McKinsey prices out the mid-market. Local IT firms underqualify for the work. Venakan fills the gap — the only firm in the region covering the full AI spectrum under one roof.",
+    stats: [
+      { value: "200–5K", label: "Employee org sweet spot" },
+      { value: "12+", label: "Midwest states served" },
+      { value: "0", label: "Legacy IT practice" },
+    ],
+    primaryCta: { label: "See How We Work →", href: "/strategy" },
+    secondaryCta: { label: "Our Five Capabilities", href: "/rd" },
+  },
+  {
+    h1Line1: "AI Strategy.",
+    h1Line2: "That Actually Ships.",
+    subheading:
+      "Most AI strategies live in decks. Ours live in production. We embed with your leadership team, build the roadmap, and stay accountable through execution — not just the recommendation.",
+    stats: [
+      { value: "6 wks", label: "To first roadmap" },
+      { value: "4", label: "Engagement phases" },
+      { value: "100%", label: "Delivery accountability" },
+    ],
+    primaryCta: { label: "Start an AI Assessment →", href: "/strategy" },
+    secondaryCta: { label: "How It Works", href: "/strategy" },
+  },
+  {
+    h1Line1: "We Build AI.",
+    h1Line2: "End to End.",
+    subheading:
+      "Agentic systems, LLM applications, intelligent pipelines — built to production standards with documented handoffs your team can actually use. No ongoing dependency required.",
+    stats: [
+      { value: "3", label: "Engagement models" },
+      { value: "0", label: "Vendor lock-in" },
+      { value: "100%", label: "Documented handoffs" },
+    ],
+    primaryCta: { label: "Talk to Our Engineers →", href: "/development" },
+    secondaryCta: { label: "Our Tech Stack", href: "/development" },
+  },
+  {
+    h1Line1: "AI Talent.",
+    h1Line2: "Vetted Against Real Delivery.",
+    subheading:
+      "We place practitioners who have shipped AI in production — assessed against our own engineering bar, not a recruiter's checklist. Compliance-first for complex workforce requirements.",
+    stats: [
+      { value: "16+", label: "AI roles we place" },
+      { value: "2", label: "Talent tracks" },
+      { value: "0", label: "Résumé-only vetting" },
+    ],
+    primaryCta: { label: "Build Your AI Team →", href: "/staffing" },
+    secondaryCta: { label: "Roles We Place", href: "/staffing" },
+  },
 ];
 
 export function Home() {
@@ -37,6 +92,34 @@ export function Home() {
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  // Rotating hero left panel
+  const [currentCard, setCurrentCard] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+  const card = HERO_CARDS[currentCard];
+
+  useEffect(() => {
+    if (isPaused) return;
+    const id = setInterval(() => {
+      setCurrentCard((c) => (c + 1) % HERO_CARDS.length);
+    }, 5000);
+    return () => clearInterval(id);
+  }, [isPaused, currentCard]);
+
+  const cardMotion = prefersReducedMotion
+    ? {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        exit: { opacity: 0 },
+        transition: { duration: 0.2 },
+      }
+    : {
+        initial: { opacity: 0, y: 6 },
+        animate: { opacity: 1, y: 0 },
+        exit: { opacity: 0, y: -4 },
+        transition: { duration: 0.4, ease: [0.23, 1, 0.32, 1] as [number, number, number, number] },
+      };
 
   const toggleInterest = (interest: string) => {
     setSelectedInterests((prev) =>
@@ -72,103 +155,110 @@ export function Home() {
         <NeuralCanvas opacity={0.6} />
 
         <div className="container hero-grid relative z-10 grid grid-cols-1 lg:grid-cols-[1.85fr_1fr] gap-12 lg:gap-16 items-center">
-          {/* LEFT 65% */}
-          <div className="flex flex-col items-start gap-8">
-            <div className="flex flex-col gap-2 hero-h1-stack">
-              <Reveal delay={80} variant="heading">
-                <h1
-                  className="font-display font-extrabold tracking-[-0.04em] leading-[1.05] text-white hero-h1-line1"
-                  style={{ fontSize: "clamp(32px, 7vw, 104px)", color: "var(--ink-primary)" }}
-                >
-                  Pure AI.
-                </h1>
-              </Reveal>
-
-              <Reveal delay={180} variant="heading">
-                <h1
-                  className="font-display font-extrabold tracking-[-0.04em] leading-[1.05] gradient-text pb-1 hero-h1-line2"
-                  style={{ fontSize: "clamp(26px, 5.5vw, 80px)" }}
-                >
-                  Research to Results.
-                </h1>
-              </Reveal>
-            </div>
-
-            <Reveal delay={280} variant="body">
-              <p
-                className="text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed"
-                style={{ color: "var(--ink-secondary)" }}
+          {/* LEFT 65% — rotating hero cards */}
+          <div
+            className="flex flex-col items-start"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentCard}
+                className="flex flex-col items-start gap-8 w-full"
+                initial={cardMotion.initial}
+                animate={cardMotion.animate}
+                exit={cardMotion.exit}
+                transition={cardMotion.transition}
               >
-                Venakan Info Solutions is an AI-only company &mdash; R&amp;D, Strategy, Training,
-                Development, and Staffing. We go deeper than AI adoption. We build the AI
-                capability your organization runs on.
-              </p>
-            </Reveal>
-
-            {/* Trust metrics row — stats are not gated behind a reveal */}
-            <div className="flex flex-wrap items-center gap-x-8 gap-y-4 mt-2">
-              {HERO_STATS.map((stat, i) => (
-                <div key={stat.label} className="flex items-center gap-8">
-                  <div className="flex flex-col">
-                    <span
-                      className="font-display text-2xl md:text-3xl font-bold text-white leading-none"
-                      style={{ color: "var(--brand-blue)", fontWeight: 800 }}
-                    >
-                      {stat.value}
-                    </span>
-                    <span
-                      className="font-mono text-[10px] md:text-[11px] text-blue-bright uppercase tracking-[0.14em] mt-1.5"
-                      style={{ color: "var(--ink-muted)" }}
-                    >
-                      {stat.label}
-                    </span>
-                  </div>
-                  {i < HERO_STATS.length - 1 && (
-                    <span
-                      className="hidden md:block w-px h-10 bg-white/10"
-                      style={{ background: "var(--border)" }}
-                    />
-                  )}
+                <div className="flex flex-col gap-2 hero-h1-stack">
+                  <h1
+                    className="font-display font-extrabold tracking-[-0.04em] leading-[1.05] hero-h1-line1"
+                    style={{ fontSize: "clamp(32px, 7vw, 104px)", color: "var(--ink-primary)" }}
+                  >
+                    {card.h1Line1}
+                  </h1>
+                  <h1
+                    className="font-display font-extrabold tracking-[-0.04em] leading-[1.05] gradient-text pb-1 hero-h1-line2"
+                    style={{ fontSize: "clamp(26px, 5.5vw, 80px)" }}
+                  >
+                    {card.h1Line2}
+                  </h1>
                 </div>
-              ))}
-            </div>
 
-            {/* Social proof row */}
-            <Reveal delay={480} variant="body">
-              <div className="flex items-center gap-4">
-                <div className="flex -space-x-2">
-                  {AVATAR_GRADIENTS.map((bg, i) => (
-                    <div
-                      key={i}
-                      className="w-9 h-9 rounded-full border-2"
-                      style={{ background: bg, borderColor: "var(--bg-base)" }}
-                    />
+                <p
+                  style={{
+                    color: "var(--ink-secondary)",
+                    fontWeight: 300,
+                    fontSize: 17,
+                    lineHeight: 1.72,
+                    maxWidth: 520,
+                  }}
+                >
+                  {card.subheading}
+                </p>
+
+                {/* Stats row */}
+                <div className="flex items-center gap-6">
+                  {card.stats.map((stat, i) => (
+                    <Fragment key={stat.label}>
+                      <div className="flex flex-col">
+                        <span
+                          className="font-display leading-none"
+                          style={{ color: "var(--brand-blue)", fontWeight: 800, fontSize: 22 }}
+                        >
+                          {stat.value}
+                        </span>
+                        <span
+                          className="font-mono uppercase tracking-[0.14em] mt-1.5"
+                          style={{ color: "var(--ink-muted)", fontSize: 10 }}
+                        >
+                          {stat.label}
+                        </span>
+                      </div>
+                      {i < card.stats.length - 1 && (
+                        <span style={{ width: 1, height: 28, background: "rgba(59,75,204,0.15)" }} />
+                      )}
+                    </Fragment>
                   ))}
                 </div>
-                <p className="text-sm text-white/60" style={{ color: "var(--ink-tertiary)" }}>
-                  <span className="text-white font-medium">Trusted by AI leaders</span> across
-                  healthcare, finance &amp; legal
-                </p>
-              </div>
-            </Reveal>
 
-            {/* Scroll cue */}
-            <Reveal delay={600}>
-              <div className="hidden md:flex items-center gap-3 mt-4 text-white/40">
-                <div className="relative w-5 h-8 rounded-full border border-white/20 flex justify-center pt-1.5">
-                  <span
-                    className="w-1 h-1.5 rounded-full bg-white/60 animate-[scrollCue_1.8s_ease-in-out_infinite]"
-                    style={{ background: "linear-gradient(90deg, #3B4BCC, transparent)" }}
-                  />
+                {/* CTAs */}
+                <div className="flex flex-wrap gap-3">
+                  <Link href={card.primaryCta.href} className="btn-primary">
+                    {card.primaryCta.label}
+                  </Link>
+                  <Link href={card.secondaryCta.href} className="btn-ghost">
+                    {card.secondaryCta.label}
+                  </Link>
                 </div>
-                <span
-                  className="font-mono text-[10px] uppercase tracking-[0.2em]"
-                  style={{ color: "var(--ink-muted)" }}
-                >
-                  Scroll to explore
-                </span>
-              </div>
-            </Reveal>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Dot indicators */}
+            <div className="flex items-center gap-2" style={{ marginTop: 32 }}>
+              {HERO_CARDS.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  aria-label={`Show hero card ${i + 1}`}
+                  aria-current={i === currentCard}
+                  onClick={() => setCurrentCard(i)}
+                  style={{
+                    height: 6,
+                    width: i === currentCard ? 24 : 6,
+                    borderRadius: i === currentCard ? 3 : "50%",
+                    background:
+                      i === currentCard
+                        ? "linear-gradient(90deg, #3B4BCC, #6B3FA8)"
+                        : "rgba(59,75,204,0.25)",
+                    border: "none",
+                    padding: 0,
+                    cursor: "pointer",
+                    transition: "width 200ms, background 200ms",
+                  }}
+                />
+              ))}
+            </div>
           </div>
 
           {/* RIGHT 35% — Glass Form Card */}

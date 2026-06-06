@@ -49,7 +49,7 @@ export function Footer() {
           {/* Brand */}
           <div className="flex flex-col gap-6">
             <p className="text-white/60 text-sm leading-relaxed">
-              Venakan Info Solutions is an AI-only company specializing in R&D, Strategy, Training, Development, and Staffing.
+              Built exclusively for AI. No legacy IT practice. No generalist consulting. Just AI &mdash; from day one.
             </p>
             <div className="flex gap-4">
               <a href="#" className="w-10 h-10 rounded-full border flex items-center justify-center transition-all bg-[var(--bg-inset)] border-[var(--border)] text-[var(--ink-secondary)] hover:bg-[rgba(59,75,204,0.08)] hover:border-[rgba(59,75,204,0.25)] hover:text-[var(--brand-blue)]">

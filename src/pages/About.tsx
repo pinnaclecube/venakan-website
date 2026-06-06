@@ -91,7 +91,7 @@ export function About() {
       <ServiceHero
         h1Line1="One Focus."
         h1Line2="Total AI."
-        subhead="We didn't add AI to an existing practice. We started with AI and built everything else around it. That single decision changes every engagement we run, every hire we make, and every product we ship."
+        subhead="We didn't add AI to an existing practice — we started with AI and built everything else around it. The only Midwest firm covering the full AI spectrum — R&D, Strategy, Training, Development, and Staffing — under one roof."
         chips={["AI-Only Since Day One", "R&D to Staffing", "No Legacy Practice"]}
         primaryCta="Work With Us →"
         secondaryCta="Read Our Story ↓"
@@ -122,7 +122,7 @@ export function About() {
                   The AI opportunity is visible to almost every organization. The problem is the gap between seeing it and capturing it. Strategy decks sit unimplemented. Pilots run for eighteen months without shipping. Technical teams get hired without the AI depth to build what's actually needed. Executives approve budgets without the fluency to evaluate what they're buying.
                 </p>
                 <p>
-                  Venakan Info Solutions was founded to close that gap. Not with another framework, not with another vendor relationship, and not with a team of generalist consultants who picked up an AI practice last year. We built an AI-only company — one where every capability, every person, and every engagement exists for a single purpose: turning AI from a priority on a slide into a capability your organization actually runs on.
+                  Venakan Info Solutions was founded to close that gap. Not with another framework, not with another vendor relationship, and not with a team of generalist consultants who picked up an AI practice last year. We built an AI-only company — one where every capability, every person, and every engagement exists for a single purpose: turning AI from a priority on a slide into a capability your organization actually runs on. This is enterprise AI for organizations that McKinsey prices out and local IT firms underqualify for.
                 </p>
                 <p>
                   That means R&D that ships real products. Strategy that leads to deployed systems. Training that changes how people work. Engineering that builds to production standards. And staffing that places talent assessed against our own delivery bar — not a recruiter's checklist.

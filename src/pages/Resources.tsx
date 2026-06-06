@@ -28,6 +28,12 @@ export function Resources() {
             <h1 className="text-5xl md:text-7xl font-display font-bold mb-6">
               AI Intelligence. <span className="gradient-text">For Leaders & Builders.</span>
             </h1>
+            <p
+              className="mx-auto"
+              style={{ color: "var(--ink-secondary)", maxWidth: 640, fontSize: 17, lineHeight: 1.7 }}
+            >
+              Enterprise AI for organizations that McKinsey prices out and local IT firms underqualify for.
+            </p>
           </Reveal>
         </div>
       </section>
