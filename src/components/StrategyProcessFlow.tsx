@@ -179,7 +179,7 @@ export function StrategyProcessFlow() {
     <section className="spf" aria-labelledby="spf-heading">
       <style>{spfCss}</style>
       <div className="container">
-        <Reveal>
+        <Reveal variant="heading">
           <div className="spf-eyebrow">The Venakan Method</div>
           <h2 id="spf-heading" className="spf-h1">
             From AI Strategy to <span className="gradient-text">AI Capability</span>
@@ -191,7 +191,7 @@ export function StrategyProcessFlow() {
           </p>
         </Reveal>
 
-        <Reveal delay={120}>
+        <Reveal delay={120} variant="card">
           <div className="spf-stepper">
             <div className="spf-nodes" role="tablist" aria-label="AI strategy implementation stages">
               {!isMobile && (
@@ -260,7 +260,7 @@ export function StrategyProcessFlow() {
           </div>
         </Reveal>
 
-        <Reveal delay={160}>
+        <Reveal delay={160} variant="heading">
           <div className="spf-gov-band">
             <h3 className="spf-gov-title">
               Governance Isn't a Phase — It's the Operating System
@@ -308,16 +308,14 @@ export function StrategyProcessFlow() {
           </div>
         </Reveal>
 
-        <Reveal delay={200}>
-          <div className="spf-cta-row">
-            <button className="spf-cta-primary" onClick={() => navigate("/contact")}>
-              Start with an Assessment
-            </button>
-            <button className="spf-cta-secondary" onClick={() => navigate("/rd")}>
-              See how we build the AI itself
-            </button>
-          </div>
-        </Reveal>
+        <div className="spf-cta-row">
+          <button className="spf-cta-primary" onClick={() => navigate("/contact")}>
+            Start with an Assessment
+          </button>
+          <button className="spf-cta-secondary" onClick={() => navigate("/rd")}>
+            See how we build the AI itself
+          </button>
+        </div>
       </div>
     </section>
   );

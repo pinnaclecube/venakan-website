@@ -1,6 +1,5 @@
 import { Link } from "wouter";
 import { Reveal } from "@/components/ui/Reveal";
-import { NeuralCanvas } from "@/components/ui/NeuralCanvas";
 import { useState } from "react";
 
 const articles = [
@@ -23,10 +22,9 @@ export function Resources() {
 
   return (
     <div className="pt-[90px]">
-      <section className="py-20 md:py-32 relative bg-navy grid-bg overflow-hidden">
-        <NeuralCanvas opacity={0.20} />
+      <section className="py-20 md:py-32 relative bg-navy grid-bg-fine overflow-hidden">
         <div className="container relative z-10 text-center">
-          <Reveal>
+          <Reveal variant="heading">
             <h1 className="text-5xl md:text-7xl font-display font-bold mb-6">
               AI Intelligence. <span className="gradient-text">For Leaders & Builders.</span>
             </h1>
@@ -36,7 +34,7 @@ export function Resources() {
 
       <section className="py-12 bg-navy-mid border-b border-border-mid">
         <div className="container">
-          <Reveal>
+          <Reveal variant="card">
             <div className="flex flex-wrap justify-center gap-3">
               {filters.map(filter => (
                 <button
@@ -59,7 +57,7 @@ export function Resources() {
       <section className="py-20 bg-navy">
         <div className="container">
           {activeFilter === "All" && (
-            <Reveal delay={100} className="mb-16">
+            <Reveal delay={100} variant="card" className="mb-16">
               <div className="glass p-0 overflow-hidden flex flex-col md:flex-row">
                 <div className="md:w-1/2 p-10 flex flex-col justify-center border-b md:border-b-0 md:border-r border-border-mid bg-navy-mid/50">
                   <div className="tag tag-blue mb-6 self-start">Featured • AI Strategy</div>
@@ -78,7 +76,7 @@ export function Resources() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredArticles.map((article, i) => (
-              <Reveal key={article.slug} delay={(i % 3) * 100}>
+              <Reveal key={article.slug} delay={(i % 3) * 60} variant="card">
                 <Link href={`/resources/${article.slug}`} className="glass p-8 block h-full group flex flex-col items-start">
                   <div className={`tag tag-${article.tagColor} mb-6`}>{article.tag}</div>
                   <h3 className="text-2xl font-display font-bold mb-4 group-hover:text-blue-bright transition-colors flex-grow">{article.title}</h3>
@@ -95,7 +93,7 @@ export function Resources() {
 
       <section className="py-24 bg-navy-mid">
         <div className="container max-w-3xl text-center">
-          <Reveal>
+          <Reveal variant="heading">
             <h2 className="text-3xl font-display font-bold mb-8">Stay Ahead of the AI Curve.</h2>
             <form className="flex flex-col sm:flex-row gap-4 justify-center" onSubmit={e => e.preventDefault()}>
               <input 

@@ -71,7 +71,7 @@ export function Staffing() {
 
       <section className="bg-navy-mid">
         <div className="container grid md:grid-cols-2 gap-12 items-center">
-          <Reveal>
+          <Reveal variant="body">
             <div className="flex flex-col gap-5">
               {[
                 "Recruiters matching buzzwords on résumés.",
@@ -87,7 +87,7 @@ export function Staffing() {
             </div>
           </Reveal>
 
-          <Reveal delay={100} from="right">
+          <Reveal delay={60} from="right" variant="card">
             <div className="glass p-7 border-l-4 border-l-brand-blue">
               <h3 className="text-2xl font-display font-bold mb-3 text-white">The Venakan AI Talent Standard</h3>
               <p className="text-white/70 leading-relaxed">
@@ -100,12 +100,12 @@ export function Staffing() {
 
       <section id="roles" className="bg-navy scroll-mt-24">
         <div className="container">
-          <Reveal>
+          <Reveal variant="heading">
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-12 text-center">Roles We Staff</h2>
           </Reveal>
 
           <div className="grid md:grid-cols-2 gap-7">
-            <Reveal delay={0}>
+            <Reveal delay={0} variant="card">
               <div className="glass p-7 border-t-2 border-t-blue-bright h-full">
                 <h3 className="text-2xl font-display font-bold mb-6 text-white">Technical Roles</h3>
                 <ul className="grid gap-3">
@@ -119,7 +119,7 @@ export function Staffing() {
               </div>
             </Reveal>
 
-            <Reveal delay={100}>
+            <Reveal delay={60} variant="card">
               <div className="glass p-7 border-t-2 border-t-violet-bright h-full">
                 <h3 className="text-2xl font-display font-bold mb-6 text-white">Strategic & Leadership</h3>
                 <ul className="grid gap-3">
@@ -138,8 +138,7 @@ export function Staffing() {
 
       <section className="bg-navy-mid">
         <div className="container grid md:grid-cols-2 gap-10 items-center">
-          <Reveal>
-            <div className="section-label">Compliance-First</div>
+          <Reveal variant="heading">
             <h2 className="text-4xl font-display font-bold mb-5">Workforce Compliance? We Handle It.</h2>
             <p className="text-lg text-white/70 leading-relaxed mb-7">
               Building an AI team is only half the equation. The other half is ensuring every placement meets the employment eligibility and workforce compliance requirements your organization is accountable for. Venakan's staffing practice includes structured compliance verification at the point of placement — so you are never exposed to an audit you did not see coming.
@@ -151,7 +150,7 @@ export function Staffing() {
             </ul>
           </Reveal>
 
-          <Reveal delay={200} from="right">
+          <Reveal delay={60} from="right" variant="card">
             <div className="glass p-7 border-l-4 border-l-cyan">
               <div className="tag tag-violet mb-5">Compliance Intelligence</div>
               <h3 className="text-2xl font-display font-bold mb-4 text-white">Zero Compliance Surprises</h3>
@@ -164,11 +163,9 @@ export function Staffing() {
       </section>
 
       <section className="bg-navy text-center">
-        <Reveal>
-          <Link href="/contact" className="btn-primary text-lg px-8 py-4">
-            Build Your AI Team &rarr;
-          </Link>
-        </Reveal>
+        <Link href="/contact" className="btn-primary text-lg px-8 py-4">
+          Build Your AI Team &rarr;
+        </Link>
       </section>
     </div>
   );

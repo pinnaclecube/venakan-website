@@ -11,9 +11,9 @@ export function Contact() {
 
   return (
     <div className="pt-[90px]">
-      <section className="py-20 md:py-24 bg-navy grid-bg border-b border-border-mid">
+      <section className="py-20 md:py-24 bg-navy grid-bg-fine border-b border-border-mid">
         <div className="container">
-          <Reveal>
+          <Reveal variant="heading">
             <div className="section-label">Contact</div>
             <h1 className="text-5xl md:text-7xl font-display font-bold mb-6">Start the Conversation.</h1>
             <p className="text-xl text-white/70 max-w-2xl leading-relaxed">
@@ -27,7 +27,7 @@ export function Contact() {
         <div className="container">
           <div className="grid lg:grid-cols-[1.2fr_1fr] gap-16">
             
-            <Reveal delay={100}>
+            <Reveal delay={0} variant="card">
               <div className="glass p-8 md:p-12 relative overflow-hidden">
                 {submitted ? (
                   <div className="absolute inset-0 flex flex-col items-center justify-center bg-navy/95 backdrop-blur-sm z-10 p-8 text-center animate-in fade-in duration-500">
@@ -88,7 +88,7 @@ export function Contact() {
               </div>
             </Reveal>
 
-            <Reveal delay={200} from="right">
+            <Reveal delay={60} from="right" variant="card">
               <div className="flex flex-col gap-12">
                 <div>
                   <h3 className="text-sm font-mono tracking-widest text-white/40 uppercase mb-6">Direct Contact</h3>

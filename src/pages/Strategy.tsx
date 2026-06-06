@@ -64,8 +64,7 @@ export function Strategy() {
 
       <section className="bg-navy">
         <div className="container max-w-4xl mx-auto">
-          <Reveal>
-            <div className="section-label">Methodology</div>
+          <Reveal variant="heading">
             <h2 className="text-4xl font-display font-bold mb-12">The Venakan Strategy Approach</h2>
           </Reveal>
 
@@ -76,7 +75,7 @@ export function Strategy() {
               { num: "03", title: "Roadmap Design", desc: "We architect the technical and operational roadmap required to move from current state to target deployment." },
               { num: "04", title: "Execution Partnership", desc: "We provide ongoing strategic oversight as your internal teams or external vendors execute the build." },
             ].map((step, i) => (
-              <Reveal key={step.num} delay={i * 80} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+              <Reveal key={step.num} delay={i * 60} variant="card" className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
                 <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-brand-blue bg-navy shrink-0 md:order-1 md:group-odd:-ml-[20px] md:group-even:-mr-[20px] z-10 shadow-[0_0_15px_rgba(59,75,204,0.5)]">
                   <span className="font-mono text-xs font-bold text-white">{step.num}</span>
                 </div>
@@ -92,7 +91,7 @@ export function Strategy() {
 
       <section className="bg-navy-mid">
         <div className="container">
-          <Reveal>
+          <Reveal variant="heading">
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-10 text-center">Who We Advise</h2>
           </Reveal>
 
@@ -102,7 +101,7 @@ export function Strategy() {
               { t: "Enterprise Technology Leaders", d: "CTOs and CIOs looking for an independent, vendor-neutral assessment of their AI initiatives and architecture." },
               { t: "PE-Backed Companies", d: "Portfolio companies executing aggressive value-creation plans through AI-driven automation." },
             ].map((a, i) => (
-              <Reveal key={a.t} delay={i * 100}>
+              <Reveal key={a.t} delay={i * 60} variant="card">
                 <div className="glass p-7 text-center h-full">
                   <h4 className="text-lg font-display font-bold mb-3">{a.t}</h4>
                   <p className="text-white/60 text-sm">{a.d}</p>
@@ -111,13 +110,11 @@ export function Strategy() {
             ))}
           </div>
 
-          <Reveal delay={300}>
-            <div className="text-center">
-              <Link href="/contact" className="btn-primary">
-                Schedule a Strategy Session &rarr;
-              </Link>
-            </div>
-          </Reveal>
+          <div className="text-center">
+            <Link href="/contact" className="btn-primary">
+              Schedule a Strategy Session &rarr;
+            </Link>
+          </div>
         </div>
       </section>
     </div>

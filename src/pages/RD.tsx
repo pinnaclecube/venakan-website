@@ -71,12 +71,12 @@ export function RD() {
 
       <section id="verticals" className="bg-navy-mid scroll-mt-24">
         <div className="container grid md:grid-cols-2 gap-12">
-          <Reveal>
+          <Reveal variant="heading">
             <h2 className="text-3xl md:text-4xl font-display font-bold">
               Most organizations buy AI.<br />We build it.
             </h2>
           </Reveal>
-          <Reveal delay={100}>
+          <Reveal delay={100} variant="body">
             <p className="text-lg text-white/70 leading-relaxed">
               Our R&D division focuses on proprietary AI applications across specialized verticals. We don't build generic wrappers; we engineer domain-specific systems designed to solve hard problems with precision and reliability.
             </p>
@@ -95,7 +95,7 @@ export function RD() {
               { name: "Logistics & Supply Chain AI", status: "In Development", tone: "amber", desc: "Dynamic routing optimization and predictive inventory management." },
               { name: "HR & Compliance AI", status: "Beta", tone: "violet", desc: "Automated workforce compliance tracking, employment eligibility monitoring, and audit readiness tools for organizations managing large or distributed workforces." },
             ].map((v, i) => (
-              <Reveal key={v.name} delay={i * 80}>
+              <Reveal key={v.name} delay={i * 60} variant="card">
                 <div className="glass p-7 h-full flex flex-col items-start group">
                   <div className={`tag tag-${v.tone} mb-5`}>{v.status}</div>
                   <h3 className="text-2xl font-display font-bold mb-3 group-hover:text-blue-bright transition-colors">{v.name}</h3>
@@ -109,8 +109,7 @@ export function RD() {
 
       <section className="bg-navy-mid">
         <div className="container">
-          <Reveal>
-            <div className="section-label">Engagement Models</div>
+          <Reveal variant="heading">
             <h2 className="text-4xl font-display font-bold mb-10">How We Work with Partners</h2>
           </Reveal>
 
@@ -120,7 +119,7 @@ export function RD() {
               { t: "Pilot Access", d: "Gain early access to our beta products to shape their roadmap and establish a technological edge in your industry." },
               { t: "Research Sponsorship", d: "Sponsor directed AI research into frontier models and techniques relevant to your domain." },
             ].map((e, i) => (
-              <Reveal key={e.t} delay={i * 100}>
+              <Reveal key={e.t} delay={i * 60} variant="card">
                 <div className="border border-border-mid rounded-xl p-7 bg-[rgba(59,75,204,0.03)] h-full">
                   <h3 className="text-xl font-display font-bold mb-3">{e.t}</h3>
                   <p className="text-sm text-white/60">{e.d}</p>
@@ -129,13 +128,11 @@ export function RD() {
             ))}
           </div>
 
-          <Reveal delay={300}>
-            <div className="text-center">
-              <Link href="/contact" className="btn-primary">
-                Start a Partnership Conversation &rarr;
-              </Link>
-            </div>
-          </Reveal>
+          <div className="text-center">
+            <Link href="/contact" className="btn-primary">
+              Start a Partnership Conversation &rarr;
+            </Link>
+          </div>
         </div>
       </section>
     </div>

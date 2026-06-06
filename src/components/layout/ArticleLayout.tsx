@@ -16,7 +16,7 @@ export function ArticleLayout({ tag, tagColor, title, time, children }: ArticleL
       {/* Short dark hero */}
       <section className="py-20 bg-navy grid-bg border-b border-border-mid">
         <div className="container max-w-4xl">
-          <Reveal>
+          <Reveal variant="heading">
             <div className={`tag tag-${tagColor} mb-6`}>{tag}</div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-[1.1]">{title}</h1>
             <div className="flex items-center gap-4 text-white/60 text-sm">
@@ -31,7 +31,7 @@ export function ArticleLayout({ tag, tagColor, title, time, children }: ArticleL
       {/* Content */}
       <section className="py-20 bg-navy">
         <div className="container max-w-[760px] mx-auto">
-          <Reveal delay={100}>
+          <Reveal delay={100} variant="body">
             <div className="prose prose-invert prose-lg max-w-none text-white/80 font-body font-light leading-[1.9] text-[17px] prose-h2:text-blue-bright prose-h2:font-display prose-h2:font-bold prose-h2:mt-12 prose-h2:mb-6 prose-p:mb-6">
               {children}
             </div>
