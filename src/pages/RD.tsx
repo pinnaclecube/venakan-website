@@ -69,22 +69,32 @@ export function RD() {
         ]}
       />
 
-      <section id="verticals" className="bg-navy-mid scroll-mt-24">
+      <section
+        id="verticals"
+        className="scroll-mt-24"
+        style={{ background: "var(--bg-surface)" }}
+      >
         <div className="container grid md:grid-cols-2 gap-12">
           <Reveal variant="heading">
-            <h2 className="text-3xl md:text-4xl font-display font-bold">
+            <h2
+              className="text-3xl md:text-4xl font-display font-bold"
+              style={{ color: "var(--ink-primary)" }}
+            >
               Most organizations buy AI.<br />We build it.
             </h2>
           </Reveal>
           <Reveal delay={100} variant="body">
-            <p className="text-lg text-white/70 leading-relaxed">
+            <p
+              className="text-lg leading-relaxed"
+              style={{ color: "var(--ink-secondary)" }}
+            >
               Our R&D division focuses on proprietary AI applications across specialized verticals. We don't build generic wrappers; we engineer domain-specific systems designed to solve hard problems with precision and reliability.
             </p>
           </Reveal>
         </div>
       </section>
 
-      <section className="bg-navy">
+      <section style={{ background: "#FFFFFF" }}>
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
@@ -98,8 +108,15 @@ export function RD() {
               <Reveal key={v.name} delay={i * 60} variant="card">
                 <div className="glass p-7 h-full flex flex-col items-start group">
                   <div className={`tag tag-${v.tone} mb-5`}>{v.status}</div>
-                  <h3 className="text-2xl font-display font-bold mb-3 group-hover:text-blue-bright transition-colors">{v.name}</h3>
-                  <p className="text-white/60 text-sm flex-grow">{v.desc}</p>
+                  <h3
+                    className="text-2xl font-display font-bold mb-3 group-hover:text-[var(--brand-blue)] transition-colors"
+                    style={{ color: "var(--ink-primary)" }}
+                  >
+                    {v.name}
+                  </h3>
+                  <p className="text-sm flex-grow" style={{ color: "var(--ink-secondary)" }}>
+                    {v.desc}
+                  </p>
                 </div>
               </Reveal>
             ))}
@@ -107,10 +124,15 @@ export function RD() {
         </div>
       </section>
 
-      <section className="bg-navy-mid">
+      <section style={{ background: "var(--bg-surface)" }}>
         <div className="container">
           <Reveal variant="heading">
-            <h2 className="text-4xl font-display font-bold mb-10">How We Work with Partners</h2>
+            <h2
+              className="text-4xl font-display font-bold mb-10"
+              style={{ color: "var(--ink-primary)" }}
+            >
+              How We Work with Partners
+            </h2>
           </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
@@ -120,9 +142,17 @@ export function RD() {
               { t: "Research Sponsorship", d: "Sponsor directed AI research into frontier models and techniques relevant to your domain." },
             ].map((e, i) => (
               <Reveal key={e.t} delay={i * 60} variant="card">
-                <div className="border border-border-mid rounded-xl p-7 bg-[rgba(59,75,204,0.03)] h-full">
-                  <h3 className="text-xl font-display font-bold mb-3">{e.t}</h3>
-                  <p className="text-sm text-white/60">{e.d}</p>
+                <div
+                  className="rounded-xl p-7 bg-[rgba(59,75,204,0.03)] h-full"
+                  style={{ border: "1px solid var(--border)" }}
+                >
+                  <h3
+                    className="text-xl font-display font-bold mb-3"
+                    style={{ color: "var(--ink-primary)" }}
+                  >
+                    {e.t}
+                  </h3>
+                  <p className="text-sm" style={{ color: "var(--ink-secondary)" }}>{e.d}</p>
                 </div>
               </Reveal>
             ))}

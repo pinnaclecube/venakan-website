@@ -65,8 +65,11 @@ export function Home() {
   return (
     <div className="w-full">
       {/* HERO */}
-      <section className="hero-home relative min-h-[100dvh] flex items-center overflow-hidden grid-bg pb-20">
-        <NeuralCanvas opacity={0.28} />
+      <section
+        className="hero-home relative min-h-[100dvh] flex items-center overflow-hidden grid-bg pb-20"
+        style={{ background: "var(--bg-base)" }}
+      >
+        <NeuralCanvas opacity={0.6} />
 
         <div className="container hero-grid relative z-10 grid grid-cols-1 lg:grid-cols-[1.85fr_1fr] gap-12 lg:gap-16 items-center">
           {/* LEFT 65% */}
@@ -82,7 +85,7 @@ export function Home() {
               <Reveal delay={80} variant="heading">
                 <h1
                   className="font-display font-extrabold tracking-[-0.04em] leading-[1.05] text-white hero-h1-line1"
-                  style={{ fontSize: "clamp(32px, 7vw, 104px)" }}
+                  style={{ fontSize: "clamp(32px, 7vw, 104px)", color: "var(--ink-primary)" }}
                 >
                   Pure AI.
                 </h1>
@@ -99,7 +102,10 @@ export function Home() {
             </div>
 
             <Reveal delay={280} variant="body">
-              <p className="text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed">
+              <p
+                className="text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed"
+                style={{ color: "var(--ink-secondary)" }}
+              >
                 Venakan Info Solutions is an AI-only company &mdash; R&amp;D, Strategy, Training,
                 Development, and Staffing. We go deeper than AI adoption. We build the AI
                 capability your organization runs on.
@@ -111,15 +117,24 @@ export function Home() {
               {HERO_STATS.map((stat, i) => (
                 <div key={stat.label} className="flex items-center gap-8">
                   <div className="flex flex-col">
-                    <span className="font-display text-2xl md:text-3xl font-bold text-white leading-none">
+                    <span
+                      className="font-display text-2xl md:text-3xl font-bold text-white leading-none"
+                      style={{ color: "var(--brand-blue)", fontWeight: 800 }}
+                    >
                       {stat.value}
                     </span>
-                    <span className="font-mono text-[10px] md:text-[11px] text-blue-bright uppercase tracking-[0.14em] mt-1.5">
+                    <span
+                      className="font-mono text-[10px] md:text-[11px] text-blue-bright uppercase tracking-[0.14em] mt-1.5"
+                      style={{ color: "var(--ink-muted)" }}
+                    >
                       {stat.label}
                     </span>
                   </div>
                   {i < HERO_STATS.length - 1 && (
-                    <span className="hidden md:block w-px h-10 bg-white/10" />
+                    <span
+                      className="hidden md:block w-px h-10 bg-white/10"
+                      style={{ background: "var(--border)" }}
+                    />
                   )}
                 </div>
               ))}
@@ -132,12 +147,12 @@ export function Home() {
                   {AVATAR_GRADIENTS.map((bg, i) => (
                     <div
                       key={i}
-                      className="w-9 h-9 rounded-full border-2 border-navy"
-                      style={{ background: bg }}
+                      className="w-9 h-9 rounded-full border-2"
+                      style={{ background: bg, borderColor: "var(--bg-base)" }}
                     />
                   ))}
                 </div>
-                <p className="text-sm text-white/60">
+                <p className="text-sm text-white/60" style={{ color: "var(--ink-tertiary)" }}>
                   <span className="text-white font-medium">Trusted by AI leaders</span> across
                   healthcare, finance &amp; legal
                 </p>
@@ -148,9 +163,15 @@ export function Home() {
             <Reveal delay={600}>
               <div className="hidden md:flex items-center gap-3 mt-4 text-white/40">
                 <div className="relative w-5 h-8 rounded-full border border-white/20 flex justify-center pt-1.5">
-                  <span className="w-1 h-1.5 rounded-full bg-white/60 animate-[scrollCue_1.8s_ease-in-out_infinite]" />
+                  <span
+                    className="w-1 h-1.5 rounded-full bg-white/60 animate-[scrollCue_1.8s_ease-in-out_infinite]"
+                    style={{ background: "linear-gradient(90deg, #3B4BCC, transparent)" }}
+                  />
                 </div>
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em]">
+                <span
+                  className="font-mono text-[10px] uppercase tracking-[0.2em]"
+                  style={{ color: "var(--ink-muted)" }}
+                >
                   Scroll to explore
                 </span>
               </div>
@@ -178,18 +199,39 @@ export function Home() {
                 }}
               />
 
-              <div className="glass p-6 md:p-7 relative overflow-hidden">
+              <div
+                className="glass p-6 md:p-7 relative overflow-hidden"
+                style={{
+                  border: "1.5px solid var(--border)",
+                  borderTop: "3px solid #3B4BCC",
+                  background:
+                    "linear-gradient(90deg, #3B4BCC, #6B3FA8) top / 100% 3px no-repeat, var(--bg-surface)",
+                  boxShadow: "0 4px 24px rgba(0,0,0,0.06)",
+                }}
+              >
                 {/* Live badge */}
                 <div className="flex items-center justify-between mb-5">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/50">
+                  <span
+                    className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/50"
+                    style={{ color: "var(--ink-primary)" }}
+                  >
                     Start a conversation
                   </span>
                   <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-400/10 border border-emerald-400/20">
                     <span className="relative flex w-1.5 h-1.5">
-                      <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
-                      <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                      <span
+                        className="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-75 animate-ping"
+                        style={{ background: "#10B981" }}
+                      />
+                      <span
+                        className="relative inline-flex w-1.5 h-1.5 rounded-full bg-emerald-400"
+                        style={{ background: "#10B981" }}
+                      />
                     </span>
-                    <span className="font-mono text-[10px] uppercase tracking-wider text-emerald-300">
+                    <span
+                      className="font-mono text-[10px] uppercase tracking-wider text-emerald-300"
+                      style={{ color: "#059669" }}
+                    >
                       Responding within 1 day
                     </span>
                   </div>
@@ -280,12 +322,12 @@ export function Home() {
                               className="text-[11px] font-medium px-2.5 py-1.5 rounded-full transition-all duration-150"
                               style={{
                                 background: active
-                                  ? "linear-gradient(135deg, rgba(59,75,204,0.25), rgba(107,63,168,0.25))"
-                                  : "rgba(238,242,255,0.04)",
+                                  ? "rgba(59,75,204,0.08)"
+                                  : "transparent",
                                 border: active
-                                  ? "1px solid rgba(96,165,250,0.5)"
-                                  : "1px solid rgba(238,242,255,0.08)",
-                                color: active ? "#EEF2FF" : "rgba(238,242,255,0.6)",
+                                  ? "1px solid rgba(59,75,204,0.30)"
+                                  : "1px solid var(--border-mid)",
+                                color: active ? "var(--brand-blue)" : "var(--ink-secondary)",
                               }}
                             >
                               {interest}
@@ -306,14 +348,17 @@ export function Home() {
                         placeholder="Tell us briefly what you're working on…"
                         className="w-full px-3 py-2.5 rounded-lg text-sm text-white placeholder-white/30 resize-none focus:outline-none transition-colors"
                         style={{
-                          background: "rgba(238,242,255,0.03)",
-                          border: "1px solid rgba(238,242,255,0.08)",
+                          background: "var(--bg-base)",
+                          border: "1.5px solid var(--border-mid)",
+                          color: "var(--ink-primary)",
                         }}
                         onFocus={(e) => {
-                          e.currentTarget.style.borderColor = "rgba(96,165,250,0.5)";
+                          e.currentTarget.style.borderColor = "var(--brand-blue)";
+                          e.currentTarget.style.boxShadow = "0 0 0 3px rgba(59,75,204,0.10)";
                         }}
                         onBlur={(e) => {
-                          e.currentTarget.style.borderColor = "rgba(238,242,255,0.08)";
+                          e.currentTarget.style.borderColor = "var(--border-mid)";
+                          e.currentTarget.style.boxShadow = "none";
                         }}
                       />
                     </div>
@@ -354,7 +399,10 @@ export function Home() {
                       )}
                     </button>
 
-                    <p className="text-[10px] text-white/40 text-center font-mono uppercase tracking-wider">
+                    <p
+                      className="text-[10px] text-white/40 text-center font-mono uppercase tracking-wider"
+                      style={{ color: "var(--ink-muted)" }}
+                    >
                       No sales pitch. No spam. Just a real reply.
                     </p>
                   </form>
@@ -366,7 +414,10 @@ export function Home() {
       </section>
 
       {/* SEC 2: The Venakan Difference */}
-      <section className="py-24 md:py-32 bg-navy-mid relative z-10">
+      <section
+        className="py-24 md:py-32 bg-navy-mid relative z-10"
+        style={{ background: "var(--bg-surface)" }}
+      >
         <div className="container">
           <Reveal variant="heading">
             <div className="section-label">The Venakan Difference</div>
@@ -403,7 +454,10 @@ export function Home() {
       </section>
 
       {/* SEC 3: Five Capabilities */}
-      <section className="py-24 md:py-32 bg-navy grid-bg">
+      <section
+        className="py-24 md:py-32 bg-navy grid-bg"
+        style={{ background: "var(--bg-base)" }}
+      >
         <div className="container">
           <Reveal variant="heading">
             <h2 className="text-4xl md:text-5xl font-display font-bold mb-16 max-w-2xl">Five Capabilities. One AI-First Company.</h2>
@@ -433,7 +487,7 @@ export function Home() {
       </section>
 
       {/* SEC 4: Organization Spectrum */}
-      <section className="py-24 bg-navy-mid">
+      <section className="py-24 bg-navy-mid" style={{ background: "var(--bg-surface)" }}>
         <div className="container">
           <Reveal variant="heading">
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-4 text-center">We Serve Every Layer of Your Organization</h2>
@@ -446,7 +500,7 @@ export function Home() {
       </section>
 
       {/* SEC 5: Resources Preview */}
-      <section className="py-24 bg-navy">
+      <section className="py-24 bg-navy" style={{ background: "var(--bg-base)" }}>
         <div className="container">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
             <Reveal variant="heading">
@@ -482,10 +536,16 @@ export function Home() {
       </section>
 
       {/* SEC 6: Final CTA */}
-      <section className="py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-navy to-navy-mid z-0" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,75,204,0.15),transparent_70%)] z-0" />
-        
+      <section
+        className="py-32 relative overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(135deg, rgba(59,75,204,0.05), rgba(107,63,168,0.05))",
+          borderTop: "1px solid rgba(59,75,204,0.10)",
+          borderBottom: "1px solid rgba(59,75,204,0.10)",
+        }}
+      >
+
         <div className="container relative z-10 flex flex-col items-center text-center">
           <Reveal variant="heading">
             <div className="flex items-center justify-center mb-12">
@@ -547,14 +607,17 @@ function FormField({
         aria-required={required}
         className="w-full px-3 py-2.5 rounded-lg text-sm text-white placeholder-white/30 focus:outline-none transition-colors"
         style={{
-          background: "rgba(238,242,255,0.03)",
-          border: "1px solid rgba(238,242,255,0.08)",
+          background: "var(--bg-base)",
+          border: "1.5px solid var(--border-mid)",
+          color: "var(--ink-primary)",
         }}
         onFocus={(e) => {
-          e.currentTarget.style.borderColor = "rgba(96,165,250,0.5)";
+          e.currentTarget.style.borderColor = "var(--brand-blue)";
+          e.currentTarget.style.boxShadow = "0 0 0 3px rgba(59,75,204,0.10)";
         }}
         onBlur={(e) => {
-          e.currentTarget.style.borderColor = "rgba(238,242,255,0.08)";
+          e.currentTarget.style.borderColor = "var(--border-mid)";
+          e.currentTarget.style.boxShadow = "none";
         }}
       />
     </div>
@@ -695,7 +758,7 @@ function OrgSpectrum() {
               key={role.id}
               className="w-1.5 h-1.5 rounded-full transition-all duration-300"
               style={{
-                background: activeId === role.id ? role.accent : "rgba(238,242,255,0.3)",
+                background: activeId === role.id ? role.accent : "var(--border-mid)",
                 boxShadow: activeId === role.id ? `0 0 12px ${role.accent}` : "none",
                 transform: activeId === role.id ? "scale(2)" : "scale(1)",
               }}
@@ -727,19 +790,19 @@ function OrgSpectrum() {
               onKeyDown={(e) => onTabKeyDown(e, index)}
               className="group relative flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-xl transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-mid"
               style={{
-                background: isActive ? role.accentSoft : "rgba(238,242,255,0.025)",
-                border: `1px solid ${isActive ? role.accentBorder : "rgba(238,242,255,0.06)"}`,
+                background: isActive ? role.accentSoft : "transparent",
+                border: `1px solid ${isActive ? role.accentBorder : "var(--border)"}`,
               }}
             >
               <Icon
                 size={20}
                 strokeWidth={1.6}
-                style={{ color: isActive ? role.accent : "rgba(238,242,255,0.55)" }}
+                style={{ color: isActive ? role.accent : "var(--ink-tertiary)" }}
                 className="transition-colors duration-200"
               />
               <span
                 className="font-mono text-[11px] uppercase tracking-[0.12em] transition-colors duration-200"
-                style={{ color: isActive ? "#EEF2FF" : "rgba(238,242,255,0.6)" }}
+                style={{ color: isActive ? "var(--ink-primary)" : "var(--ink-tertiary)" }}
               >
                 {role.label}
               </span>

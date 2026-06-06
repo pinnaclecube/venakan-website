@@ -136,9 +136,9 @@ export function About() {
               <div
                 style={{
                   background:
-                    "linear-gradient(135deg, rgba(59,75,204,0.08), rgba(107,63,168,0.08))",
-                  border: "1px solid rgba(59,75,204,0.20)",
-                  borderLeft: "3px solid var(--color-brand-blue)",
+                    "linear-gradient(135deg, rgba(59,75,204,0.04), rgba(107,63,168,0.04))",
+                  border: "1px solid rgba(59,75,204,0.12)",
+                  borderLeft: "3px solid var(--brand-blue)",
                   borderRadius: 16,
                   padding: 36,
                 }}
@@ -147,8 +147,8 @@ export function About() {
                   className="font-display font-extrabold block"
                   style={{
                     fontSize: 64,
-                    color: "var(--color-brand-blue)",
-                    opacity: 0.4,
+                    color: "var(--brand-blue)",
+                    opacity: 0.3,
                     lineHeight: 1,
                     marginBottom: -12,
                   }}
@@ -191,7 +191,7 @@ export function About() {
                     key={s.l}
                     className="text-center"
                     style={{
-                      background: "rgba(238,242,255,0.04)",
+                      background: "var(--bg-surface)",
                       border: "1px solid var(--ven-border)",
                       borderRadius: 10,
                       padding: 14,
@@ -297,7 +297,7 @@ export function About() {
                   </p>
                   <div
                     className="font-mono"
-                    style={{ fontSize: 9, color: "rgba(238,242,255,0.25)", marginTop: 16 }}
+                    style={{ fontSize: 9, color: "var(--ink-muted)", marginTop: 16 }}
                   >
                     {c.src}
                   </div>
@@ -425,19 +425,20 @@ export function About() {
                 <div
                   className="principle-tile"
                   style={{
-                    background: "var(--color-navy)",
+                    background: "var(--bg-surface)",
+                    border: "1px solid var(--border)",
                     padding: "36px 32px",
                     transition: "background 0.3s",
                     height: "100%",
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--color-navy-light)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "var(--color-navy)")}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "#FFFFFF")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "var(--bg-surface)")}
                 >
                   <div
                     className="font-mono"
                     style={{
                       fontSize: 11,
-                      color: "var(--color-blue-bright)",
+                      color: "var(--brand-blue)",
                       letterSpacing: "0.1em",
                       marginBottom: 20,
                     }}
@@ -643,10 +644,10 @@ export function About() {
             style={{ gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", maxWidth: 860 }}
           >
             <Reveal from="left" variant="card">
-              <div className="glass" style={{ padding: "28px 32px", borderTop: "3px solid #F87171" }}>
+              <div className="glass" style={{ padding: "28px 32px", borderTop: "3px solid #DC2626", background: "#FEF2F2" }}>
                 <div
                   className="font-mono uppercase"
-                  style={{ fontSize: 11, color: "#F87171", letterSpacing: "0.1em", marginBottom: 20 }}
+                  style={{ fontSize: 11, color: "#DC2626", letterSpacing: "0.1em", marginBottom: 20 }}
                 >
                   We are not:
                 </div>
@@ -659,7 +660,7 @@ export function About() {
                       borderBottom: i === NOT_LIST.length - 1 ? "none" : "1px solid var(--ven-border)",
                     }}
                   >
-                    <span style={{ color: "#F87171", fontSize: 14, flexShrink: 0 }}>✕</span>
+                    <span style={{ color: "#DC2626", fontSize: 14, flexShrink: 0 }}>✕</span>
                     <span
                       className="font-body font-light text-[var(--white-dim)]"
                       style={{ fontSize: 13, lineHeight: 1.5 }}
@@ -672,10 +673,10 @@ export function About() {
             </Reveal>
 
             <Reveal from="right" delay={60} variant="card">
-              <div className="glass" style={{ padding: "28px 32px", borderTop: "3px solid #86EFAC" }}>
+              <div className="glass" style={{ padding: "28px 32px", borderTop: "3px solid #059669", background: "#F0FDF4" }}>
                 <div
                   className="font-mono uppercase"
-                  style={{ fontSize: 11, color: "#86EFAC", letterSpacing: "0.1em", marginBottom: 20 }}
+                  style={{ fontSize: 11, color: "#059669", letterSpacing: "0.1em", marginBottom: 20 }}
                 >
                   We are:
                 </div>
@@ -688,7 +689,7 @@ export function About() {
                       borderBottom: i === ARE_LIST.length - 1 ? "none" : "1px solid var(--ven-border)",
                     }}
                   >
-                    <span style={{ color: "#86EFAC", fontSize: 14, flexShrink: 0 }}>✓</span>
+                    <span style={{ color: "#059669", fontSize: 14, flexShrink: 0 }}>✓</span>
                     <span
                       className="font-body font-light text-[var(--white-dim)]"
                       style={{ fontSize: 13, lineHeight: 1.5 }}
@@ -707,9 +708,9 @@ export function About() {
       <section
         style={{
           background:
-            "linear-gradient(135deg, rgba(59,75,204,0.10), rgba(107,63,168,0.10))",
-          borderTop: "1px solid var(--ven-border)",
-          borderBottom: "1px solid var(--ven-border)",
+            "linear-gradient(135deg, rgba(59,75,204,0.05), rgba(107,63,168,0.05))",
+          borderTop: "1px solid rgba(59,75,204,0.10)",
+          borderBottom: "1px solid rgba(59,75,204,0.10)",
           padding: "80px 0",
         }}
       >

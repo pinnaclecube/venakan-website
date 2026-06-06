@@ -22,7 +22,7 @@ export function Resources() {
 
   return (
     <div className="pt-[90px]">
-      <section className="py-20 md:py-32 relative bg-navy grid-bg-fine overflow-hidden">
+      <section className="py-20 md:py-32 relative grid-bg-fine overflow-hidden" style={{ background: "var(--bg-base)" }}>
         <div className="container relative z-10 text-center">
           <Reveal variant="heading">
             <h1 className="text-5xl md:text-7xl font-display font-bold mb-6">
@@ -32,7 +32,7 @@ export function Resources() {
         </div>
       </section>
 
-      <section className="py-12 bg-navy-mid border-b border-border-mid">
+      <section className="py-12 border-b border-border-mid" style={{ background: "var(--bg-surface)" }}>
         <div className="container">
           <Reveal variant="card">
             <div className="flex flex-wrap justify-center gap-3">
@@ -40,11 +40,16 @@ export function Resources() {
                 <button
                   key={filter}
                   onClick={() => setActiveFilter(filter)}
-                  className={`px-6 py-2 rounded-full font-mono text-xs tracking-wider uppercase transition-all ${
-                    activeFilter === filter 
-                      ? "bg-brand-blue text-white border border-brand-blue" 
-                      : "bg-[rgba(59,75,204,0.05)] text-white/60 border border-[rgba(238,242,255,0.1)] hover:border-brand-blue/50 hover:text-white"
+                  className={`px-6 py-2 rounded-full font-mono text-xs tracking-wider uppercase transition-all border ${
+                    activeFilter === filter
+                      ? "text-[#FFFFFF]"
+                      : "hover:border-brand-blue/50"
                   }`}
+                  style={
+                    activeFilter === filter
+                      ? { background: "var(--brand-blue)", borderColor: "var(--brand-blue)" }
+                      : { background: "transparent", borderColor: "var(--border-mid)", color: "var(--ink-secondary)" }
+                  }
                 >
                   {filter}
                 </button>
@@ -54,12 +59,12 @@ export function Resources() {
         </div>
       </section>
 
-      <section className="py-20 bg-navy">
+      <section className="py-20" style={{ background: "var(--bg-base)" }}>
         <div className="container">
           {activeFilter === "All" && (
             <Reveal delay={100} variant="card" className="mb-16">
               <div className="glass p-0 overflow-hidden flex flex-col md:flex-row">
-                <div className="md:w-1/2 p-10 flex flex-col justify-center border-b md:border-b-0 md:border-r border-border-mid bg-navy-mid/50">
+                <div className="md:w-1/2 p-10 flex flex-col justify-center border-b md:border-b-0 md:border-r border-border-mid" style={{ background: "var(--bg-surface)" }}>
                   <div className="tag tag-blue mb-6 self-start">Featured • AI Strategy</div>
                   <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">Why Most Enterprise AI Strategies Fail in Year Two</h2>
                   <p className="text-white/60 mb-8 leading-relaxed">
@@ -69,7 +74,7 @@ export function Resources() {
                     Read the Article &rarr;
                   </Link>
                 </div>
-                <div className="md:w-1/2 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMzQjRCQ0MiIG9wYWNpdHk9IjAuMiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzZCM0ZBOCIgb3BhY2l0eT0iMC4wNSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZykiLz48L3N2Zz4=')] bg-cover bg-center min-h-[300px]" />
+                <div className="md:w-1/2 bg-cover bg-center min-h-[300px]" style={{ background: "linear-gradient(135deg, rgba(59,75,204,0.08), rgba(107,63,168,0.08))" }} />
               </div>
             </Reveal>
           )}
@@ -91,15 +96,16 @@ export function Resources() {
         </div>
       </section>
 
-      <section className="py-24 bg-navy-mid">
+      <section className="py-24" style={{ background: "linear-gradient(135deg, rgba(59,75,204,0.05), rgba(107,63,168,0.05))", borderTop: "1px solid rgba(59,75,204,0.12)", borderBottom: "1px solid rgba(59,75,204,0.12)" }}>
         <div className="container max-w-3xl text-center">
           <Reveal variant="heading">
-            <h2 className="text-3xl font-display font-bold mb-8">Stay Ahead of the AI Curve.</h2>
+            <h2 className="text-3xl font-display font-bold mb-8" style={{ color: "var(--ink-primary)" }}>Stay Ahead of the AI Curve.</h2>
             <form className="flex flex-col sm:flex-row gap-4 justify-center" onSubmit={e => e.preventDefault()}>
               <input 
                 type="email" 
                 placeholder="Enter your work email" 
-                className="bg-navy border border-border-mid rounded-lg px-6 py-4 min-w-[300px] text-white focus:outline-none focus:border-brand-blue"
+                className="border border-border-mid rounded-lg px-6 py-4 min-w-[300px] text-white focus:outline-none focus:border-brand-blue"
+                style={{ background: "var(--bg-base)" }}
               />
               <button className="btn-primary">Subscribe</button>
             </form>

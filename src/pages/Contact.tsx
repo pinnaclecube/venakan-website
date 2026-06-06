@@ -11,7 +11,7 @@ export function Contact() {
 
   return (
     <div className="pt-[90px]">
-      <section className="py-20 md:py-24 bg-navy grid-bg-fine border-b border-border-mid">
+      <section className="py-20 md:py-24 grid-bg-fine border-b border-border-mid" style={{ background: "var(--bg-surface)" }}>
         <div className="container">
           <Reveal variant="heading">
             <div className="section-label">Contact</div>
@@ -23,14 +23,14 @@ export function Contact() {
         </div>
       </section>
 
-      <section className="py-24 bg-navy-mid">
+      <section className="py-24" style={{ background: "var(--bg-base)" }}>
         <div className="container">
           <div className="grid lg:grid-cols-[1.2fr_1fr] gap-16">
             
             <Reveal delay={0} variant="card">
               <div className="glass p-8 md:p-12 relative overflow-hidden">
                 {submitted ? (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-navy/95 backdrop-blur-sm z-10 p-8 text-center animate-in fade-in duration-500">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center backdrop-blur-sm z-10 p-8 text-center animate-in fade-in duration-500" style={{ background: "rgba(255,255,255,0.95)" }}>
                     <div className="w-16 h-16 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center mb-6">
                       <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -44,7 +44,7 @@ export function Contact() {
                 <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                   <div className="flex flex-col gap-2">
                     <label className="text-sm font-medium text-white/80">What are you interested in?</label>
-                    <select className="bg-navy border border-border-mid rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue" required>
+                    <select className="border border-border-mid rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue" style={{ background: "var(--bg-base)" }} required>
                       <option value="">Select an option...</option>
                       <option value="rd">AI R&D Partnership</option>
                       <option value="strategy">AI Strategy Engagement</option>
@@ -58,17 +58,17 @@ export function Contact() {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="flex flex-col gap-2">
                       <label className="text-sm font-medium text-white/80">Company Name</label>
-                      <input type="text" required className="bg-navy border border-border-mid rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue" />
+                      <input type="text" required className="border border-border-mid rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue" style={{ background: "var(--bg-base)" }} />
                     </div>
                     <div className="flex flex-col gap-2">
                       <label className="text-sm font-medium text-white/80">Your Name</label>
-                      <input type="text" required className="bg-navy border border-border-mid rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue" />
+                      <input type="text" required className="border border-border-mid rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue" style={{ background: "var(--bg-base)" }} />
                     </div>
                   </div>
 
                   <div className="flex flex-col gap-2">
                     <label className="text-sm font-medium text-white/80">Work Email</label>
-                    <input type="email" required className="bg-navy border border-border-mid rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue" />
+                    <input type="email" required className="border border-border-mid rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue" style={{ background: "var(--bg-base)" }} />
                   </div>
 
                   <div className="flex flex-col gap-2">
@@ -77,7 +77,8 @@ export function Contact() {
                       required 
                       rows={5}
                       placeholder="Tell us about your AI goals or challenges..."
-                      className="bg-navy border border-border-mid rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue resize-y" 
+                      className="border border-border-mid rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue resize-y"
+                      style={{ background: "var(--bg-base)" }}
                     />
                   </div>
 

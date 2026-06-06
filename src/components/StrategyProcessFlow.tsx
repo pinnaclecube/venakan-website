@@ -322,13 +322,13 @@ export function StrategyProcessFlow() {
 }
 
 const spfCss = `
-.spf { background: var(--color-navy); }
+.spf { background: var(--bg-surface); }
 .spf .spf-eyebrow {
   font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.18em;
   font-size: 11px;
-  color: var(--color-cyan);
+  color: var(--brand-blue);
   margin-bottom: 16px;
 }
 .spf .spf-h1 {
@@ -337,14 +337,14 @@ const spfCss = `
   font-size: clamp(28px, 4vw, 44px);
   line-height: 1.08;
   letter-spacing: -0.02em;
-  color: var(--color-white);
+  color: var(--ink-primary);
   margin: 0 0 18px;
 }
 .spf .spf-subhead {
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.6;
-  color: var(--white-dim);
+  color: var(--ink-secondary);
   max-width: 560px;
   margin: 0 0 48px;
 }
@@ -363,7 +363,7 @@ const spfCss = `
   left: 10%;
   right: 10%;
   height: 2px;
-  background: var(--ven-border);
+  background: var(--border);
   border-radius: 2px;
   z-index: 0;
 }
@@ -382,8 +382,8 @@ const spfCss = `
   text-align: center;
   gap: 12px;
   padding: 16px 12px 18px;
-  background: var(--color-navy-mid);
-  border: 1px solid var(--ven-border);
+  background: #FFFFFF;
+  border: 1px solid var(--border);
   border-radius: 14px;
   cursor: pointer;
   transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s, background 0.3s;
@@ -391,9 +391,9 @@ const spfCss = `
 .spf .spf-node:hover { border-color: var(--border-mid); }
 .spf .spf-node.is-active {
   border-color: var(--color-blue-bright);
-  box-shadow: 0 0 0 1px rgba(96,165,250,0.35), 0 0 36px rgba(96,165,250,0.18);
+  box-shadow: 0 0 0 1px rgba(59,75,204,0.25), 0 0 36px rgba(59,75,204,0.10);
   transform: scale(1.02);
-  background: var(--color-navy-light);
+  background: #FFFFFF;
 }
 .spf .spf-node:focus-visible {
   outline: 2px solid var(--color-blue-bright);
@@ -409,8 +409,8 @@ const spfCss = `
   font-family: var(--font-mono);
   font-size: 14px;
   font-weight: 400;
-  color: var(--white-muted);
-  background: var(--color-navy);
+  color: var(--ink-tertiary);
+  background: var(--bg-inset);
   border: 1px solid var(--border-mid);
   transition: all 0.3s;
 }
@@ -420,20 +420,20 @@ const spfCss = `
   border-color: transparent;
 }
 .spf .spf-node.is-active .spf-badge {
-  box-shadow: 0 0 16px rgba(96,165,250,0.5);
+  box-shadow: 0 0 16px rgba(59,75,204,0.30);
 }
 .spf .spf-node-text { display: flex; flex-direction: column; gap: 4px; }
 .spf .spf-node-name {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 16px;
-  color: var(--color-white);
+  color: var(--ink-primary);
 }
 .spf .spf-node-tagline {
   font-family: var(--font-body);
   font-size: 12px;
   line-height: 1.4;
-  color: var(--white-muted);
+  color: var(--ink-tertiary);
 }
 
 /* Detail panel */
@@ -445,8 +445,8 @@ const spfCss = `
 }
 .spf .spf-detail.is-open { max-height: 1200px; opacity: 1; }
 .spf .spf-detail-desktop {
-  background: var(--color-navy-mid);
-  border: 1px solid var(--ven-border);
+  background: #FFFFFF;
+  border: 1px solid var(--border);
   border-radius: 16px;
   margin-bottom: 18px;
 }
@@ -478,12 +478,12 @@ const spfCss = `
   font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.6;
-  color: var(--white-dim);
+  color: var(--ink-secondary);
   margin: 0;
 }
 .spf .spf-divider {
   height: 1px;
-  background: var(--ven-border);
+  background: var(--border);
   margin: 24px 0;
 }
 .spf .spf-deliverable-row { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -501,20 +501,20 @@ const spfCss = `
   font-family: var(--font-body);
   font-style: italic;
   font-size: 13px;
-  color: var(--white-muted);
+  color: var(--ink-tertiary);
   margin: 16px 0 0;
 }
 .spf .spf-gate-note {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--white-muted);
+  color: var(--ink-tertiary);
   margin: 4px 0 0;
 }
 
 /* Governance band */
 .spf .spf-gov-band {
-  background: var(--color-navy-mid);
-  border: 1px solid var(--ven-border);
+  background: #FFFFFF;
+  border: 1px solid var(--border);
   border-radius: 18px;
   padding: 40px;
   margin-top: 56px;
@@ -523,14 +523,14 @@ const spfCss = `
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 20px;
-  color: var(--color-white);
+  color: var(--ink-primary);
   margin: 0 0 12px;
 }
 .spf .spf-gov-body {
   font-family: var(--font-body);
   font-size: 15px;
   line-height: 1.6;
-  color: var(--white-dim);
+  color: var(--ink-secondary);
   max-width: 640px;
   margin: 0 0 28px;
 }
@@ -544,8 +544,8 @@ const spfCss = `
   flex-direction: column;
   align-items: stretch;
   text-align: left;
-  background: var(--color-navy);
-  border: 1px solid var(--ven-border);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
   border-radius: 14px;
   padding: 20px;
   cursor: pointer;
@@ -577,12 +577,12 @@ const spfCss = `
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 15px;
-  color: var(--color-white);
+  color: var(--ink-primary);
   flex: 1;
 }
 .spf .spf-chevron {
   display: flex;
-  color: var(--white-muted);
+  color: var(--ink-tertiary);
   transition: transform 0.3s ease, color 0.3s;
 }
 .spf .spf-tile.is-open .spf-chevron { transform: rotate(180deg); color: var(--color-blue-bright); }
@@ -598,13 +598,13 @@ const spfCss = `
   font-family: var(--font-body);
   font-size: 13.5px;
   line-height: 1.6;
-  color: var(--white-dim);
+  color: var(--ink-secondary);
 }
 .spf .spf-disclaimer {
   font-family: var(--font-mono);
   font-size: 11px;
   line-height: 1.5;
-  color: var(--white-muted);
+  color: var(--ink-tertiary);
   margin: 24px 0 0;
 }
 
@@ -620,7 +620,7 @@ const spfCss = `
   font-size: 15px;
   font-weight: 500;
   color: #fff;
-  background: var(--color-brand-blue);
+  background: linear-gradient(135deg, var(--color-brand-blue), var(--color-brand-violet));
   border: none;
   border-radius: 8px;
   padding: 14px 28px;
@@ -636,7 +636,7 @@ const spfCss = `
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 500;
-  color: var(--color-white);
+  color: var(--ink-primary);
   background: transparent;
   border: 1px solid var(--border-mid);
   border-radius: 8px;
@@ -645,8 +645,8 @@ const spfCss = `
   transition: border-color 0.25s, background 0.25s, transform 0.2s;
 }
 .spf .spf-cta-secondary:hover {
-  border-color: rgba(96,165,250,0.45);
-  background: rgba(59,75,204,0.09);
+  border-color: rgba(59,75,204,0.45);
+  background: rgba(59,75,204,0.06);
   transform: translateY(-1px);
 }
 .spf .spf-cta-primary:focus-visible,
@@ -665,7 +665,7 @@ const spfCss = `
     top: 42px;
     bottom: 0;
     width: 2px;
-    background: var(--ven-border);
+    background: var(--border);
   }
   .spf .spf-rail.is-filled {
     background: linear-gradient(180deg, var(--color-brand-blue), var(--color-brand-violet));
@@ -689,12 +689,12 @@ const spfCss = `
   .spf .spf-badge { width: 40px; height: 40px; flex-shrink: 0; }
   .spf .spf-node-text { gap: 2px; }
   .spf .spf-detail-mobile {
-    background: var(--color-navy-mid);
-    border: 1px solid var(--ven-border);
+    background: #FFFFFF;
+    border: 1px solid var(--border);
     border-radius: 14px;
     margin: 4px 0 16px;
   }
-  .spf .spf-detail-mobile.is-open { border-color: rgba(96,165,250,0.25); }
+  .spf .spf-detail-mobile.is-open { border-color: rgba(59,75,204,0.25); }
   .spf .spf-blocks { grid-template-columns: 1fr; gap: 18px; }
   .spf .spf-gov-band { padding: 28px 22px; }
   .spf .spf-detail-inner { padding: 22px; }

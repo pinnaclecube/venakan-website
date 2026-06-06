@@ -71,7 +71,7 @@ export function Training() {
         ]}
       />
 
-      <section id="tracks" className="bg-navy-mid scroll-mt-24">
+      <section id="tracks" className="bg-navy-mid scroll-mt-24" style={{ background: "var(--bg-surface)" }}>
         <div className="container">
           <div className="grid md:grid-cols-2 gap-7">
             <Reveal delay={0} className="h-full" variant="card">

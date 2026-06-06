@@ -68,7 +68,7 @@ export function Development() {
         ]}
       />
 
-      <section className="bg-navy-mid">
+      <section className="bg-navy-mid" style={{ background: "var(--bg-surface)" }}>
         <div className="container">
           <Reveal variant="card">
             <div className="section-label">Core Capabilities</div>
@@ -81,7 +81,7 @@ export function Development() {
               { t: "Responsible AI Engineering", d: "Implementing guardrails, prompt injection defenses, bias monitoring, and audit logging required for high-compliance deployments." },
             ].map((c, i) => (
               <Reveal key={c.t} delay={i * 60} variant="card">
-                <div className="glass p-7 h-full bg-navy/50 hover:bg-navy transition-colors">
+                <div className="glass p-7 h-full bg-[#FFFFFF] hover:bg-[var(--bg-surface)] transition-colors">
                   <h3 className="text-2xl font-display font-bold mb-3 text-white">{c.t}</h3>
                   <p className="text-white/60 text-sm leading-relaxed">{c.d}</p>
                 </div>
@@ -117,7 +117,7 @@ export function Development() {
         </div>
       </section>
 
-      <section id="stack" className="bg-navy-mid overflow-hidden scroll-mt-24">
+      <section id="stack" className="bg-navy-mid overflow-hidden scroll-mt-24" style={{ background: "var(--bg-surface)" }}>
         <div className="container">
           <Reveal variant="heading">
             <div className="text-center mb-10">
@@ -129,7 +129,7 @@ export function Development() {
           <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
             {stack.map((tech, i) => (
               <Reveal key={tech} delay={Math.min(i * 60, 400)} variant="card">
-                <span className="px-5 py-2.5 rounded-full border border-border-mid bg-[rgba(11,14,26,0.5)] text-sm text-white/80 hover:border-brand-blue hover:text-white transition-all cursor-default hover:-translate-y-1 inline-block">
+                <span className="px-5 py-2.5 rounded-full border border-border-mid bg-[#FFFFFF] text-sm text-white/80 hover:border-brand-blue hover:text-white transition-all cursor-default hover:-translate-y-1 inline-block">
                   {tech}
                 </span>
               </Reveal>
