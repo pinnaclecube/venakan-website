@@ -180,7 +180,6 @@ export function StrategyProcessFlow() {
       <style>{spfCss}</style>
       <div className="container">
         <Reveal variant="heading">
-          <div className="spf-eyebrow">The Venakan Method</div>
           <h2 id="spf-heading" className="spf-h1">
             From AI Strategy to <span className="gradient-text">AI Capability</span>
           </h2>
@@ -323,14 +322,6 @@ export function StrategyProcessFlow() {
 
 const spfCss = `
 .spf { background: var(--bg-surface); }
-.spf .spf-eyebrow {
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: 11px;
-  color: var(--brand-blue);
-  margin-bottom: 16px;
-}
 .spf .spf-h1 {
   font-family: var(--font-display);
   font-weight: 800;

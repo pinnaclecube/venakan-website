@@ -34,8 +34,7 @@ export function Footer() {
                 height: "64px",
                 width: "auto",
                 objectFit: "contain",
-                display: "block",
-                filter: "drop-shadow(0 0 12px rgba(96,165,250,0.3))"
+                display: "block"
               }}
             />
           </Link>

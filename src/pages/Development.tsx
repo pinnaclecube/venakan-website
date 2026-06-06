@@ -51,7 +51,6 @@ export function Development() {
   return (
     <div className="pt-[90px]">
       <ServiceHero
-        eyebrow="AI Development"
         h1Line1="We Engineer AI."
         h1Line2="End to End."
         subhead="Production-grade AI-native applications, intelligent pipelines, and agentic systems. We hand off with documentation your team can actually use — no ongoing dependency required."
@@ -70,9 +69,6 @@ export function Development() {
 
       <section className="bg-navy-mid" style={{ background: "var(--bg-surface)" }}>
         <div className="container">
-          <Reveal variant="card">
-            <div className="section-label">Core Capabilities</div>
-          </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               { t: "Agentic AI Systems", d: "Autonomous agents capable of tool-use, multi-step reasoning, and complex workflow execution with robust human-in-the-loop fallback mechanisms." },

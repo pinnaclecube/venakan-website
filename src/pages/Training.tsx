@@ -54,7 +54,6 @@ export function Training() {
   return (
     <div className="pt-[90px]">
       <ServiceHero
-        eyebrow="AI Training"
         h1Line1="AI Fluency."
         h1Line2="For Every Role."
         subhead="Two purpose-built tracks — executive decision-makers and technical builders. Designed by practitioners who ship AI systems daily, not career educators."
@@ -145,7 +144,6 @@ export function Training() {
         <div className="container grid md:grid-cols-2 gap-10 items-center">
           <div>
             <Reveal variant="heading">
-              <div className="section-label">Custom Programs</div>
               <h2 className="text-4xl font-display font-bold mb-5">Designed by practitioners. Not educators.</h2>
               <p className="text-lg text-white/70 leading-relaxed mb-7">
                 Generic online courses don't translate to enterprise outcomes. We design bespoke training programs built around your specific data, tech stack, and business objectives. When we teach RAG, we teach it using your internal documents.

@@ -200,24 +200,6 @@
     -webkit-text-fill-color:transparent;
     background-clip:text;
   }
-  .section-label {
-    font-family:var(--font-mono);
-    font-size:11px;
-    letter-spacing:0.16em;
-    text-transform:uppercase;
-    color:var(--brand-blue);
-    margin-bottom:18px;
-    display:flex;
-    align-items:center;
-    gap:12px;
-  }
-  .section-label::before {
-    content:"";
-    display:block;
-    width:28px;
-    height:1px;
-    background:linear-gradient(90deg,#3B4BCC,#6B3FA8);
-  }
   .tag {
     display:inline-flex;
     align-items:center;

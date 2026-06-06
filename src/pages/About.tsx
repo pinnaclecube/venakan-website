@@ -89,7 +89,6 @@ export function About() {
     <div className="pt-[90px]">
       {/* SECTION 1 — HERO */}
       <ServiceHero
-        eyebrow="About Venakan"
         h1Line1="One Focus."
         h1Line2="Total AI."
         subhead="We didn't add AI to an existing practice. We started with AI and built everything else around it. That single decision changes every engagement we run, every hire we make, and every product we ship."
@@ -111,8 +110,7 @@ export function About() {
         <div className="container">
           <div className="two-col two-col-55-45">
             <Reveal from="left" variant="heading">
-              <div className="section-label">Why We Exist</div>
-              <h2
+                <h2
                 className="font-display font-extrabold"
                 style={{ fontSize: "clamp(28px, 3.5vw, 44px)", letterSpacing: "-0.03em", lineHeight: 1.1 }}
               >
@@ -219,7 +217,6 @@ export function About() {
         <div className="container">
           <Reveal variant="heading">
             <div className="text-center max-w-[680px] mx-auto">
-              <div className="section-label justify-center">The Context</div>
               <h2
                 className="font-display font-extrabold"
                 style={{ fontSize: "clamp(32px, 4vw, 56px)", lineHeight: 1.1 }}
@@ -468,7 +465,6 @@ export function About() {
       <section style={{ background: "var(--color-navy-mid)" }}>
         <div className="container">
           <Reveal variant="heading">
-            <div className="section-label">Leadership</div>
             <h2
               className="font-display font-extrabold"
               style={{ fontSize: "clamp(28px, 3.5vw, 44px)", lineHeight: 1.1, marginBottom: 48 }}
@@ -563,7 +559,6 @@ export function About() {
             </Reveal>
 
             <Reveal from="right" delay={150} variant="body">
-              <div className="section-label">Founder's Note</div>
               <p
                 className="font-body text-white"
                 style={{ fontSize: 16, fontWeight: 400, lineHeight: 1.85, marginBottom: 20 }}

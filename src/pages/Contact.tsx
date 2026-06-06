@@ -14,7 +14,6 @@ export function Contact() {
       <section className="py-20 md:py-24 grid-bg-fine border-b border-border-mid" style={{ background: "var(--bg-surface)" }}>
         <div className="container">
           <Reveal variant="heading">
-            <div className="section-label">Contact</div>
             <h1 className="text-5xl md:text-7xl font-display font-bold mb-6">Start the Conversation.</h1>
             <p className="text-xl text-white/70 max-w-2xl leading-relaxed">
               No pitch decks. No generic discovery calls. Tell us what you're working on — and we'll tell you honestly whether and how we can help.

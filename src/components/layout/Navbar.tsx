@@ -63,8 +63,7 @@ export function Navbar() {
                 height: "42px",
                 width: "auto",
                 objectFit: "contain",
-                display: "block",
-                filter: "drop-shadow(0 0 8px rgba(96,165,250,0.35))"
+                display: "block"
               }}
             />
           </Link>

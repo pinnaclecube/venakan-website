@@ -52,7 +52,6 @@ export function RD() {
   return (
     <div className="pt-[90px]">
       <ServiceHero
-        eyebrow="Research & Development"
         h1Line1="We Build"
         h1Line2="AI Products."
         subhead="Proprietary intelligent systems across six high-value verticals — built to production standards, not demo decks. Long-horizon research with short-horizon delivery."
