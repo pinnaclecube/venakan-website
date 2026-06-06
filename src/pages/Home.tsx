@@ -33,7 +33,7 @@ const HERO_CARDS = [
     h1Line1: "Enterprise AI.",
     h1Line2: "Built for the Midwest.",
     subheading:
-      "McKinsey prices out the mid-market. Local IT firms underqualify for the work. Venakan fills the gap — the only firm in the region covering the full AI spectrum under one roof.",
+      "Global consulting firms price out the mid-market. Local IT firms underqualify for the work. Venakan fills the gap — the only firm in the region covering the full AI spectrum under one roof.",
     stats: [
       { value: "200–5K", label: "Employee org sweet spot" },
       { value: "12+", label: "Midwest states served" },
@@ -103,7 +103,7 @@ export function Home() {
     if (isPaused) return;
     const id = setInterval(() => {
       setCurrentCard((c) => (c + 1) % HERO_CARDS.length);
-    }, 5000);
+    }, 2000);
     return () => clearInterval(id);
   }, [isPaused, currentCard]);
 

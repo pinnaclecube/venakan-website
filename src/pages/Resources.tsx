@@ -32,7 +32,7 @@ export function Resources() {
               className="mx-auto"
               style={{ color: "var(--ink-secondary)", maxWidth: 640, fontSize: 17, lineHeight: 1.7 }}
             >
-              Enterprise AI for organizations that McKinsey prices out and local IT firms underqualify for.
+              Enterprise AI for organizations that global consulting firms price out and local IT firms underqualify for.
             </p>
           </Reveal>
         </div>

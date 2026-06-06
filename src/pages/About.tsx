@@ -122,7 +122,7 @@ export function About() {
                   The AI opportunity is visible to almost every organization. The problem is the gap between seeing it and capturing it. Strategy decks sit unimplemented. Pilots run for eighteen months without shipping. Technical teams get hired without the AI depth to build what's actually needed. Executives approve budgets without the fluency to evaluate what they're buying.
                 </p>
                 <p>
-                  Venakan Info Solutions was founded to close that gap. Not with another framework, not with another vendor relationship, and not with a team of generalist consultants who picked up an AI practice last year. We built an AI-only company — one where every capability, every person, and every engagement exists for a single purpose: turning AI from a priority on a slide into a capability your organization actually runs on. This is enterprise AI for organizations that McKinsey prices out and local IT firms underqualify for.
+                  Venakan Info Solutions was founded to close that gap. Not with another framework, not with another vendor relationship, and not with a team of generalist consultants who picked up an AI practice last year. We built an AI-only company — one where every capability, every person, and every engagement exists for a single purpose: turning AI from a priority on a slide into a capability your organization actually runs on. This is enterprise AI for organizations that global consulting firms price out and local IT firms underqualify for.
                 </p>
                 <p>
                   That means R&D that ships real products. Strategy that leads to deployed systems. Training that changes how people work. Engineering that builds to production standards. And staffing that places talent assessed against our own delivery bar — not a recruiter's checklist.
@@ -242,7 +242,7 @@ export function About() {
                 stat: "73%",
                 label: "of enterprise AI pilots never reach production",
                 body: "The gap is not model quality. It is execution capability — data infrastructure, governance, talent, and organizational readiness that most firms address too late.",
-                src: "McKinsey State of AI, 2024",
+                src: "Industry State of AI research, 2024",
               },
               {
                 stat: "4.5×",
