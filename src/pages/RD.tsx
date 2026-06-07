@@ -12,10 +12,10 @@ const VERTICALS = [
 ] as const;
 
 const DOT_COLOR: Record<string, string> = {
-  blue: "#60A5FA",
+  blue: "#34D399",
   green: "#34D399",
-  violet: "#A78BFA",
-  amber: "#FCD34D",
+  violet: "#34D399",
+  amber: "var(--green)",
 };
 
 function VerticalsPanel() {

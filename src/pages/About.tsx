@@ -39,8 +39,8 @@ const CAPABILITIES = [
   { icon: "⬡", color: "var(--color-blue-bright)", name: "AI R&D", desc: "Products built for real verticals" },
   { icon: "◈", color: "var(--color-violet-bright)", name: "AI Strategy", desc: "Roadmaps built for execution" },
   { icon: "◎", color: "var(--color-cyan)", name: "AI Training", desc: "Fluency from board to codebase" },
-  { icon: "⬢", color: "#86EFAC", name: "AI Development", desc: "Systems built for production" },
-  { icon: "◉", color: "#FCD34D", name: "AI Staffing", desc: "Talent vetted against our own bar" },
+  { icon: "⬢", color: "var(--green)", name: "AI Development", desc: "Systems built for production" },
+  { icon: "◉", color: "var(--green)", name: "AI Staffing", desc: "Talent vetted against our own bar" },
 ];
 
 const PRINCIPLES = [
@@ -129,8 +129,8 @@ export function About() {
             <Reveal from="right" delay={180} variant="card">
               <div
                 style={{
-                  background: "rgba(59,75,204,0.08)",
-                  border: "1px solid rgba(59,75,204,0.12)",
+                  background: "rgba(52,211,153,0.08)",
+                  border: "1px solid rgba(52,211,153,0.12)",
                   borderLeft: "3px solid var(--brand-blue)",
                   borderRadius: 16,
                   padding: 36,
@@ -330,8 +330,8 @@ export function About() {
                         width: 48,
                         height: 48,
                         borderRadius: "50%",
-                        background: "rgba(59,75,204,0.15)",
-                        border: "1px solid rgba(59,75,204,0.3)",
+                        background: "rgba(52,211,153,0.15)",
+                        border: "1px solid rgba(52,211,153,0.3)",
                       }}
                     >
                       <span style={{ fontSize: 22, color: c.color }}>{c.icon}</span>
@@ -673,7 +673,7 @@ export function About() {
                   >
                     <span
                       style={{
-                        color: "#F87171",
+                        color: "var(--text-3)",
                         fontSize: 13,
                         fontWeight: 700,
                         flexShrink: 0,
@@ -692,7 +692,7 @@ export function About() {
               </div>
 
               {/* RIGHT — What Venakan Is */}
-              <div style={{ background: "rgba(59,75,204,0.06)", padding: 32 }}>
+              <div style={{ background: "rgba(52,211,153,0.06)", padding: 32 }}>
                 <div
                   style={{
                     fontFamily: "var(--mono)",
@@ -773,7 +773,7 @@ export function About() {
       <section
         style={{
           background:
-            "linear-gradient(135deg, rgba(52,211,153,0.06), rgba(59,75,204,0.08))",
+            "linear-gradient(135deg, rgba(52,211,153,0.06), rgba(52,211,153,0.08))",
           borderTop: "1px solid var(--border)",
           borderBottom: "1px solid var(--border)",
           padding: "80px 0",
@@ -784,7 +784,7 @@ export function About() {
             <img
               src={venakanLogo}
               alt="Venakan"
-              style={{ height: 60, marginBottom: 36, opacity: 0.9, margin: "0 auto 36px" }}
+              style={{ height: 60, marginBottom: 36, opacity: 0.9, margin: "0 auto 36px", filter: "brightness(0) invert(1)" }}
             />
           </Reveal>
 

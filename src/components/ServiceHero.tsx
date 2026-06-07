@@ -147,7 +147,7 @@ export function ServiceHero({
       className="hero-service relative grid-bg-fine overflow-hidden"
       style={{
         background:
-          "radial-gradient(ellipse 60% 80% at 85% 50%, rgba(52,211,153,0.07) 0%, transparent 60%), radial-gradient(ellipse 40% 60% at 15% 30%, rgba(59,75,204,0.10) 0%, transparent 55%), var(--surface)",
+          "radial-gradient(ellipse 60% 80% at 85% 50%, rgba(52,211,153,0.07) 0%, transparent 60%), radial-gradient(ellipse 40% 60% at 15% 30%, rgba(52,211,153,0.10) 0%, transparent 55%), var(--surface)",
         borderBottom: "1px solid var(--border)",
       }}
     >

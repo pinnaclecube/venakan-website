@@ -22,7 +22,7 @@ export function Resources() {
 
   return (
     <div className="pt-[90px]">
-      <section className="py-20 md:py-32 relative grid-bg-fine overflow-hidden" style={{ background: "radial-gradient(ellipse 60% 80% at 85% 50%, rgba(52,211,153,0.07), transparent 60%), radial-gradient(ellipse 40% 60% at 15% 30%, rgba(59,75,204,0.10), transparent 55%), var(--surface)" }}>
+      <section className="py-20 md:py-32 relative grid-bg-fine overflow-hidden" style={{ background: "radial-gradient(ellipse 60% 80% at 85% 50%, rgba(52,211,153,0.07), transparent 60%), radial-gradient(ellipse 40% 60% at 15% 30%, rgba(52,211,153,0.10), transparent 55%), var(--surface)" }}>
         <div className="container relative z-10 text-center">
           <Reveal variant="heading">
             <h1 className="text-5xl md:text-7xl font-display font-bold mb-6">
@@ -48,7 +48,7 @@ export function Resources() {
                   onClick={() => setActiveFilter(filter)}
                   className={`px-6 py-2 rounded-full font-mono text-xs tracking-wider uppercase transition-all border ${
                     activeFilter === filter
-                      ? "text-[#FFFFFF]"
+                      ? "text-[var(--black)]"
                       : "hover:border-brand-blue/50"
                   }`}
                   style={
@@ -72,7 +72,7 @@ export function Resources() {
               <div
                 className="p-0 overflow-hidden flex flex-col md:flex-row"
                 style={{
-                  background: "linear-gradient(135deg, rgba(52,211,153,0.08), rgba(59,75,204,0.08))",
+                  background: "linear-gradient(135deg, rgba(52,211,153,0.08), rgba(52,211,153,0.08))",
                   border: "1px solid var(--border-mid)",
                   borderRadius: "var(--r)",
                 }}
@@ -87,7 +87,7 @@ export function Resources() {
                     Read the Article &rarr;
                   </Link>
                 </div>
-                <div className="md:w-1/2 bg-cover bg-center min-h-[300px]" style={{ background: "linear-gradient(135deg, rgba(52,211,153,0.10), rgba(59,75,204,0.10))" }} />
+                <div className="md:w-1/2 bg-cover bg-center min-h-[300px]" style={{ background: "linear-gradient(135deg, rgba(52,211,153,0.10), rgba(52,211,153,0.10))" }} />
               </div>
             </Reveal>
           )}
@@ -113,7 +113,7 @@ export function Resources() {
         </div>
       </section>
 
-      <section className="py-24" style={{ background: "linear-gradient(135deg, rgba(52,211,153,0.05), rgba(59,75,204,0.05))", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
+      <section className="py-24" style={{ background: "linear-gradient(135deg, rgba(52,211,153,0.05), rgba(52,211,153,0.05))", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
         <div className="container max-w-3xl text-center">
           <Reveal variant="heading">
             <h2 className="text-3xl font-display font-bold mb-8" style={{ color: "var(--ink-primary)" }}>Stay Ahead of the AI Curve.</h2>

@@ -156,7 +156,7 @@ export function Home() {
           style={{
             zIndex: 0,
             background:
-              "radial-gradient(ellipse 80% 60% at 20% 40%, rgba(52,211,153,0.10) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 80% 20%, rgba(59,75,204,0.14) 0%, transparent 55%), radial-gradient(ellipse 40% 50% at 60% 80%, rgba(107,63,168,0.08) 0%, transparent 50%), var(--surface)",
+              "radial-gradient(ellipse 80% 60% at 20% 40%, rgba(52,211,153,0.10) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 80% 20%, rgba(52,211,153,0.14) 0%, transparent 55%), radial-gradient(ellipse 40% 50% at 60% 80%, rgba(52,211,153,0.08) 0%, transparent 50%), var(--surface)",
             animation: "meshDrift 10s ease-in-out infinite alternate",
           }}
         />
@@ -183,7 +183,7 @@ export function Home() {
         />
         {/* Layer 4 — NeuralCanvas */}
         <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
-          <NeuralCanvas opacity={0.5} />
+          <NeuralCanvas opacity={0.45} />
         </div>
 
         <div className="container hero-grid relative grid grid-cols-1 lg:grid-cols-[1.85fr_1fr] gap-12 lg:gap-16 items-center" style={{ zIndex: 1 }}>
@@ -403,8 +403,8 @@ export function Home() {
                       className="w-14 h-14 rounded-full flex items-center justify-center"
                       style={{
                         background:
-                          "linear-gradient(135deg, rgba(59,75,204,0.2), rgba(107,63,168,0.2))",
-                        border: "1px solid rgba(96,165,250,0.3)",
+                          "linear-gradient(135deg, rgba(52,211,153,0.2), rgba(52,211,153,0.2))",
+                        border: "1px solid rgba(52,211,153,0.3)",
                       }}
                     >
                       <svg
@@ -412,7 +412,7 @@ export function Home() {
                         height="24"
                         viewBox="0 0 24 24"
                         fill="none"
-                        stroke="#60A5FA"
+                        stroke="#34D399"
                         strokeWidth="2.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -481,7 +481,7 @@ export function Home() {
                                 border: active
                                   ? "1px solid var(--blue-border)"
                                   : "1px solid var(--border-mid)",
-                                color: active ? "#93C5FD" : "var(--text-3)",
+                                color: active ? "#34D399" : "var(--text-3)",
                               }}
                             >
                               {interest}
@@ -706,7 +706,7 @@ export function Home() {
         className="py-32 relative overflow-hidden"
         style={{
           background:
-            "linear-gradient(135deg, rgba(52,211,153,0.06), rgba(59,75,204,0.08)), var(--surface)",
+            "linear-gradient(135deg, rgba(52,211,153,0.06), rgba(52,211,153,0.08)), var(--surface)",
           borderTop: "1px solid var(--border)",
           borderBottom: "1px solid var(--border)",
         }}
@@ -722,7 +722,8 @@ export function Home() {
                   height: "96px",
                   width: "auto",
                   objectFit: "contain",
-                  display: "block"
+                  display: "block",
+                  filter: "brightness(0) invert(1)"
                 }}
               />
             </div>
@@ -781,9 +782,9 @@ const ORG_ROLES = [
     id: "csuite",
     label: "C-Suite",
     icon: Crown,
-    accent: "#60A5FA",
-    accentSoft: "rgba(96,165,250,0.12)",
-    accentBorder: "rgba(96,165,250,0.35)",
+    accent: "#34D399",
+    accentSoft: "rgba(52,211,153,0.12)",
+    accentBorder: "rgba(52,211,153,0.35)",
     headline: "Board-ready AI authority",
     sub: "We help executives turn AI from a slide-deck topic into a measurable competitive lever.",
     bullets: [
@@ -798,9 +799,9 @@ const ORG_ROLES = [
     id: "directors",
     label: "Directors & VPs",
     icon: Compass,
-    accent: "#7DA3F8",
-    accentSoft: "rgba(125,163,248,0.12)",
-    accentBorder: "rgba(125,163,248,0.35)",
+    accent: "#34D399",
+    accentSoft: "rgba(52,211,153,0.12)",
+    accentBorder: "rgba(52,211,153,0.35)",
     headline: "Operational owners of AI outcomes",
     sub: "We sit with your VPs to translate strategy into shippable, prioritized AI roadmaps by function.",
     bullets: [
@@ -815,9 +816,9 @@ const ORG_ROLES = [
     id: "architects",
     label: "Architects",
     icon: Layers3,
-    accent: "#A78BFA",
-    accentSoft: "rgba(167,139,250,0.12)",
-    accentBorder: "rgba(167,139,250,0.35)",
+    accent: "#34D399",
+    accentSoft: "rgba(52,211,153,0.12)",
+    accentBorder: "rgba(52,211,153,0.35)",
     headline: "Reference architectures, not whiteboard fantasies",
     sub: "We co-design AI systems with your architects — patterns that survive real load, latency, and cost constraints.",
     bullets: [
@@ -832,9 +833,9 @@ const ORG_ROLES = [
     id: "developers",
     label: "Developers",
     icon: Code2,
-    accent: "#C084FC",
-    accentSoft: "rgba(192,132,252,0.12)",
-    accentBorder: "rgba(192,132,252,0.35)",
+    accent: "#34D399",
+    accentSoft: "rgba(52,211,153,0.12)",
+    accentBorder: "rgba(52,211,153,0.35)",
     headline: "Hands-on AI engineering, not slide decks",
     sub: "We pair with your engineers on real tickets — shipping production AI features and leveling up muscle memory.",
     bullets: [
@@ -849,9 +850,9 @@ const ORG_ROLES = [
     id: "data",
     label: "Data Teams",
     icon: Database,
-    accent: "#22D3EE",
-    accentSoft: "rgba(34,211,238,0.12)",
-    accentBorder: "rgba(34,211,238,0.35)",
+    accent: "#34D399",
+    accentSoft: "rgba(52,211,153,0.12)",
+    accentBorder: "rgba(52,211,153,0.35)",
     headline: "The pipelines and ops behind every reliable model",
     sub: "We work alongside data and ML teams to build the unglamorous infrastructure that makes AI behave in production.",
     bullets: [
