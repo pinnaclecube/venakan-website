@@ -1,5 +1,4 @@
 import { Link } from "wouter";
-import logoMark from "@/assets/venakan-logo.png";
 import { useState } from "react";
 import { Check } from "lucide-react";
 
@@ -24,33 +23,6 @@ export function Footer() {
       }}
     >
       <div className="container">
-        {/* Top Banner */}
-        <div
-          className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 pb-16 border-b"
-          style={{
-            background: "rgba(52,211,153,0.04)",
-            borderBottom: "1px solid var(--border)",
-          }}
-        >
-          <Link href="/" className="flex items-center" aria-label="Venakan">
-            <img
-              src={logoMark}
-              alt="Venakan"
-              style={{
-                height: "64px",
-                width: "auto",
-                objectFit: "contain",
-                display: "block",
-                filter: "brightness(0) invert(1)"
-              }}
-            />
-          </Link>
-          <h2 className="font-display text-2xl md:text-3xl font-bold max-w-md md:text-right" style={{ color: "var(--white)" }}>
-            Pure AI.<br />
-            <span style={{ color: "var(--text-3)" }}>Research to Results.</span>
-          </h2>
-        </div>
-
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 py-16">
           {/* Brand */}
