@@ -25,7 +25,7 @@ export function ScrollProgress() {
       className="fixed top-0 left-0 h-[2px] z-[1001]"
       style={{ 
         width: `${progress}%`, 
-        background: "linear-gradient(90deg, var(--color-brand-blue), var(--color-brand-violet), var(--color-cyan))",
+        background: "linear-gradient(90deg, var(--green), var(--brand-blue), var(--brand-violet))",
         transition: "width 0.1s ease-out"
       }}
     />

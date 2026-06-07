@@ -22,7 +22,7 @@ export function Resources() {
 
   return (
     <div className="pt-[90px]">
-      <section className="py-20 md:py-32 relative grid-bg-fine overflow-hidden" style={{ background: "var(--bg-base)" }}>
+      <section className="py-20 md:py-32 relative grid-bg-fine overflow-hidden" style={{ background: "radial-gradient(ellipse 60% 80% at 85% 50%, rgba(52,211,153,0.07), transparent 60%), radial-gradient(ellipse 40% 60% at 15% 30%, rgba(59,75,204,0.10), transparent 55%), var(--surface)" }}>
         <div className="container relative z-10 text-center">
           <Reveal variant="heading">
             <h1 className="text-5xl md:text-7xl font-display font-bold mb-6">
@@ -54,7 +54,7 @@ export function Resources() {
                   style={
                     activeFilter === filter
                       ? { background: "var(--brand-blue)", borderColor: "var(--brand-blue)" }
-                      : { background: "transparent", borderColor: "var(--border-mid)", color: "var(--ink-secondary)" }
+                      : { background: "transparent", borderColor: "var(--border-mid)", color: "var(--text-3)" }
                   }
                 >
                   {filter}
@@ -65,22 +65,29 @@ export function Resources() {
         </div>
       </section>
 
-      <section className="py-20" style={{ background: "var(--bg-base)" }}>
+      <section className="py-20" style={{ background: "var(--bg)" }}>
         <div className="container">
           {activeFilter === "All" && (
             <Reveal delay={100} variant="card" className="mb-16">
-              <div className="glass p-0 overflow-hidden flex flex-col md:flex-row">
-                <div className="md:w-1/2 p-10 flex flex-col justify-center border-b md:border-b-0 md:border-r border-border-mid" style={{ background: "var(--bg-surface)" }}>
-                  <div className="tag tag-blue mb-6 self-start">Featured • AI Strategy</div>
-                  <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">Why Most Enterprise AI Strategies Fail in Year Two</h2>
-                  <p className="text-white/60 mb-8 leading-relaxed">
+              <div
+                className="p-0 overflow-hidden flex flex-col md:flex-row"
+                style={{
+                  background: "linear-gradient(135deg, rgba(52,211,153,0.08), rgba(59,75,204,0.08))",
+                  border: "1px solid var(--border-mid)",
+                  borderRadius: "var(--r)",
+                }}
+              >
+                <div className="md:w-1/2 p-10 flex flex-col justify-center border-b md:border-b-0 md:border-r border-border-mid">
+                  <div className="tag tag-green mb-6 self-start">Featured • AI Strategy</div>
+                  <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ fontFamily: "var(--oswald)", color: "var(--white)" }}>Why Most Enterprise AI Strategies Fail in Year Two</h2>
+                  <p className="mb-8 leading-relaxed" style={{ color: "var(--text-2)" }}>
                     Organizations launch AI initiatives with genuine energy. Eighteen months later, the pilots are still in staging and the board is asking hard questions.
                   </p>
                   <Link href="/resources/why-ai-strategies-fail" className="btn-ghost self-start">
                     Read the Article &rarr;
                   </Link>
                 </div>
-                <div className="md:w-1/2 bg-cover bg-center min-h-[300px]" style={{ background: "linear-gradient(135deg, rgba(59,75,204,0.08), rgba(107,63,168,0.08))" }} />
+                <div className="md:w-1/2 bg-cover bg-center min-h-[300px]" style={{ background: "linear-gradient(135deg, rgba(52,211,153,0.10), rgba(59,75,204,0.10))" }} />
               </div>
             </Reveal>
           )}
@@ -88,12 +95,16 @@ export function Resources() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredArticles.map((article, i) => (
               <Reveal key={article.slug} delay={(i % 3) * 60} variant="card">
-                <Link href={`/resources/${article.slug}`} className="glass p-8 block h-full group flex flex-col items-start">
-                  <div className={`tag tag-${article.tagColor} mb-6`}>{article.tag}</div>
-                  <h3 className="text-2xl font-display font-bold mb-4 group-hover:text-blue-bright transition-colors flex-grow">{article.title}</h3>
+                <Link
+                  href={`/resources/${article.slug}`}
+                  className="p-8 block h-full group flex flex-col items-start transition-colors border bg-[var(--surface-2)] border-[var(--border)] hover:bg-[var(--surface-3)] hover:border-[var(--blue-border)]"
+                  style={{ borderRadius: "var(--r)" }}
+                >
+                  <div className="tag tag-green mb-6">{article.tag}</div>
+                  <h3 className="text-2xl font-bold mb-4 transition-colors flex-grow group-hover:text-[var(--green)]" style={{ fontFamily: "var(--oswald)", color: "var(--white)" }}>{article.title}</h3>
                   <div className="flex items-center justify-between w-full mt-4">
-                    <span className="text-white/40 font-mono text-sm">{article.time} read</span>
-                    <span className="text-brand-blue opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all">&rarr;</span>
+                    <span style={{ fontFamily: "var(--mono)", fontSize: 9, color: "var(--text-3)", letterSpacing: "0.06em", textTransform: "uppercase" }}>{article.time} read</span>
+                    <span className="opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all" style={{ color: "var(--green)" }}>&rarr;</span>
                   </div>
                 </Link>
               </Reveal>
@@ -102,7 +113,7 @@ export function Resources() {
         </div>
       </section>
 
-      <section className="py-24" style={{ background: "linear-gradient(135deg, rgba(59,75,204,0.05), rgba(107,63,168,0.05))", borderTop: "1px solid rgba(59,75,204,0.12)", borderBottom: "1px solid rgba(59,75,204,0.12)" }}>
+      <section className="py-24" style={{ background: "linear-gradient(135deg, rgba(52,211,153,0.05), rgba(59,75,204,0.05))", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
         <div className="container max-w-3xl text-center">
           <Reveal variant="heading">
             <h2 className="text-3xl font-display font-bold mb-8" style={{ color: "var(--ink-primary)" }}>Stay Ahead of the AI Curve.</h2>

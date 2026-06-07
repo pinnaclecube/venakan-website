@@ -148,13 +148,45 @@ export function Home() {
   return (
     <div className="w-full">
       {/* HERO */}
-      <section
-        className="hero-home relative min-h-[100dvh] flex items-center overflow-hidden grid-bg pb-20"
-        style={{ background: "var(--bg-base)" }}
-      >
-        <NeuralCanvas opacity={0.6} />
+      <section className="hero-home relative min-h-[100dvh] flex items-center overflow-hidden pb-20">
+        {/* Layer 1 — animated gradient mesh */}
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            zIndex: 0,
+            background:
+              "radial-gradient(ellipse 80% 60% at 20% 40%, rgba(52,211,153,0.10) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 80% 20%, rgba(59,75,204,0.14) 0%, transparent 55%), radial-gradient(ellipse 40% 50% at 60% 80%, rgba(107,63,168,0.08) 0%, transparent 50%), var(--surface)",
+            animation: "meshDrift 10s ease-in-out infinite alternate",
+          }}
+        />
+        {/* Layer 2 — dot grid */}
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            zIndex: 0,
+            backgroundImage:
+              "radial-gradient(circle, rgba(52,211,153,0.12) 1px, transparent 1px)",
+            backgroundSize: "28px 28px",
+          }}
+        />
+        {/* Layer 3 — scan lines */}
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            zIndex: 0,
+            background:
+              "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(52,211,153,0.012) 3px, rgba(52,211,153,0.012) 4px)",
+          }}
+        />
+        {/* Layer 4 — NeuralCanvas */}
+        <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
+          <NeuralCanvas opacity={0.5} />
+        </div>
 
-        <div className="container hero-grid relative z-10 grid grid-cols-1 lg:grid-cols-[1.85fr_1fr] gap-12 lg:gap-16 items-center">
+        <div className="container hero-grid relative grid grid-cols-1 lg:grid-cols-[1.85fr_1fr] gap-12 lg:gap-16 items-center" style={{ zIndex: 1 }}>
           {/* LEFT 65% — rotating hero cards */}
           <div
             className="flex flex-col items-start"
@@ -170,16 +202,50 @@ export function Home() {
                 exit={cardMotion.exit}
                 transition={cardMotion.transition}
               >
+                {/* Live status indicator */}
+                <div className="inline-flex items-center gap-2">
+                  <span
+                    style={{
+                      width: 6,
+                      height: 6,
+                      borderRadius: "50%",
+                      background: "var(--green)",
+                      animation: "livePulse 2s infinite",
+                    }}
+                  />
+                  <span
+                    style={{
+                      fontFamily: "var(--mono)",
+                      fontSize: 10,
+                      fontWeight: 600,
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                      color: "var(--green)",
+                    }}
+                  >
+                    Pure AI · Research to Results
+                  </span>
+                </div>
+
                 <div className="flex flex-col gap-2 hero-h1-stack">
                   <h1
-                    className="font-display font-extrabold tracking-[-0.04em] leading-[1.05] hero-h1-line1"
-                    style={{ fontSize: "clamp(32px, 7vw, 104px)", color: "var(--ink-primary)" }}
+                    className="tracking-[-0.04em] leading-[1.05] hero-h1-line1"
+                    style={{
+                      fontFamily: "var(--oswald)",
+                      fontWeight: 500,
+                      fontSize: "clamp(42px, 6vw, 78px)",
+                      color: "var(--white)",
+                    }}
                   >
                     {card.h1Line1}
                   </h1>
                   <h1
-                    className="font-display font-extrabold tracking-[-0.04em] leading-[1.05] gradient-text pb-1 hero-h1-line2"
-                    style={{ fontSize: "clamp(26px, 5.5vw, 80px)" }}
+                    className="tracking-[-0.04em] leading-[1.05] gradient-text pb-1 hero-h1-line2"
+                    style={{
+                      fontFamily: "var(--oswald)",
+                      fontWeight: 500,
+                      fontSize: "clamp(42px, 6vw, 78px)",
+                    }}
                   >
                     {card.h1Line2}
                   </h1>
@@ -187,10 +253,11 @@ export function Home() {
 
                 <p
                   style={{
-                    color: "var(--ink-secondary)",
+                    fontFamily: "var(--oswald)",
+                    color: "var(--text-2)",
                     fontWeight: 300,
-                    fontSize: 17,
-                    lineHeight: 1.72,
+                    fontSize: 16,
+                    lineHeight: 1.7,
                     maxWidth: 520,
                   }}
                 >
@@ -203,20 +270,31 @@ export function Home() {
                     <Fragment key={stat.label}>
                       <div className="flex flex-col">
                         <span
-                          className="font-display leading-none"
-                          style={{ color: "var(--brand-blue)", fontWeight: 800, fontSize: 22 }}
+                          className="leading-none"
+                          style={{
+                            fontFamily: "var(--oswald)",
+                            color: "var(--green)",
+                            fontWeight: 600,
+                            fontSize: 28,
+                          }}
                         >
                           {stat.value}
                         </span>
                         <span
-                          className="font-mono uppercase tracking-[0.14em] mt-1.5"
-                          style={{ color: "var(--ink-muted)", fontSize: 10 }}
+                          className="uppercase mt-1.5"
+                          style={{
+                            fontFamily: "var(--mono)",
+                            color: "var(--text-3)",
+                            fontSize: 9,
+                            fontWeight: 600,
+                            letterSpacing: "0.1em",
+                          }}
                         >
                           {stat.label}
                         </span>
                       </div>
                       {i < card.stats.length - 1 && (
-                        <span style={{ width: 1, height: 28, background: "rgba(59,75,204,0.15)" }} />
+                        <span style={{ width: 1, height: 28, background: "var(--border)" }} />
                       )}
                     </Fragment>
                   ))}
@@ -248,9 +326,7 @@ export function Home() {
                     width: i === currentCard ? 24 : 6,
                     borderRadius: i === currentCard ? 3 : "50%",
                     background:
-                      i === currentCard
-                        ? "linear-gradient(90deg, #3B4BCC, #6B3FA8)"
-                        : "rgba(59,75,204,0.25)",
+                      i === currentCard ? "var(--brand-blue)" : "var(--text-4)",
                     border: "none",
                     padding: 0,
                     cursor: "pointer",
@@ -264,62 +340,59 @@ export function Home() {
           {/* RIGHT 35% — Glass Form Card */}
           <Reveal from="right" delay={200} variant="card">
             <div className="relative w-full max-w-md mx-auto lg:mx-0">
-              {/* Gradient top border glow */}
               <div
-                aria-hidden
-                className="absolute -top-px left-6 right-6 h-px"
+                className="relative overflow-hidden"
                 style={{
-                  background:
-                    "linear-gradient(90deg, transparent, #60A5FA, #A78BFA, transparent)",
-                }}
-              />
-              <div
-                aria-hidden
-                className="absolute -top-3 left-1/2 -translate-x-1/2 w-2/3 h-6 blur-xl opacity-60"
-                style={{
-                  background:
-                    "linear-gradient(90deg, transparent, #3B4BCC, #6B3FA8, transparent)",
-                }}
-              />
-
-              <div
-                className="glass p-6 md:p-7 relative overflow-hidden"
-                style={{
-                  border: "1.5px solid var(--border)",
-                  borderTop: "3px solid #3B4BCC",
-                  background:
-                    "linear-gradient(90deg, #3B4BCC, #6B3FA8) top / 100% 3px no-repeat, var(--bg-surface)",
-                  boxShadow: "0 4px 24px rgba(0,0,0,0.06)",
+                  background: "rgba(15,23,42,0.85)",
+                  border: "1px solid var(--border-mid)",
+                  borderTop: "2px solid var(--brand-blue)",
+                  backdropFilter: "blur(24px)",
+                  WebkitBackdropFilter: "blur(24px)",
+                  borderRadius: "var(--r)",
                 }}
               >
-                {/* Live badge */}
-                <div className="flex items-center justify-between mb-5">
+                {/* Panel header */}
+                <div
+                  className="flex items-center justify-between"
+                  style={{
+                    padding: "16px 20px",
+                    borderBottom: "1px solid var(--border)",
+                  }}
+                >
                   <span
-                    className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/50"
-                    style={{ color: "var(--ink-primary)" }}
+                    style={{
+                      fontFamily: "var(--mono)",
+                      fontSize: 9,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.12em",
+                      color: "var(--text-3)",
+                    }}
                   >
                     Start a conversation
                   </span>
-                  <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-400/10 border border-emerald-400/20">
-                    <span className="relative flex w-1.5 h-1.5">
-                      <span
-                        className="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-75 animate-ping"
-                        style={{ background: "#10B981" }}
-                      />
-                      <span
-                        className="relative inline-flex w-1.5 h-1.5 rounded-full bg-emerald-400"
-                        style={{ background: "#10B981" }}
-                      />
-                    </span>
+                  <div className="inline-flex items-center gap-2">
                     <span
-                      className="font-mono text-[10px] uppercase tracking-wider text-emerald-300"
-                      style={{ color: "#059669" }}
+                      style={{
+                        width: 6,
+                        height: 6,
+                        borderRadius: "50%",
+                        background: "var(--green)",
+                        animation: "livePulse 2s infinite",
+                      }}
+                    />
+                    <span
+                      style={{
+                        fontFamily: "var(--mono)",
+                        fontSize: 9,
+                        color: "var(--green)",
+                      }}
                     >
-                      Responding within 1 day
+                      1-day response
                     </span>
                   </div>
                 </div>
 
+                <div className="p-6 md:p-7">
                 {submitted ? (
                   <div
                     role="status"
@@ -404,13 +477,11 @@ export function Home() {
                               aria-pressed={active}
                               className="text-[11px] font-medium px-2.5 py-1.5 rounded-full transition-all duration-150"
                               style={{
-                                background: active
-                                  ? "rgba(59,75,204,0.08)"
-                                  : "transparent",
+                                background: active ? "var(--blue-dim)" : "transparent",
                                 border: active
-                                  ? "1px solid rgba(59,75,204,0.30)"
+                                  ? "1px solid var(--blue-border)"
                                   : "1px solid var(--border-mid)",
-                                color: active ? "var(--brand-blue)" : "var(--ink-secondary)",
+                                color: active ? "#93C5FD" : "var(--text-3)",
                               }}
                             >
                               {interest}
@@ -429,20 +500,7 @@ export function Home() {
                         onChange={(e) => setMessage(e.target.value)}
                         rows={3}
                         placeholder="Tell us briefly what you're working on…"
-                        className="w-full px-3 py-2.5 rounded-lg text-sm text-white placeholder-white/30 resize-none focus:outline-none transition-colors"
-                        style={{
-                          background: "var(--bg-base)",
-                          border: "1.5px solid var(--border-mid)",
-                          color: "var(--ink-primary)",
-                        }}
-                        onFocus={(e) => {
-                          e.currentTarget.style.borderColor = "var(--brand-blue)";
-                          e.currentTarget.style.boxShadow = "0 0 0 3px rgba(59,75,204,0.10)";
-                        }}
-                        onBlur={(e) => {
-                          e.currentTarget.style.borderColor = "var(--border-mid)";
-                          e.currentTarget.style.boxShadow = "none";
-                        }}
+                        className="form-input resize-none"
                       />
                     </div>
 
@@ -490,6 +548,7 @@ export function Home() {
                     </p>
                   </form>
                 )}
+                </div>
               </div>
             </div>
           </Reveal>
@@ -498,8 +557,8 @@ export function Home() {
 
       {/* SEC 2: The Venakan Difference */}
       <section
-        className="py-24 md:py-32 bg-navy-mid relative z-10"
-        style={{ background: "var(--bg-surface)" }}
+        className="py-24 md:py-32 relative z-10"
+        style={{ background: "var(--surface)" }}
       >
         <div className="container">
           <Reveal variant="heading">
@@ -537,30 +596,42 @@ export function Home() {
 
       {/* SEC 3: Five Capabilities */}
       <section
-        className="py-24 md:py-32 bg-navy grid-bg"
-        style={{ background: "var(--bg-base)" }}
+        className="py-24 md:py-32"
+        style={{ background: "var(--bg)" }}
       >
         <div className="container">
           <Reveal variant="heading">
             <h2 className="text-4xl md:text-5xl font-display font-bold mb-16 max-w-2xl">Five Capabilities. One AI-First Company.</h2>
           </Reveal>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div className="bento-grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
             {[
-              { path: "/rd", title: "AI R&D", desc: "Proprietary AI products across healthcare, legal, HR, finance, logistics, and compliance verticals. Built to production standards, not demo decks." },
+              { path: "/rd", title: "AI R&D", desc: "Proprietary AI products across healthcare, legal, HR, finance, logistics, and compliance verticals. Built to production standards, not demo decks.", featured: true },
               { path: "/strategy", title: "AI Strategy", desc: "Translating AI from concept to competitive advantage for mid-market and enterprise organizations. Strategy that ships, not just strategy that presents." },
               { path: "/training", title: "AI Training", desc: "Role-specific AI fluency programs — executive boardroom to developer sprint team. Designed by practitioners, not career educators." },
               { path: "/development", title: "AI Development", desc: "AI-native applications, intelligent pipelines, and agentic systems — engineered end to end and handed off with documentation your team can actually use." },
               { path: "/staffing", title: "AI Staffing", desc: "AI-specialized talent vetted against real delivery benchmarks — not résumé keywords. Compliance-first for organizations managing complex workforce requirements." }
             ].map((cap, i) => (
               <Reveal delay={i * 60} variant="card" key={cap.title}>
-                <Link href={cap.path} className="group block glass p-8 h-full min-h-[280px] relative overflow-hidden">
-                  <div className="absolute top-0 left-0 w-1 h-0 bg-brand-blue transition-all duration-300 group-hover:h-full" />
-                  <h3 className="text-2xl font-display font-bold mb-4 flex justify-between items-center">
+                <Link
+                  href={cap.path}
+                  className="group bento-cell flex flex-col h-full min-h-[280px] relative overflow-hidden"
+                  style={cap.featured ? { background: "var(--brand-blue)" } : undefined}
+                >
+                  <h3
+                    className="text-2xl font-display font-bold mb-4 flex justify-between items-center"
+                    style={cap.featured ? { color: "var(--white)" } : undefined}
+                  >
                     {cap.title}
-                    <span className="text-brand-blue opacity-0 -translate-x-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 text-sm font-body">Explore &rarr;</span>
+                    <span
+                      className="opacity-0 -translate-x-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 text-sm font-body"
+                      style={{ color: cap.featured ? "var(--white)" : "var(--brand-blue)" }}
+                    >Explore &rarr;</span>
                   </h3>
-                  <p className="text-white/60 leading-relaxed">{cap.desc}</p>
+                  <p
+                    className="leading-relaxed"
+                    style={{ color: cap.featured ? "rgba(255,255,255,0.80)" : "var(--text-2)" }}
+                  >{cap.desc}</p>
                 </Link>
               </Reveal>
             ))}
@@ -569,7 +640,7 @@ export function Home() {
       </section>
 
       {/* SEC 4: Organization Spectrum */}
-      <section className="py-24 bg-navy-mid" style={{ background: "var(--bg-surface)" }}>
+      <section className="section-light py-24" style={{ background: "var(--light-base)" }}>
         <div className="container">
           <Reveal variant="heading">
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-4 text-center">We Serve Every Layer of Your Organization</h2>
@@ -582,7 +653,7 @@ export function Home() {
       </section>
 
       {/* SEC 5: Resources Preview */}
-      <section className="py-24 bg-navy" style={{ background: "var(--bg-base)" }}>
+      <section className="py-24" style={{ background: "var(--surface)" }}>
         <div className="container">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
             <Reveal variant="heading">
@@ -592,27 +663,40 @@ export function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Reveal delay={0} variant="card">
-              <Link href="/resources/why-ai-strategies-fail" className="glass p-8 block h-full group">
-                <div className="tag tag-blue mb-6">AI Strategy</div>
-                <h3 className="text-xl font-display font-bold mb-4 group-hover:text-blue-bright transition-colors">Why Most Enterprise AI Strategies Fail in Year Two</h3>
-                <p className="text-brand-blue text-sm font-medium opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all">Read Article &rarr;</p>
-              </Link>
-            </Reveal>
-            <Reveal delay={60} variant="card">
-              <Link href="/resources/ai-readiness-scorecard" className="glass p-8 block h-full group">
-                <div className="tag tag-amber mb-6">Guides</div>
-                <h3 className="text-xl font-display font-bold mb-4 group-hover:text-amber-400 transition-colors">The AI Readiness Scorecard</h3>
-                <p className="text-brand-blue text-sm font-medium opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all">Read Article &rarr;</p>
-              </Link>
-            </Reveal>
-            <Reveal delay={120} variant="card">
-              <Link href="/resources/llm-production-survival" className="glass p-8 block h-full group">
-                <div className="tag tag-violet mb-6">Articles</div>
-                <h3 className="text-xl font-display font-bold mb-4 group-hover:text-violet-bright transition-colors">Building an LLM Application That Survives Production</h3>
-                <p className="text-brand-blue text-sm font-medium opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all">Read Article &rarr;</p>
-              </Link>
-            </Reveal>
+            {[
+              { href: "/resources/why-ai-strategies-fail", tag: "AI Strategy", title: "Why Most Enterprise AI Strategies Fail in Year Two", delay: 0 },
+              { href: "/resources/ai-readiness-scorecard", tag: "Guides", title: "The AI Readiness Scorecard", delay: 60 },
+              { href: "/resources/llm-production-survival", tag: "Articles", title: "Building an LLM Application That Survives Production", delay: 120 },
+            ].map((article) => (
+              <Reveal delay={article.delay} variant="card" key={article.href}>
+                <Link
+                  href={article.href}
+                  className="article-card p-8 block h-full group"
+                  style={{
+                    background: "var(--surface-2)",
+                    border: "1px solid var(--border)",
+                    borderRadius: "var(--r)",
+                    transition: "background 0.2s, border-color 0.2s",
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-3)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = "var(--surface-2)"; }}
+                >
+                  <div className="tag tag-green mb-6">{article.tag}</div>
+                  <h3
+                    className="text-xl mb-4 group-hover:text-[#34D399] transition-colors"
+                    style={{ fontFamily: "var(--oswald)", fontWeight: 600, color: "var(--white)" }}
+                  >
+                    {article.title}
+                  </h3>
+                  <p
+                    className="text-sm font-medium opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all"
+                    style={{ color: "var(--green)" }}
+                  >
+                    Read Article &rarr;
+                  </p>
+                </Link>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
@@ -622,9 +706,9 @@ export function Home() {
         className="py-32 relative overflow-hidden"
         style={{
           background:
-            "linear-gradient(135deg, rgba(59,75,204,0.05), rgba(107,63,168,0.05))",
-          borderTop: "1px solid rgba(59,75,204,0.10)",
-          borderBottom: "1px solid rgba(59,75,204,0.10)",
+            "linear-gradient(135deg, rgba(52,211,153,0.06), rgba(59,75,204,0.08)), var(--surface)",
+          borderTop: "1px solid var(--border)",
+          borderBottom: "1px solid var(--border)",
         }}
       >
 
@@ -686,20 +770,7 @@ function FormField({
         placeholder={placeholder}
         required={required}
         aria-required={required}
-        className="w-full px-3 py-2.5 rounded-lg text-sm text-white placeholder-white/30 focus:outline-none transition-colors"
-        style={{
-          background: "var(--bg-base)",
-          border: "1.5px solid var(--border-mid)",
-          color: "var(--ink-primary)",
-        }}
-        onFocus={(e) => {
-          e.currentTarget.style.borderColor = "var(--brand-blue)";
-          e.currentTarget.style.boxShadow = "0 0 0 3px rgba(59,75,204,0.10)";
-        }}
-        onBlur={(e) => {
-          e.currentTarget.style.borderColor = "var(--border-mid)";
-          e.currentTarget.style.boxShadow = "none";
-        }}
+        className="form-input"
       />
     </div>
   );
@@ -832,14 +903,20 @@ function OrgSpectrum() {
     <div className="max-w-5xl mx-auto">
       {/* Gradient spectrum bar with role markers */}
       <div className="relative mb-3">
-        <div className="h-[2px] w-full bg-gradient-to-r from-blue-bright via-brand-blue to-cyan rounded-full" />
+        <div
+          className="h-[2px] w-full rounded-full"
+          style={{
+            background:
+              "linear-gradient(90deg, var(--green), var(--brand-blue), var(--brand-violet))",
+          }}
+        />
         <div className="hidden md:flex absolute -top-1.5 left-0 right-0 justify-between px-[10%]">
           {ORG_ROLES.map((role) => (
             <span
               key={role.id}
               className="w-1.5 h-1.5 rounded-full transition-all duration-300"
               style={{
-                background: activeId === role.id ? role.accent : "var(--border-mid)",
+                background: activeId === role.id ? role.accent : "var(--light-ink-3)",
                 boxShadow: activeId === role.id ? `0 0 12px ${role.accent}` : "none",
                 transform: activeId === role.id ? "scale(2)" : "scale(1)",
               }}
@@ -872,18 +949,18 @@ function OrgSpectrum() {
               className="group relative flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-xl transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-mid"
               style={{
                 background: isActive ? role.accentSoft : "transparent",
-                border: `1px solid ${isActive ? role.accentBorder : "var(--border)"}`,
+                border: `1px solid ${isActive ? role.accentBorder : "var(--light-border)"}`,
               }}
             >
               <Icon
                 size={20}
                 strokeWidth={1.6}
-                style={{ color: isActive ? role.accent : "var(--ink-tertiary)" }}
+                style={{ color: isActive ? role.accent : "var(--light-ink-3)" }}
                 className="transition-colors duration-200"
               />
               <span
                 className="font-mono text-[11px] uppercase tracking-[0.12em] transition-colors duration-200"
-                style={{ color: isActive ? "var(--ink-primary)" : "var(--ink-tertiary)" }}
+                style={{ color: isActive ? "var(--light-ink)" : "var(--light-ink-2)" }}
               >
                 {role.label}
               </span>

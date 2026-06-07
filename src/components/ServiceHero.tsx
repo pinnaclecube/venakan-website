@@ -64,13 +64,16 @@ function StatItem({ value, label }: ServiceHeroStat) {
   return (
     <div ref={ref} className="flex flex-col gap-1">
       <span
-        className="font-display font-extrabold text-[28px] leading-none tabular-nums"
-        style={{ color: "var(--brand-blue)" }}
+        className="font-extrabold text-[28px] leading-none tabular-nums"
+        style={{ color: "var(--green)", fontFamily: "var(--oswald)" }}
         aria-label={value}
       >
         {display}
       </span>
-      <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--ink-muted)]">
+      <span
+        className="text-[10px] uppercase tracking-[0.14em]"
+        style={{ fontFamily: "var(--mono)", color: "var(--text-3)" }}
+      >
         {label}
       </span>
     </div>
@@ -142,23 +145,43 @@ export function ServiceHero({
   return (
     <section
       className="hero-service relative grid-bg-fine overflow-hidden"
-      style={{ background: "var(--bg-surface)", borderBottom: "1px solid var(--border)" }}
+      style={{
+        background:
+          "radial-gradient(ellipse 60% 80% at 85% 50%, rgba(52,211,153,0.07) 0%, transparent 60%), radial-gradient(ellipse 40% 60% at 15% 30%, rgba(59,75,204,0.10) 0%, transparent 55%), var(--surface)",
+        borderBottom: "1px solid var(--border)",
+      }}
     >
       <div className="container relative">
         <div className="hero-service-grid grid grid-cols-1 lg:grid-cols-[58fr_42fr] gap-12 items-stretch">
           {/* LEFT */}
           <div className="flex flex-col">
             <h1
-              className="font-display font-extrabold leading-[1.02] text-white hero-service-h1"
-              style={{ fontSize: "clamp(40px, 5.5vw, 68px)", letterSpacing: "-0.04em" }}
+              className="font-extrabold leading-[1.02] hero-service-h1"
+              style={{
+                fontSize: "clamp(40px, 5.5vw, 68px)",
+                letterSpacing: "-0.04em",
+                fontFamily: "var(--oswald)",
+              }}
             >
-              <span className="block">{h1Line1}</span>
-              <span className="block gradient-text">{h1Line2}</span>
+              <span className="block" style={{ color: "var(--white)" }}>
+                {h1Line1}
+              </span>
+              <span
+                className="block gradient-text"
+                style={{ fontFamily: "var(--oswald)" }}
+              >
+                {h1Line2}
+              </span>
             </h1>
 
             <p
-              className="mt-6 text-[16px] font-light leading-[1.72] text-[var(--white-dim)]"
-              style={{ maxWidth: 500 }}
+              className="mt-6 text-[16px] leading-[1.72]"
+              style={{
+                maxWidth: 500,
+                fontFamily: "var(--oswald)",
+                fontWeight: 300,
+                color: "var(--text-2)",
+              }}
             >
               {subhead}
             </p>
@@ -168,14 +191,15 @@ export function ServiceHero({
                 {chips.slice(0, 3).map((chip) => (
                   <span
                     key={chip}
-                    className="font-mono uppercase tracking-[0.08em]"
+                    className="uppercase tracking-[0.08em]"
                     style={{
-                      fontSize: 10,
-                      color: "var(--brand-blue)",
+                      fontSize: 9,
+                      fontFamily: "var(--mono)",
+                      color: "var(--green)",
                       padding: "4px 12px",
                       borderRadius: 100,
-                      border: "1px solid rgba(59,75,204,0.20)",
-                      background: "rgba(59,75,204,0.06)",
+                      border: "1px solid var(--green-border)",
+                      background: "var(--green-dim)",
                     }}
                   >
                     {chip}
@@ -204,9 +228,9 @@ export function ServiceHero({
               className="glass h-full hero-service-right"
               style={{
                 padding: 28,
-                background: "#FFFFFF",
-                border: "1px solid var(--border)",
-                boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
+                background: "rgba(15,23,42,0.80)",
+                border: "1px solid var(--border-mid)",
+                backdropFilter: "blur(16px)",
               }}
             >
               {panelContent}
@@ -217,8 +241,8 @@ export function ServiceHero({
         {/* STATS STRIP */}
         {stats.length > 0 && rightPanel && (
           <div
-            className="mt-10 pt-7 border-t flex flex-wrap gap-y-6 gap-x-10 justify-between"
-            style={{ borderTopColor: "var(--border)", background: "var(--bg-surface)" }}
+            className="mt-10 pt-7 flex flex-wrap gap-y-6 gap-x-10 justify-between"
+            style={{ borderTop: "1px solid var(--border)", background: "var(--surface)" }}
           >
             {stats.map((s) => (
               <StatItem key={s.label} value={s.value} label={s.label} />

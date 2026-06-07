@@ -27,7 +27,7 @@ function DifferentiatorPanel() {
             borderBottom: i === DIFFERENTIATORS.length - 1 ? "none" : "1px solid var(--ven-border)",
           }}
         >
-          <span style={{ color: "#86EFAC", fontSize: 14, flexShrink: 0, marginTop: 2 }}>✓</span>
+          <span style={{ color: "var(--green)", fontSize: 14, flexShrink: 0, marginTop: 2 }}>✓</span>
           <span className="font-body text-[13px] text-[var(--white-dim)] leading-[1.5]">{d}</span>
         </div>
       ))}
@@ -68,20 +68,16 @@ const PRINCIPLES = [
 
 const NOT_LIST = [
   "A generalist IT firm that added an AI practice",
-  "A software vendor looking to license a product to you",
-  "A staffing agency that places any tech talent",
   "A research lab with no path to business application",
   "A framework factory that delivers decks without delivery",
-  "An offshore development shop with AI in the name",
+  "Global consulting firm pricing for mid-market organizations",
 ];
 
 const ARE_LIST = [
-  "An AI-only company — every engagement, every hire, every product",
-  "An embedded partner that stays through execution, not just strategy",
-  "A talent network assessed against real AI delivery standards",
-  "An R&D practice building production-grade AI across 6 verticals",
-  "A training team built by practitioners who ship AI systems daily",
-  "A compliance-first staffing partner for organizations managing complex workforce requirements",
+  "An AI-only company — every engagement, every hire",
+  "Five integrated capabilities under one roof",
+  "An embedded partner that stays through execution",
+  "Enterprise AI for the Midwest mid-market",
 ];
 
 export function About() {
@@ -133,8 +129,7 @@ export function About() {
             <Reveal from="right" delay={180} variant="card">
               <div
                 style={{
-                  background:
-                    "linear-gradient(135deg, rgba(59,75,204,0.04), rgba(107,63,168,0.04))",
+                  background: "rgba(59,75,204,0.08)",
                   border: "1px solid rgba(59,75,204,0.12)",
                   borderLeft: "3px solid var(--brand-blue)",
                   borderRadius: 16,
@@ -146,7 +141,7 @@ export function About() {
                   style={{
                     fontSize: 64,
                     color: "var(--brand-blue)",
-                    opacity: 0.3,
+                    opacity: 0.4,
                     lineHeight: 1,
                     marginBottom: -12,
                   }}
@@ -422,20 +417,20 @@ export function About() {
                 <div
                   className="principle-tile"
                   style={{
-                    background: "var(--bg-surface)",
+                    background: "var(--surface)",
                     border: "1px solid var(--border)",
                     padding: "36px 32px",
                     transition: "background 0.3s",
                     height: "100%",
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "#FFFFFF")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "var(--bg-surface)")}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--surface-2)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "var(--surface)")}
                 >
                   <div
                     className="font-mono"
                     style={{
                       fontSize: 11,
-                      color: "var(--brand-blue)",
+                      color: "var(--green)",
                       letterSpacing: "0.1em",
                       marginBottom: 20,
                     }}
@@ -634,68 +629,143 @@ export function About() {
             </div>
           </Reveal>
 
-          <div
-            className="grid gap-6 mx-auto"
-            style={{ gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", maxWidth: 860 }}
-          >
-            <Reveal from="left" variant="card">
-              <div className="glass" style={{ padding: "28px 32px", borderTop: "3px solid #DC2626", background: "#FEF2F2" }}>
+          <Reveal variant="card">
+            <div
+              className="bento-grid mx-auto"
+              style={{ gridTemplateColumns: "1fr 1fr", maxWidth: 860 }}
+            >
+              {/* LEFT — What Venakan Is Not */}
+              <div style={{ background: "var(--surface)", padding: 32 }}>
                 <div
-                  className="font-mono uppercase"
-                  style={{ fontSize: 11, color: "#DC2626", letterSpacing: "0.1em", marginBottom: 20 }}
+                  style={{
+                    fontFamily: "var(--mono)",
+                    fontSize: 10,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.12em",
+                    color: "var(--text-3)",
+                    marginBottom: 16,
+                  }}
                 >
-                  We are not:
+                  What Venakan Is Not
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--oswald)",
+                    fontSize: 22,
+                    fontWeight: 500,
+                    color: "var(--white)",
+                    marginBottom: 20,
+                  }}
+                >
+                  What It Isn't.
                 </div>
                 {NOT_LIST.map((t, i) => (
                   <div
                     key={t}
-                    className="flex gap-2.5"
                     style={{
-                      padding: "9px 0",
-                      borderBottom: i === NOT_LIST.length - 1 ? "none" : "1px solid var(--ven-border)",
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: 10,
+                      padding: "10px 0",
+                      borderBottom:
+                        i === NOT_LIST.length - 1 ? "none" : "1px solid var(--border)",
                     }}
                   >
-                    <span style={{ color: "#DC2626", fontSize: 14, flexShrink: 0 }}>✕</span>
                     <span
-                      className="font-body font-light text-[var(--white-dim)]"
-                      style={{ fontSize: 13, lineHeight: 1.5 }}
+                      style={{
+                        color: "#F87171",
+                        fontSize: 13,
+                        fontWeight: 700,
+                        flexShrink: 0,
+                        marginTop: 1,
+                      }}
+                    >
+                      ✕
+                    </span>
+                    <span
+                      style={{ fontSize: 13, color: "var(--text-2)", lineHeight: 1.5 }}
                     >
                       {t}
                     </span>
                   </div>
                 ))}
               </div>
-            </Reveal>
 
-            <Reveal from="right" delay={60} variant="card">
-              <div className="glass" style={{ padding: "28px 32px", borderTop: "3px solid #059669", background: "#F0FDF4" }}>
+              {/* RIGHT — What Venakan Is */}
+              <div style={{ background: "rgba(59,75,204,0.06)", padding: 32 }}>
                 <div
-                  className="font-mono uppercase"
-                  style={{ fontSize: 11, color: "#059669", letterSpacing: "0.1em", marginBottom: 20 }}
+                  style={{
+                    fontFamily: "var(--mono)",
+                    fontSize: 10,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.12em",
+                    color: "var(--green)",
+                    marginBottom: 16,
+                  }}
                 >
-                  We are:
+                  What Venakan Is
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--oswald)",
+                    fontSize: 22,
+                    fontWeight: 500,
+                    color: "var(--white)",
+                    marginBottom: 20,
+                  }}
+                >
+                  What It Is.
                 </div>
                 {ARE_LIST.map((t, i) => (
                   <div
                     key={t}
-                    className="flex gap-2.5"
                     style={{
-                      padding: "9px 0",
-                      borderBottom: i === ARE_LIST.length - 1 ? "none" : "1px solid var(--ven-border)",
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: 10,
+                      padding: "10px 0",
+                      borderBottom:
+                        i === ARE_LIST.length - 1
+                          ? "none"
+                          : "1px solid rgba(52,211,153,0.12)",
                     }}
                   >
-                    <span style={{ color: "#059669", fontSize: 14, flexShrink: 0 }}>✓</span>
                     <span
-                      className="font-body font-light text-[var(--white-dim)]"
-                      style={{ fontSize: 13, lineHeight: 1.5 }}
+                      style={{
+                        color: "var(--green)",
+                        fontSize: 13,
+                        fontWeight: 700,
+                        flexShrink: 0,
+                        marginTop: 1,
+                      }}
+                    >
+                      ✓
+                    </span>
+                    <span
+                      style={{ fontSize: 13, color: "var(--text-2)", lineHeight: 1.5 }}
                     >
                       {t}
                     </span>
                   </div>
                 ))}
+                <div
+                  style={{
+                    marginTop: 20,
+                    padding: "14px 16px",
+                    background: "var(--green-dim)",
+                    border: "1px solid var(--green-border)",
+                    borderRadius: 6,
+                    fontFamily: "var(--mono)",
+                    fontSize: 10,
+                    color: "var(--green)",
+                    letterSpacing: "0.06em",
+                  }}
+                >
+                  Built exclusively for AI. No legacy IT. No generalist consulting. Just AI — from day one.
+                </div>
               </div>
-            </Reveal>
-          </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -703,9 +773,9 @@ export function About() {
       <section
         style={{
           background:
-            "linear-gradient(135deg, rgba(59,75,204,0.05), rgba(107,63,168,0.05))",
-          borderTop: "1px solid rgba(59,75,204,0.10)",
-          borderBottom: "1px solid rgba(59,75,204,0.10)",
+            "linear-gradient(135deg, rgba(52,211,153,0.06), rgba(59,75,204,0.08))",
+          borderTop: "1px solid var(--border)",
+          borderBottom: "1px solid var(--border)",
           padding: "80px 0",
         }}
       >

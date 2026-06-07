@@ -61,7 +61,7 @@ export function Strategy() {
         <StrategyProcessFlow />
       </div>
 
-      <section style={{ background: "#FFFFFF" }}>
+      <section style={{ background: "var(--bg)" }}>
         <div className="container max-w-4xl mx-auto">
           <Reveal variant="heading">
             <h2
