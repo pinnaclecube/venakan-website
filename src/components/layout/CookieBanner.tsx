@@ -23,14 +23,14 @@ export function CookieBanner() {
         <div
           className="p-5 flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl"
           style={{
-            background: "rgba(255,255,255,0.97)",
+            background: "rgba(15,23,42,0.97)",
             backdropFilter: "blur(20px)",
             WebkitBackdropFilter: "blur(20px)",
             borderTop: "1px solid var(--border)",
-            boxShadow: "0 -4px 24px rgba(0,0,0,0.08)",
+            boxShadow: "0 -4px 24px rgba(0,0,0,0.3)",
           }}
         >
-          <p className="text-sm font-body" style={{ color: "var(--ink-secondary)" }}>
+          <p className="text-sm font-body" style={{ color: "var(--text-2)" }}>
             We use cookies to improve your experience and analyze site traffic. 
             By continuing to use this site, you consent to our use of cookies.
           </p>

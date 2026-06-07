@@ -56,12 +56,12 @@ export function NeuralCanvas({ opacity = 0.6 }: { opacity?: number }) {
         // Glow ring
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius * 3, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(59, 75, 204, 0.08)`;
+        ctx.fillStyle = `rgba(52, 211, 153, 0.10)`;
         ctx.fill();
 
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(59, 75, 204, 0.35)`;
+        ctx.fillStyle = `rgba(52, 211, 153, 0.4)`;
         ctx.fill();
       });
 
@@ -79,8 +79,8 @@ export function NeuralCanvas({ opacity = 0.6 }: { opacity?: number }) {
             ctx.lineTo(nodes[j].x, nodes[j].y);
             
             const gradient = ctx.createLinearGradient(nodes[i].x, nodes[i].y, nodes[j].x, nodes[j].y);
-            gradient.addColorStop(0, `rgba(59, 75, 204, ${lineOpacity})`);
-            gradient.addColorStop(1, `rgba(107, 63, 168, ${lineOpacity})`);
+            gradient.addColorStop(0, `rgba(52, 211, 153, ${lineOpacity})`);
+            gradient.addColorStop(1, `rgba(59, 75, 204, ${lineOpacity})`);
             
             ctx.strokeStyle = gradient;
             ctx.lineWidth = 1;

@@ -373,7 +373,7 @@ const spfCss = `
   text-align: center;
   gap: 12px;
   padding: 16px 12px 18px;
-  background: #FFFFFF;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 14px;
   cursor: pointer;
@@ -384,7 +384,7 @@ const spfCss = `
   border-color: var(--color-blue-bright);
   box-shadow: 0 0 0 1px rgba(59,75,204,0.25), 0 0 36px rgba(59,75,204,0.10);
   transform: scale(1.02);
-  background: #FFFFFF;
+  background: var(--surface-2);
 }
 .spf .spf-node:focus-visible {
   outline: 2px solid var(--color-blue-bright);
@@ -436,7 +436,7 @@ const spfCss = `
 }
 .spf .spf-detail.is-open { max-height: 1200px; opacity: 1; }
 .spf .spf-detail-desktop {
-  background: #FFFFFF;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 16px;
   margin-bottom: 18px;
@@ -504,7 +504,7 @@ const spfCss = `
 
 /* Governance band */
 .spf .spf-gov-band {
-  background: #FFFFFF;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 18px;
   padding: 40px;
@@ -535,7 +535,7 @@ const spfCss = `
   flex-direction: column;
   align-items: stretch;
   text-align: left;
-  background: var(--bg-surface);
+  background: var(--surface-2);
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 20px;
@@ -680,7 +680,7 @@ const spfCss = `
   .spf .spf-badge { width: 40px; height: 40px; flex-shrink: 0; }
   .spf .spf-node-text { gap: 2px; }
   .spf .spf-detail-mobile {
-    background: #FFFFFF;
+    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 14px;
     margin: 4px 0 16px;

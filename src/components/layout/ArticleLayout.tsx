@@ -14,12 +14,12 @@ export function ArticleLayout({ tag, tagColor, title, time, children }: ArticleL
   return (
     <div className="pt-[90px]">
       {/* Short hero */}
-      <section className="py-20 grid-bg border-b border-border" style={{ background: "var(--bg-surface)" }}>
+      <section className="py-20 grid-bg" style={{ background: "var(--surface)", borderBottom: "1px solid var(--border)" }}>
         <div className="container max-w-4xl">
           <Reveal variant="heading">
-            <div className={`tag tag-${tagColor} mb-6`}>{tag}</div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-[1.1]" style={{ color: "var(--ink-primary)" }}>{title}</h1>
-            <div className="flex items-center gap-4 text-white/60 text-sm">
+            <div className="tag tag-green mb-6">{tag}</div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[1.1]" style={{ fontFamily: "var(--oswald)", color: "var(--white)" }}>{title}</h1>
+            <div className="flex items-center gap-4 text-sm" style={{ color: "var(--text-2)" }}>
               <span className="font-medium">Venakan Research | Venakan Info Solutions</span>
               <span>&bull;</span>
               <span>{time} read</span>
@@ -29,15 +29,15 @@ export function ArticleLayout({ tag, tagColor, title, time, children }: ArticleL
       </section>
 
       {/* Content */}
-      <section className="py-20" style={{ background: "var(--bg-base)" }}>
+      <section className="py-20" style={{ background: "var(--bg)" }}>
         <div className="container max-w-[760px] mx-auto">
           <Reveal delay={100} variant="body">
-            <div className="prose prose-lg max-w-none font-body font-light text-[17px] prose-h2:text-blue-bright prose-h2:font-display prose-h2:font-bold prose-h2:mt-12 prose-h2:mb-6 prose-p:mb-6" style={{ color: "var(--ink-secondary)", lineHeight: 1.85 }}>
+            <div className="prose prose-lg max-w-none font-body font-light text-[17px] prose-h2:text-[var(--green)] prose-h2:[font-family:var(--oswald)] prose-h2:font-bold prose-h2:mt-12 prose-h2:mb-6 prose-p:mb-6 prose-p:text-[var(--text-2)] prose-strong:text-white" style={{ color: "var(--text-2)", lineHeight: 1.85 }}>
               {children}
             </div>
 
-            <div className="mt-16 pt-8 border-t border-border-mid">
-              <Link href="/resources" className="text-brand-blue hover:text-white transition-colors flex items-center gap-2">
+            <div className="mt-16 pt-8" style={{ borderTop: "1px solid var(--border)" }}>
+              <Link href="/resources" className="transition-colors flex items-center gap-2 text-[var(--green)] hover:text-white">
                 &larr; Back to Resources
               </Link>
             </div>
@@ -57,7 +57,7 @@ export function ArticleLayout({ tag, tagColor, title, time, children }: ArticleL
 
 export function Callout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="p-6 my-8 rounded-r-xl rounded-l-none font-medium text-lg italic" style={{ background: "rgba(59,75,204,0.04)", borderLeft: "3px solid var(--brand-blue)", color: "var(--ink-secondary)" }}>
+    <div className="p-6 my-8 rounded-r-xl rounded-l-none font-medium text-lg italic" style={{ background: "var(--green-dim)", borderLeft: "3px solid var(--green)", color: "var(--text-2)" }}>
       {children}
     </div>
   );

@@ -5,14 +5,15 @@ import { ServiceHero } from "@/components/ServiceHero";
 const VERTICALS = [
   { name: "Healthcare AI", status: "In Development", tone: "blue" },
   { name: "Legal AI", status: "In Development", tone: "blue" },
-  { name: "HR & Workforce Intelligence", status: "Beta", tone: "violet" },
+  { name: "HR & Workforce Intelligence", status: "Beta", tone: "green" },
   { name: "Financial Services AI", status: "Research Phase", tone: "amber" },
   { name: "Logistics & Supply Chain AI", status: "In Development", tone: "blue" },
-  { name: "HR & Compliance AI", status: "Beta", tone: "violet" },
+  { name: "HR & Compliance AI", status: "Beta", tone: "green" },
 ] as const;
 
 const DOT_COLOR: Record<string, string> = {
   blue: "#60A5FA",
+  green: "#34D399",
   violet: "#A78BFA",
   amber: "#FCD34D",
 };
@@ -93,16 +94,16 @@ export function RD() {
         </div>
       </section>
 
-      <section style={{ background: "#FFFFFF" }}>
+      <section style={{ background: "var(--bg)" }}>
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { name: "Healthcare AI", status: "In Development", tone: "amber", desc: "Clinical documentation generation and diagnostic support systems with strict HIPAA compliance boundaries." },
-              { name: "Legal AI", status: "In Development", tone: "amber", desc: "Contract analysis and case law precedent retrieval using secure, air-gapped retrieval-augmented generation." },
-              { name: "HR & Workforce Intelligence", status: "Beta", tone: "violet", desc: "Skill mapping, automated onboarding, and predictive talent retention models." },
+              { name: "Healthcare AI", status: "In Development", tone: "blue", desc: "Clinical documentation generation and diagnostic support systems with strict HIPAA compliance boundaries." },
+              { name: "Legal AI", status: "In Development", tone: "blue", desc: "Contract analysis and case law precedent retrieval using secure, air-gapped retrieval-augmented generation." },
+              { name: "HR & Workforce Intelligence", status: "Beta", tone: "green", desc: "Skill mapping, automated onboarding, and predictive talent retention models." },
               { name: "Financial Services AI", status: "Research Phase", tone: "amber", desc: "Fraud detection pattern recognition and automated compliance reporting." },
-              { name: "Logistics & Supply Chain AI", status: "In Development", tone: "amber", desc: "Dynamic routing optimization and predictive inventory management." },
-              { name: "HR & Compliance AI", status: "Beta", tone: "violet", desc: "Automated workforce compliance tracking, employment eligibility monitoring, and audit readiness tools for organizations managing large or distributed workforces." },
+              { name: "Logistics & Supply Chain AI", status: "In Development", tone: "blue", desc: "Dynamic routing optimization and predictive inventory management." },
+              { name: "HR & Compliance AI", status: "Beta", tone: "green", desc: "Automated workforce compliance tracking, employment eligibility monitoring, and audit readiness tools for organizations managing large or distributed workforces." },
             ].map((v, i) => (
               <Reveal key={v.name} delay={i * 60} variant="card">
                 <div className="glass p-7 h-full flex flex-col items-start group">
@@ -142,8 +143,8 @@ export function RD() {
             ].map((e, i) => (
               <Reveal key={e.t} delay={i * 60} variant="card">
                 <div
-                  className="rounded-xl p-7 bg-[rgba(59,75,204,0.03)] h-full"
-                  style={{ border: "1px solid var(--border)" }}
+                  className="rounded-xl p-7 h-full"
+                  style={{ background: "var(--surface-2)", border: "1px solid var(--border)" }}
                 >
                   <h3
                     className="text-xl font-display font-bold mb-3"

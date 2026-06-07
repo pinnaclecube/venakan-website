@@ -34,53 +34,76 @@ export function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 ${
-          scrolled ? "py-4" : "py-6"
-        }`}
+        className="fixed top-0 left-0 right-0 z-[1000] transition-all duration-300"
         style={
           scrolled
             ? {
-                background: "rgba(255,255,255,0.95)",
-                backdropFilter: "blur(20px)",
-                WebkitBackdropFilter: "blur(20px)",
-                borderBottom: "1px solid var(--border-mid)",
-                boxShadow: "0 1px 8px rgba(0,0,0,0.06)",
+                height: "56px",
+                background: "rgba(15,23,42,0.97)",
+                backdropFilter: "blur(16px)",
+                WebkitBackdropFilter: "blur(16px)",
+                borderBottom: "1px solid rgba(255,255,255,0.08)",
+                boxShadow: "0 1px 0 rgba(255,255,255,0.06)",
               }
             : {
-                background: "rgba(255,255,255,0.85)",
-                backdropFilter: "blur(12px)",
-                WebkitBackdropFilter: "blur(12px)",
-                borderBottom: "1px solid var(--border)",
+                height: "56px",
+                background: "rgba(15,23,42,0.92)",
+                backdropFilter: "blur(16px)",
+                WebkitBackdropFilter: "blur(16px)",
+                borderBottom: "1px solid rgba(255,255,255,0.08)",
               }
         }
       >
-        <div className="container flex items-center justify-between">
-          <Link href="/" className="shrink-0 flex items-center" aria-label="Venakan">
-            <img
-              src={logoMark}
-              alt="Venakan"
+        <div className="container flex items-center justify-between" style={{ height: "56px" }}>
+          <div className="flex items-center" style={{ height: "56px" }}>
+            <Link href="/" className="shrink-0 flex items-center" aria-label="Venakan">
+              <img
+                src={logoMark}
+                alt="Venakan"
+                style={{
+                  height: "28px",
+                  width: "auto",
+                  objectFit: "contain",
+                  display: "block",
+                  filter: "brightness(0) invert(1)",
+                }}
+              />
+            </Link>
+
+            {/* Vertical separator between logo and nav links */}
+            <span
+              aria-hidden="true"
+              className="hidden lg:block"
               style={{
-                height: "42px",
-                width: "auto",
-                objectFit: "contain",
-                display: "block"
+                width: "1px",
+                height: "20px",
+                background: "rgba(255,255,255,0.12)",
+                margin: "0 32px",
               }}
             />
-          </Link>
+          </div>
 
           {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-1 xl:gap-2">
+          <div className="hidden lg:flex items-center" style={{ height: "56px" }}>
             {navLinks.map((link) => {
               const isActive = location === link.path;
               return (
                 <Link
                   key={link.path}
                   href={link.path}
-                  className={`px-4 py-2 text-sm font-medium transition-colors ${
-                    isActive
-                      ? "text-blue-bright bg-[rgba(59,75,204,0.06)] rounded-md"
-                      : "text-white/80 hover:text-white"
-                  }`}
+                  className="flex items-center transition-colors"
+                  style={{
+                    fontFamily: "var(--mono)",
+                    fontSize: "10px",
+                    fontWeight: 600,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: isActive ? "var(--white)" : "var(--text-3)",
+                    background: isActive ? "rgba(255,255,255,0.04)" : "transparent",
+                    padding: "0 14px",
+                    height: "56px",
+                    borderLeft: "1px solid var(--border)",
+                  }}
                 >
                   {link.label}
                 </Link>
@@ -88,15 +111,33 @@ export function Navbar() {
             })}
           </div>
 
-          <div className="hidden lg:flex items-center">
-            <Link href="/contact" className="btn-primary py-2.5 px-6 text-sm">
+          <div className="hidden lg:flex items-center" style={{ height: "56px" }}>
+            <Link
+              href="/contact"
+              className="flex items-center transition-colors"
+              style={{
+                background: "var(--brand-blue)",
+                color: "#FFFFFF",
+                fontFamily: "var(--mono)",
+                fontSize: "10px",
+                fontWeight: 700,
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                padding: "0 20px",
+                height: "56px",
+                borderLeft: "1px solid var(--border)",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "#2D3DB8")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "var(--brand-blue)")}
+            >
               Let's Talk AI &rarr;
             </Link>
           </div>
 
           {/* Mobile Toggle */}
           <button
-            className="lg:hidden p-2 text-white"
+            className="lg:hidden p-2"
+            style={{ color: "var(--white)" }}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -110,7 +151,7 @@ export function Navbar() {
           mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         style={{
-          background: "rgba(255,255,255,0.98)",
+          background: "rgba(15,23,42,0.98)",
           backdropFilter: "blur(24px)",
           WebkitBackdropFilter: "blur(24px)",
         }}
@@ -120,8 +161,12 @@ export function Navbar() {
             <Link
               key={link.path}
               href={link.path}
-              className="text-2xl font-display font-bold text-white hover:text-brand-blue transition-colors"
+              className="transition-colors"
               style={{
+                color: "var(--white)",
+                fontFamily: "var(--oswald)",
+                fontSize: "32px",
+                fontWeight: 400,
                 opacity: mobileMenuOpen ? 1 : 0,
                 transform: mobileMenuOpen ? "translateY(0)" : "translateY(20px)",
                 transition: `opacity 0.4s ease ${i * 0.05}s, transform 0.4s ease ${i * 0.05}s`
