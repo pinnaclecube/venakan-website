@@ -22,7 +22,7 @@ function EntryPointsPanel() {
             style={{
               borderLeft: "2px solid var(--color-brand-blue)",
               padding: "10px 14px",
-              background: "rgba(59,75,204,0.06)",
+              background: "rgba(52,211,153,0.06)",
               borderRadius: 6,
             }}
           >
@@ -81,10 +81,10 @@ export function Strategy() {
             ].map((step, i) => (
               <Reveal key={step.num} delay={i * 60} variant="card" className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
                 <div
-                  className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-brand-blue shrink-0 md:order-1 md:group-odd:-ml-[20px] md:group-even:-mr-[20px] z-10 shadow-[0_0_15px_rgba(59,75,204,0.5)]"
+                  className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-brand-blue shrink-0 md:order-1 md:group-odd:-ml-[20px] md:group-even:-mr-[20px] z-10 shadow-[0_0_15px_rgba(52,211,153,0.5)]"
                   style={{ background: "var(--brand-blue)" }}
                 >
-                  <span className="font-mono text-xs font-bold text-[#FFFFFF]">{step.num}</span>
+                  <span className="font-mono text-xs font-bold text-[var(--black)]">{step.num}</span>
                 </div>
                 <div className="w-[calc(100%-3rem)] md:w-[calc(50%-3rem)] glass p-6 hover:border-brand-blue transition-colors">
                   <h4 className="text-xl font-display font-bold mb-2" style={{ color: "var(--brand-blue)" }}>{step.title}</h4>

@@ -101,7 +101,7 @@ export function Development() {
             ].map((e, i) => (
               <Reveal key={e.n} delay={i * 60} variant="card">
                 <div className="glass p-7 text-center h-full">
-                  <div className="w-12 h-12 rounded-full bg-[rgba(59,75,204,0.1)] flex items-center justify-center mx-auto mb-5">
+                  <div className="w-12 h-12 rounded-full bg-[rgba(52,211,153,0.1)] flex items-center justify-center mx-auto mb-5">
                     <span className="text-brand-blue font-bold">{e.n}</span>
                   </div>
                   <h4 className="text-lg font-display font-bold mb-3">{e.t}</h4>

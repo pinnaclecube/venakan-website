@@ -117,7 +117,7 @@ export function Navbar() {
               className="flex items-center transition-colors"
               style={{
                 background: "var(--brand-blue)",
-                color: "#FFFFFF",
+                color: "var(--black)",
                 fontFamily: "var(--mono)",
                 fontSize: "10px",
                 fontWeight: 700,
@@ -127,8 +127,8 @@ export function Navbar() {
                 height: "56px",
                 borderLeft: "1px solid var(--border)",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "#2D3DB8")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "var(--brand-blue)")}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.88")}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
             >
               Let's Talk AI &rarr;
             </Link>

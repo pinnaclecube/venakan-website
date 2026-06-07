@@ -1,8 +1,10 @@
 # Venakan Info Solutions — Website Current State
 
-> **Purpose of this document:** A single source of truth describing the *current* state of the Venakan marketing website, suitable for uploading to Claude as project knowledge. It reflects the codebase as of the latest work and **supersedes the older `CLAUDE.md` wherever they disagree** (the original `CLAUDE.md` predates the light‑mode redesign, the dynamic hero, eyebrow removal, and the 2018 founding date).
+> **Purpose of this document:** A single source of truth describing the *current* state of the Venakan marketing website, suitable for uploading to Claude as project knowledge. It reflects the codebase as of the latest work and **supersedes the older `CLAUDE.md` wherever they disagree.**
 
 _Last updated: 2026‑06 · Branch: `claude/amazing-hypatia-7v2lT` · Live: https://venakaninfo.com_
+
+> **Theme status:** The site currently runs the **Real‑Time Monitoring (RTM) dark design system** — slate‑dark surfaces, **emerald green (#34D399) reserved for live/status accents**, **brand blue (#3B4BCC) for CTAs/active states**, Oswald display type, bento/hairline layouts. (It previously went dark‑navy → light‑white → this RTM dark system. The doc below describes the *current* dark system; ignore any lingering "light mode" assumptions.)
 
 ---
 
@@ -26,7 +28,7 @@ _Last updated: 2026‑06 · Branch: `claude/amazing-hypatia-7v2lT` · Live: http
 | Styling | **Tailwind CSS v4** `^4.1` (via `@tailwindcss/vite`, **no `tailwind.config.js`**) + shadcn/ui |
 | Animation | **Framer Motion** `^12.23` + a custom `Reveal` scroll component |
 | Icons | Lucide React `^0.545` |
-| Forms | React Hook Form `^7.55` + Zod `^3.25` (note: homepage hero form is a local‑state mock, see §8) |
+| Forms | React Hook Form `^7.55` + Zod `^3.25` (note: hero + Contact forms are local‑state mocks, see §11) |
 | Data | TanStack Query `^5.90` (provider mounted; minimal usage) |
 | Build out | `dist/` |
 | Node | 20.x |
@@ -39,13 +41,13 @@ _Last updated: 2026‑06 · Branch: `claude/amazing-hypatia-7v2lT` · Live: http
 
 ```
 /
-├── index.html                     ← meta tags live here
+├── index.html                     ← meta tags + Google Fonts live here
 ├── public/                        ← favicon.svg, robots.txt, opengraph.jpg
 ├── src/
 │   ├── main.tsx                   ← entry
 │   ├── App.tsx                    ← router + layout shell
 │   ├── index.css                  ← ALL global styles + CSS design tokens
-│   ├── assets/venakan-logo.png    ← wordmark (now BLACK, see §5)
+│   ├── assets/venakan-logo.png    ← BLACK wordmark; inverted to white via CSS (see §10)
 │   ├── components/
 │   │   ├── ServiceHero.tsx        ← reusable hero for service pages
 │   │   ├── StrategyProcessFlow.tsx← interactive process stepper (Strategy page)
@@ -69,14 +71,9 @@ _Last updated: 2026‑06 · Branch: `claude/amazing-hypatia-7v2lT` · Live: http
 
 ```
 /                Home
-/rd              AI R&D
-/strategy        AI Strategy
-/training        AI Training
-/development     AI Development
-/staffing        AI Staffing
+/rd /strategy /training /development /staffing   Service pages
 /resources       Resources hub
-/about           About
-/contact         Contact
+/about /contact
 /privacy /disclaimer /terms   Legal
 
 /resources/why-ai-strategies-fail        Article1
@@ -91,111 +88,113 @@ App shell (`App.tsx`): `ScrollToTop` → `ScrollProgress` → `Navbar` → route
 
 ---
 
-## 5. Design System — **LIGHT MODE** (current)
+## 5. Design System — **RTM DARK** (current)
 
-The site was converted from the original dark navy theme to a **crisp white / dark‑ink light theme**. All tokens live in `src/index.css`.
+All tokens live in `src/index.css`. **Color discipline:** dark slate surfaces; **green = live/status only**; **brand blue = all CTAs + active states**; off‑white text. (A stricter "green is the *only* accent — no blue/violet" variant has been specced but is **not** applied in the current code.)
 
 ### Palette
 | Token | Value | Use |
 |-------|-------|-----|
-| `--bg-base` | `#FFFFFF` | page base (odd sections) |
-| `--bg-surface` | `#F9FAFB` | raised surface (even sections, footer) |
-| `--bg-inset` | `#F3F4F6` | inset chips/icons |
-| `--ink-primary` | `#111827` | headings / primary text |
-| `--ink-secondary` | `#374151` | body text |
-| `--ink-tertiary` | `#6B7280` | small/muted text |
-| `--ink-muted` | `#9CA3AF` | labels, placeholders |
-| `--brand-blue` | `#3B4BCC` | primary accent |
-| `--brand-violet` | `#6B3FA8` | secondary accent |
-| `--cyan` | `#0891B2` | tertiary accent |
-| `--border` / `--border-mid` / `--border-strong` | `rgba(0,0,0,.08 / .12 / .18)` | borders |
+| `--bg` / `--bg-base` | `#1E293B` | page base (odd sections) |
+| `--surface` / `--bg-surface` | `#0F172A` | deep surface (even sections, footer, deep cards) |
+| `--surface-2` / `--bg-inset` | `#162032` | raised cells/cards |
+| `--surface-3` | `#1A2640` | hover state on cards |
+| `--green` | `#34D399` | **status/live only** — stat values, section tags, category tags, link hovers, scroll progress |
+| `--green-dim` / `--green-border` | `rgba(52,211,153,.10 / .22)` | green tints/borders |
+| `--brand-blue` | `#3B4BCC` | **CTAs, active states, dot indicators, featured bento cell** |
+| `--brand-violet` | `#6B3FA8` | used only in the `.gradient-text` and scroll‑progress gradients |
+| `--white` / `--ink-primary` | `#FFFFFF` | primary text |
+| `--text-2` / `--ink-secondary` | `rgba(255,255,255,.70)` | body text |
+| `--text-3` / `--ink-tertiary` | `rgba(255,255,255,.45)` | labels/muted |
+| `--text-4` | `rgba(255,255,255,.22)` | inactive dots |
+| `--border` / `--border-mid` | `rgba(255,255,255,.08 / .13)` | borders |
+| `--light-base` / `--light-ink` … | `#F8FAFC` / `#0F172A` … | **only** for the one hybrid light section (Home Organization Spectrum) |
 
-### Critical build wiring (Tailwind v4 — important for future edits)
-This project has **no `tailwind.config.js`**; colors are wired through `:root` + an `@theme inline` block. Two non‑obvious behaviors:
+Legacy aliases are kept and remapped to dark equivalents so existing inline styles flip automatically: `--color-navy #1E293B`, `--color-navy-mid #0F172A`, `--color-navy-light #162032`, `--color-white #FFFFFF`, `--color-blue-bright #93C5FD`, `--white-dim rgba(255,255,255,.70)`, `--white-muted rgba(255,255,255,.45)`, `--ven-border rgba(255,255,255,.08)`.
 
-1. **`text-white` / `text-white/NN` now render as DARK INK.** Tailwind's `white` theme color is overridden in `:root` (`--color-white: #111827`). So existing `className="text-white"` / `text-white/70` is *correct* on the light bg. The opacity variants (`bg-white/10`, `border-white/20`, `placeholder-white/30`) become subtle dark tints — also correct. **Do not "fix" these.**
-2. **`bg-navy`, `text-brand-blue`, `text-blue-bright`, `bg-brand-blue`, `border-border-mid`, `text-cyan` are NO‑OP utilities** (those names were never registered in `@theme`, so Tailwind emits no CSS for them). They exist in markup but render nothing. Accent colors actually come from **inline `style={{…var(--…)}}`**, the global classes below, and the legacy `--color-*` aliases. Section background "rhythm" (white → grey → white) is created with **inline `background: var(--bg-surface)`** on even sections, not via `bg-navy-mid`.
-3. **Legacy aliases remapped to light** so inline styles flip automatically: `--color-navy #FFFFFF`, `--color-navy-mid #F9FAFB`, `--color-navy-light #F3F4F6`, `--color-white #111827`, `--white-dim #374151`, `--white-muted #6B7280`, `--color-blue-bright/-violet-bright` = brand blue/violet.
-4. The shadcn `@theme` tokens (`--color-background`, `--color-card`, `--color-border`, …) were converted from HSL triplets to **direct light color values** (removing the old `hsl()` wrapping).
+### ⚠️ Critical build wiring (Tailwind v4 — read before editing colors)
+No `tailwind.config.js`; colors are wired through `:root` + an `@theme inline` block.
+
+1. **`text-white` / `text-white/NN` now render WHITE.** Tailwind's `white` theme color is overridden in `:root` (`--color-white: #FFFFFF`). So existing `className="text-white"` / `text-white/70` is *correct* on the dark bg (white / translucent‑white). `bg-white/10`, `border-white/20`, `placeholder-white/30` become subtle light tints — also correct. **Do not "fix" these.**
+   > Historical note: during the light‑mode era `--color-white` was `#111827` (ink). It is now `#FFFFFF`. Any doc/checklist line saying "text‑white renders as dark ink — do not change" is **stale** and must be ignored for the dark theme.
+2. **`bg-navy`, `text-brand-blue`, `text-blue-bright`, `bg-brand-blue`, `border-border-mid`, `text-cyan` are NO‑OP utilities** (never registered in `@theme`; emit no CSS). Accent colors come from **inline `style={{…var(--…)}}`**, the global classes below, and the legacy `--color-*` aliases. Section background rhythm is created with **inline `background: var(--bg)/var(--surface)`**, not via `bg-navy*`.
+3. The shadcn `@theme` tokens (`--color-background`, `--color-card`, `--color-border`, …) map to the dark values via direct `var(--…)` references (no `hsl()`).
 
 ### Global component classes (in `index.css`)
-- **`.glass`** — white card: `background #FFFFFF`, `1px solid var(--border)`, radius 16, soft shadow (`0 1px 3px / 0 4px 16px rgba(0,0,0,.06/.04)`), **no backdrop‑filter**. Hover: brand‑blue border tint + lift.
-- **`.btn-primary`** — gradient `135deg #3B4BCC→#6B3FA8`, white text, radius 8.
-- **`.btn-ghost`** — transparent, `1.5px var(--border-mid)`, ink text; hover → brand‑blue border/text + faint blue bg.
-- **`.gradient-text`** — `linear-gradient(135deg,#3B4BCC 0%,#6B3FA8 50%,#7C3AED 100%)` clipped to text (visible on white).
-- **`.tag` / `.tag-blue|violet|amber|green`** — small pill labels, light tinted backgrounds.
-- **`.grid-bg` / `.grid-bg-fine`** — faint brand‑blue grid, `rgba(59,75,204,0.04)` lines, 56px.
-- **`.form-input` / `.form-label` / `.divider`** — light form helpers.
-- Scrollbar: brand gradient thumb on light track. The old dark `body::after` noise overlay was **removed**.
-- **`.section-label` was deleted** (see eyebrow removal, §7).
+- **`.glass`** — dark card: `background rgba(15,23,42,0.70)`, `1px solid var(--border)`, radius 8, `backdrop-filter blur(20px)`. Hover: green‑border tint.
+- **`.btn-primary`** — **solid brand‑blue** (`var(--brand-blue)`), white text, **JetBrains‑Mono 11px uppercase**, radius 8; hover `#2D3DB8` + lift.
+- **`.btn-ghost`** — transparent, `1px var(--border-mid)`, white text, mono uppercase; hover → brand‑blue border + faint blue bg.
+- **`.gradient-text`** — `linear-gradient(135deg,#34D399 0%,#3B4BCC 50%,#6B3FA8 100%)` clipped to text (used on hero H1 line 2 + service H1 line 2).
+- **`.tag` + `.tag-blue|green|violet|amber`** — small mono‑uppercase pills (blue=#93C5FD, green=var(--green), violet, amber). `.section-tag` — green mono kicker.
+- **`.grid-bg` / `.grid-bg-fine`** — green dot/line grid, `rgba(52,211,153,0.04)`, 48px.
+- **`.bento-grid` / `.bento-cell`** — hairline‑bordered grid (1px gaps over `var(--border)`); cells `var(--surface)`, hover `var(--surface-2)`.
+- **`.section-dark` (#1E293B) / `.section-deep` (#0F172A) / `.section-light`** (the single hybrid light section, `--light-base`).
+- **`.form-input` / `.form-label` / `.divider`** — dark form helpers.
+- Scrollbar: green→blue gradient thumb on `var(--surface)` track.
+- **Keyframes:** `meshDrift` (hero gradient drift), `livePulse` (status‑dot pulse), `scrollCue`, `orgPanelIn`; `.reveal` honors `prefers-reduced-motion`.
 
 ### Typography (actually loaded)
-Google Fonts loaded in `index.css`: **Outfit** (display/headings), **Inter** (body), **JetBrains Mono** (labels/mono), exposed as `--font-display`, `--font-body`, `--font-mono`.
-> ⚠️ The old `CLAUDE.md` says "Syne / Space Grotesk" — that is **aspirational/stale**; those families are *not* loaded. Use the real `--font-*` variables. Don't switch font names without also adding the `@import`.
+Google Fonts in **both** `index.html` and `index.css`: **Oswald** (display/headings — `--font-display`/`--oswald`), **Inter** (body — `--font`/`--font-body`), **JetBrains Mono** (labels/buttons/tags — `--mono`). `h1–h4` are Oswald 500 globally.
+> ⚠️ The old `CLAUDE.md` says "Syne / Space Grotesk" and earlier docs said "Outfit" — both **stale**. The display face is now **Oswald**.
 
 ### Motion
-- **`Reveal`** (`components/ui/Reveal.tsx`) — IntersectionObserver scroll‑reveal with variants: `heading` (translateY 16px, 500ms), `body` (opacity‑only, 400ms), `card` (translateY 12px, 350ms; pair with ~60ms stagger). Honors `prefers-reduced-motion` (fade only).
-- **`NeuralCanvas`** (`components/ui/NeuralCanvas.tsx`) — animated particle network, recolored for white bg (brand‑blue nodes `rgba(59,75,204,0.35)`, faint blue/violet lines, max line opacity 0.15). **Used only on the homepage hero**, `opacity={0.6}`. Service heroes use `.grid-bg-fine` instead.
+- **`Reveal`** (`ui/Reveal.tsx`) — IntersectionObserver scroll‑reveal, variants `heading`/`body`/`card`; respects reduced‑motion.
+- **`NeuralCanvas`** (`ui/NeuralCanvas.tsx`) — animated particle network, **emerald** (node fill `rgba(52,211,153,0.4)`, glow `rgba(52,211,153,0.10)`, green→blue lines, max line opacity 0.15). **Homepage hero only**, `opacity={0.5}`.
 
 ---
 
-## 6. Homepage Hero — **Dynamic rotating left panel** (current)
+## 6. Homepage Hero (`src/pages/Home.tsx`)
 
-`src/pages/Home.tsx`. Layout: **left ~65% / right ~35%**, grid `lg:grid-cols-[1.85fr_1fr]`, collapses to 1 column at `max-width: 860px`. Background `var(--bg-base)` + `grid-bg` + `NeuralCanvas`.
+Layout: **left ~65% / right ~35%**, grid `lg:grid-cols-[1.85fr_1fr]`, collapses to 1 column at `max-width: 860px`.
+
+### Layered dark background
+Behind the content, absolutely‑positioned layers: **Layer 1** animated gradient mesh (green/blue/violet radial glows + `var(--surface)`, `meshDrift 10s` drift), **Layer 2** green dot grid (28px), **Layer 3** faint scan‑lines, **Layer 4** emerald `NeuralCanvas` @0.5. Content sits at `z-index 1+`.
 
 ### Left panel = auto‑rotating 5‑card carousel
-- Built with **Framer Motion `AnimatePresence` (`mode="wait"`)** — crossfade: `initial {opacity:0, y:6}` → `animate {opacity:1, y:0}` → `exit {opacity:0, y:-4}`, 400ms, ease `cubic-bezier(0.23,1,0.32,1)`. `prefers-reduced-motion` → plain 0.2s opacity fade.
-- **Auto‑advances every 2 seconds** (`setInterval`, 2000ms). **Pauses on hover** of the left panel (`onMouseEnter/Leave` → `isPaused`). Manual nav via **dot indicators** (active = 24×6 gradient pill, inactive = 6px dot at `rgba(59,75,204,0.25)`); clicking a dot jumps immediately and resets the timer (effect keyed on `[isPaused, currentCard]`).
-- State: `currentCard (0–4)`, `isPaused`. Cards defined in a top‑level `HERO_CARDS` const. Each card: `h1Line1`, `h1Line2` (gradient), `subheading`, `stats[3]` ({value,label} with 1px dividers between), `primaryCta` (`btn-primary`), `secondaryCta` (`btn-ghost`) — both routed via wouter `Link`.
+- **Framer Motion `AnimatePresence` (`mode="wait"`)** crossfade (opacity + translateY, `cubic-bezier(0.23,1,0.32,1)`); reduced‑motion → 0.2s opacity.
+- **Auto‑advances every 2 s**; **pauses on hover**; **dot indicators** (active = brand‑blue 24×6 pill, inactive = 6px `--text-4` dot) jump + reset the timer.
+- A **live‑status indicator** sits above the H1: pulsing green dot (`livePulse`) + mono "Pure AI · Research to Results".
+- Per card: H1 line 1 (Oswald, white), H1 line 2 (`gradient-text`), Oswald‑light subheading, 3‑stat row (**green values**, mono labels, 1px dividers), `btn-primary` + `btn-ghost` (wouter `Link`).
+- **The 5 cards:** ① Core Identity "Pure AI." / "Research to Results." → /contact,/rd · ② Market Gap "Enterprise AI." / "Built for the Midwest." → /strategy,/rd · ③ "AI Strategy." / "That Actually Ships." → /strategy · ④ "We Build AI." / "End to End." → /development · ⑤ "AI Talent." / "Vetted Against Real Delivery." → /staffing.
 
-### The 5 cards
-1. **Core Identity** — "Pure AI." / "Research to Results." · stats 6 / 5 / 1 · CTAs → /contact, /rd
-2. **Market Gap** — "Enterprise AI." / "Built for the Midwest." · stats 200–5K / 12+ / 0 · CTAs → /strategy, /rd
-3. **Strategy** — "AI Strategy." / "That Actually Ships." · stats 6 wks / 4 / 100% · CTAs → /strategy, /strategy
-4. **Development** — "We Build AI." / "End to End." · stats 3 / 0 / 100% · CTAs → /development, /development
-5. **Talent** — "AI Talent." / "Vetted Against Real Delivery." · stats 16+ / 2 / 0 · CTAs → /staffing, /staffing
+### Right panel — contact form card
+Dark glass (`rgba(15,23,42,0.85)`), **solid 2px brand‑blue top border**, header with green "live" badge, brand‑blue interest chips, `btn-primary` submit. **Local‑state mock** (fake delay → success); not wired to a backend.
 
-### Right panel (unchanged)
-A glass contact form card ("Start a conversation"): name/email/company, interest chips, optional message, submit. Currently a **local‑state mock** (1.2s fake delay → success state); **not yet wired to a backend** (see §11).
+### Sections below the hero
+Hybrid rhythm: dark (`--bg`) ↔ deep (`--surface`), **plus one light section** (Organization Spectrum, `.section-light` on `--light-base`). Capabilities use a **bento‑grid** with a **brand‑blue featured cell** (AI R&D). Spectrum bar gradient = green→blue→violet. Article preview cards on `--surface-2`, green category tags.
 
 ---
 
 ## 7. Section Headers / Eyebrows — **REMOVED**
 
-All "eyebrow" labels (the small mono‑uppercase kicker above a heading) were removed site‑wide for a cleaner, less templated feel:
-- Every `section-label` element deleted (Home, About ×4, Training, Development, Contact) and the `.section-label` CSS removed.
-- The homepage hero "AI‑First. Always." tag removed.
-- `StrategyProcessFlow` "The Venakan Method" eyebrow removed.
-- **`ServiceHero` no longer has an `eyebrow` prop** — the prop, the breadcrumb trail, and the eyebrow tag were all removed; the six callers no longer pass `eyebrow`.
-
-**Kept** (these are content, not eyebrows): R&D vertical **status badges** ("In Development", "Beta", "Research Phase"), contact **interest chips**, Resources **filter pills**, blog **category tags**, the contact‑form **"Live" badge**.
-
-> Search invariants to preserve: `grep section-label` → 0, `grep eyebrow` → 0, `grep "AI-First. Always."` → 0.
+All "eyebrow" kickers were removed site‑wide and the `.section-label` element is gone. `ServiceHero` has **no `eyebrow` prop** (and no breadcrumb). Search invariants: `grep section-label` → 0, `grep eyebrow` → 0, `grep "AI-First. Always."` → 0. **Kept** (content, not eyebrows): R&D status badges, interest chips, Resources filter pills, blog category tags, the hero "Live" badge.
 
 ---
 
-## 8. Pages & Key Components
+## 8. Pages & Key Components (current RTM styling)
 
-- **`ServiceHero`** (used by RD, Strategy, Training, Development, Staffing, About). Props: `h1Line1`, `h1Line2` (gradient), `subhead`, `chips?`, `primaryCta` (→ /contact), `secondaryCta?` + `secondaryCtaTo?`, `rightPanel?` (hidden < 860px), `stats?` ({value,label}, **count‑up on scroll**). Hero bg `var(--bg-surface)` + `grid-bg-fine` + bottom border. **No eyebrow.**
-- **`StrategyProcessFlow`** — interactive multi‑stage stepper on the Strategy page; styled via an inline `<style>{spfCss}</style>` block (fully light‑mode).
-- **`Navbar`** — frosted white (default `rgba(255,255,255,.85)` blur 12px; scrolled `.95` blur 20px + shadow). Black logo wordmark, ink links, brand‑blue active state.
-- **`Footer`** — light grey (`var(--bg-surface)`); brand blurb now uses the primary positioning line (§9); social/legal links; dynamic copyright `© {getFullYear()}`.
-- **`CookieBanner`**, **`ScrollProgress`** (brand gradient bar), **`ArticleLayout`** (light prose, brand‑blue H2s, left‑border callouts).
-- **Resources** hub — filter pills + featured/article cards (category tags kept); newsletter strip; hero now carries the market‑position line (§9).
-- **About** — narrative sections (Why We Exist, The Context with stat citations, architecture, principles, leadership/founder note, "What Venakan Is / Is Not" red‑vs‑green cards), "Founded 2018" stat.
-- **Legal** (Privacy/Terms/Disclaimer) — light hero band + prose.
+- **`ServiceHero`** (RD/Strategy/Training/Development/Staffing/About). Props: `h1Line1`, `h1Line2` (`gradient-text`), `subhead`, `chips?`, `primaryCta` (→ /contact), `secondaryCta?`+`secondaryCtaTo?`, `rightPanel?` (hidden < 860px), `stats?` (**count‑up on scroll, green values**). Hero = layered green/blue radial‑glow bg + `grid-bg-fine`; **green chips**; dark right‑panel card with 2px... (uses `glass` + dark surface). **No eyebrow / no card number.**
+- **`StrategyProcessFlow`** — interactive stepper (Strategy page), styled via inline `<style>{spfCss}</style>` — fully dark (`var(--surface)` panels, white text, green/blue accents).
+- **`Navbar`** — 56px frosted dark bar (`rgba(15,23,42,.92/.97)`, blur 16); **white logo** via `filter: brightness(0) invert(1)`; hairline vertical separator; mono‑uppercase links with `border-left` dividers (active = white on `rgba(255,255,255,.04)`); **brand‑blue "Let's Talk AI →" CTA**; Oswald 32px mobile overlay.
+- **`Footer`** — dark `var(--surface)`; **the top logo+tagline banner was removed**; Oswald column headings; links hover **green**; social icons hover blue‑tint; newsletter `btn-primary`; bottom bar mono with green "Made with AI."; dynamic `© {getFullYear()}`.
+- **`CookieBanner`** — dark glass (`rgba(15,23,42,.97)`, blur 20); green link; `btn-primary` accept.
+- **`ScrollProgress`** — **green→blue→violet** gradient bar.
+- **`ArticleLayout`** — dark; green Oswald H2s; `text-2` prose; green left‑border callouts; green back link.
+- **`Resources`** — dark hub; featured card on green‑tint gradient; article cards `--surface-2` → `--surface-3` hover; green category tags; **brand‑blue active filter pill**.
+- **`About`** — dark narrative sections; founder quote card (blue tint, brand‑blue left border); values tiles (**green** "01–04" numbers); **new 2‑column bento "What Venakan Is / Is Not"** (off‑white ✕ marks left, **green ✓ marks + green callout** right — replaces the old red/green cards); "Founded **2018**" stat.
+- **`Contact`** — dark; `glass` form card; info cards on `--surface`; mock submit.
+- **Legal** (Privacy/Terms/Disclaimer) — dark hero band + prose.
 
 ---
 
 ## 9. Positioning Language (current, stress‑tested)
 
-The site **does not** use "first and only" claims. Three approved lines are applied by context:
-
-- **Primary** — *"Built exclusively for AI. No legacy IT practice. No generalist consulting. Just AI — from day one."* → Footer brand blurb + hero Card 1.
+No "first and only" claims. Three approved lines, applied by context:
+- **Primary** — *"Built exclusively for AI. No legacy IT practice. No generalist consulting. Just AI — from day one."* → About Is/Is‑Not callout + (formerly footer blurb).
 - **Secondary** — *"The only Midwest firm covering the full AI spectrum — R&D, Strategy, Training, Development, and Staffing — under one roof."* → hero Card 2 + About hero subhead.
-- **Market position** — *"Enterprise AI for organizations that global consulting firms price out and local IT firms underqualify for."* → About intro + Resources hero + (variant) hero Card 2.
+- **Market position** — *"Enterprise AI for organizations that global consulting firms price out and local IT firms underqualify for."* → About intro + Resources hero + hero Card 2.
 
-> **Legal note:** Named‑competitor references were removed. The earlier "McKinsey prices out…" phrasing was replaced with the generic **"global consulting firms."** The "McKinsey State of AI" stat citation was genericized to **"Industry State of AI research, 2024."** Two non‑company citations remain on the About page: *"MIT Sloan Management Review, 2024"* and *"National Foundation for American Policy, 2023."*
+> **Legal note:** Named‑competitor references were removed — "McKinsey prices out…" → generic **"global consulting firms"**; the "McKinsey State of AI" citation → **"Industry State of AI research, 2024."** Two non‑company citations remain on About (*MIT Sloan Management Review, 2024*; *National Foundation for American Policy, 2023*).
 
 ---
 
@@ -203,43 +202,40 @@ The site **does not** use "first and only" claims. Three approved lines are appl
 
 - **Tagline:** "Pure AI. Research to Results." (Old "We Don't Adopt AI. We Build It." is permanently retired.)
 - **Five service lines:** AI R&D · AI Strategy · AI Training · AI Development · AI Staffing.
-- **Logo:** `src/assets/venakan-logo.png` — solid **black** wordmark "VENAKAN INFO SOLUTIONS" (recolored for light bg; dark‑mode blue glow filters removed from Navbar/Footer/Home).
+- **Logo:** `src/assets/venakan-logo.png` is the **BLACK** wordmark. On the dark theme it is displayed **white** via CSS `filter: brightness(0) invert(1)` — currently applied **only in the Navbar**. (See Known Issues for the un‑inverted instances.)
 - **Social/contact:** LinkedIn `linkedin.com/company/venakaninfo` · X `twitter.com/venakaninfo` · `info@venakaninfo.com`.
-- **Meta (`index.html`):** title "Venakan Info Solutions | Pure AI. Research to Results."; description = AI‑only company blurb; canonical `https://venakaninfo.com`; og:image `…/logos/Venakan_Logo-02.png`.
+- **Meta (`index.html`):** title "Venakan Info Solutions | Pure AI. Research to Results."; description = AI‑only company blurb; canonical `https://venakaninfo.com`; **`theme-color #0F172A`**; og:image `…/logos/Venakan_Logo-02.png`.
 
 ### Content rules (still in force)
-1. **No immigration/visa language** — use "workforce compliance verification", "employment eligibility", "HR compliance" instead of H‑1B/I‑9/visa/etc.
-2. **No fake social proof** — no invented logos, testimonials, or avatar rows. (The old fake "Trusted by AI leaders" avatar row was removed when the hero became dynamic.)
-3. **No named‑competitor disparagement** (see §9 legal note).
-4. Compliance content should carry: *"This is for engagement planning only. It is not legal advice."*
+1. **No immigration/visa language** — use "workforce compliance verification", "employment eligibility", "HR compliance".
+2. **No fake social proof** — no invented logos/testimonials/avatar rows.
+3. **No named‑competitor disparagement** (see §9).
+4. Compliance content carries: *"This is for engagement planning only. It is not legal advice."*
 
 ---
 
 ## 11. Known Issues / Open Items
 
-- **`theme-color` meta is still `#06070F`** (dark navy) in `index.html` — inconsistent with the light theme; consider updating to `#FFFFFF`.
-- **Contact form is a front‑end mock** — homepage hero form and Contact page need a real backend (the old `CLAUDE.md` notes a **Formspree** form ID placeholder). Not yet wired.
-- **"Schedule a Call" / Calendly** — per the old `CLAUDE.md`, CTAs may point at a generic Calendly URL; the real booking link still needs to be supplied.
-- **Founder headshot** — About uses initials/placeholder; `public/images/arvind-kandula.jpg` not yet present.
-- **Dead `bg-navy*` class names** remain in markup (harmless no‑ops; left to minimize churn).
-- **Bundle size** — the JS chunk is >500 kB (Framer Motion etc.); Vite prints a chunk‑size *warning* (not an error). Code‑splitting is a possible optimization.
-- Two non‑company stat citations (MIT Sloan, NFAP) remain on About — keep unless a stricter "no named organizations" policy is desired.
+- **Logo invisible in two spots:** the black logo `<img>` in **`Home.tsx` (final‑CTA, ~line 719)** and **`About.tsx` (~line 785)** does **not** apply the `brightness(0) invert(1)` filter, so it renders near‑invisible on the dark bg. Add the same filter (or use a white logo asset) there.
+- **Contact / hero forms are front‑end mocks** — no backend (Formspree ID still a placeholder per old `CLAUDE.md`). Not wired.
+- **"Schedule a Call" / Calendly** — real booking link still needed.
+- **Founder headshot** — About uses a placeholder; `public/images/arvind-kandula.jpg` not present.
+- **Dead `bg-navy*` / no‑op color utility class names** remain in markup (harmless; left to minimize churn).
+- **Bundle size** — JS chunk >500 kB (Framer Motion); Vite prints a chunk‑size *warning* (not an error).
+- **Strict‑3‑color variant not applied** — a "green is the only accent, strip all blue/violet" redesign was specced but **not** executed; the current system still uses brand blue for CTAs and a green→blue→violet `gradient-text`. Revisit if that direction is chosen.
 
 ---
 
-## 12. Recent Change History (this work stream)
+## 12. Recent Change History (most‑recent first, branch `claude/amazing-hypatia-7v2lT`)
 
-Most‑recent first (branch `claude/amazing-hypatia-7v2lT`):
-1. Hero rotates every **2s**; removed McKinsey/named‑competitor references.
-2. **Dynamic rotating hero** (5 cards, Framer Motion) + stress‑tested **positioning language**.
-3. Corrected **founding year to 2018**.
-4. **Black logo** for light bg + removed **all eyebrow** labels.
-5. **Dark → light mode** conversion (full design‑token rewrite + every component).
-6. Varied section headers (reduced mechanical eyebrow/H2/subtext repetition).
-7. Removed homepage hero mouse‑spotlight layer.
-8. Reduced hero background treatments (NeuralCanvas to homepage only; service heroes → grid).
-9. Differentiated scroll‑reveal animations by content type.
-10. Corrected Venakan brand meta tags.
+1. Removed the footer top logo+tagline banner.
+2. **Redesign → Real‑Time Monitoring dark system** (full token rewrite; Oswald; layered hero bg; bento capabilities + new Is/Is‑Not bento; green=status / blue=CTA discipline; `theme-color #0F172A`; `text-white`→white).
+3. Hero rotates every **2 s**; removed McKinsey/named‑competitor references.
+4. **Dynamic rotating hero** (5 cards, Framer Motion) + stress‑tested **positioning language**.
+5. Corrected **founding year to 2018**.
+6. Black logo + removed **all eyebrow** labels.
+7. Dark → light mode conversion (since superseded by #2).
+8. Varied section headers; removed hero mouse‑spotlight; reduced hero bg treatments; differentiated scroll‑reveals; corrected meta tags.
 
 ---
 

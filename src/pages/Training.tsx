@@ -8,7 +8,7 @@ function TracksPanel() {
       <div
         style={{
           borderTop: "2px solid var(--color-brand-blue)",
-          background: "rgba(59,75,204,0.06)",
+          background: "rgba(52,211,153,0.06)",
           padding: 12,
           borderRadius: 8,
         }}
@@ -25,7 +25,7 @@ function TracksPanel() {
       <div
         style={{
           borderTop: "2px solid var(--color-brand-violet)",
-          background: "rgba(107,63,168,0.06)",
+          background: "rgba(52,211,153,0.06)",
           padding: 12,
           borderRadius: 8,
         }}
@@ -79,7 +79,7 @@ export function Training() {
                 <h2 className="text-3xl font-display font-bold mb-2">Executive & Leadership</h2>
                 <p className="text-sm font-mono text-white/50 mb-6 uppercase tracking-widest">Audience: C-Suite, VPs, Directors</p>
 
-                <div className="mb-6 p-4 bg-[rgba(59,75,204,0.1)] rounded-lg text-blue-bright text-sm font-medium">
+                <div className="mb-6 p-4 bg-[rgba(52,211,153,0.1)] rounded-lg text-blue-bright text-sm font-medium">
                   1-2 Day Intensive Program
                 </div>
 
@@ -111,7 +111,7 @@ export function Training() {
                 <h2 className="text-3xl font-display font-bold mb-2">Technical & Engineering</h2>
                 <p className="text-sm font-mono text-white/50 mb-6 uppercase tracking-widest">Audience: Developers, Architects</p>
 
-                <div className="mb-6 p-4 bg-[rgba(107,63,168,0.1)] rounded-lg text-violet-bright text-sm font-medium">
+                <div className="mb-6 p-4 bg-[rgba(52,211,153,0.1)] rounded-lg text-violet-bright text-sm font-medium">
                   Multi-Week Project-Based Cohort
                 </div>
 
@@ -156,7 +156,7 @@ export function Training() {
 
           <Reveal delay={200} from="right" variant="card">
             <div className="glass p-7 text-center relative overflow-hidden">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,75,204,0.2),transparent_60%)]" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(52,211,153,0.2),transparent_60%)]" />
               <h3 className="text-[110px] font-display font-bold leading-none gradient-text mb-3 relative z-10">360&deg;</h3>
               <p className="text-xl font-medium text-white/90 relative z-10">Organizational AI Readiness</p>
             </div>

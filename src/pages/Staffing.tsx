@@ -24,7 +24,7 @@ function TalentBarPanel() {
                 i === criteria.length - 1 ? "none" : "1px solid var(--ven-border)",
             }}
           >
-            <span className="text-[14px] mt-0.5" style={{ color: "#059669" }}>✓</span>
+            <span className="text-[14px] mt-0.5" style={{ color: "var(--green)" }}>✓</span>
             <span className="font-body text-[13px] text-[var(--white-dim)]">{c}</span>
           </div>
         ))}
@@ -79,7 +79,7 @@ export function Staffing() {
                 'Paying premium rates for generic software engineers rebranded as "AI".',
               ].map((t) => (
                 <div key={t} className="flex items-start gap-4">
-                  <span className="font-bold mt-1" style={{ color: "#DC2626" }}>✕</span>
+                  <span className="font-bold mt-1" style={{ color: "var(--text-3)" }}>✕</span>
                   <p className="text-white/80">{t}</p>
                 </div>
               ))}
@@ -164,9 +164,9 @@ export function Staffing() {
       <section
         className="bg-navy text-center"
         style={{
-          background: "linear-gradient(135deg, rgba(59,75,204,0.05), rgba(107,63,168,0.05))",
-          borderTop: "1px solid rgba(59,75,204,0.10)",
-          borderBottom: "1px solid rgba(59,75,204,0.10)",
+          background: "linear-gradient(135deg, rgba(52,211,153,0.05), rgba(52,211,153,0.05))",
+          borderTop: "1px solid rgba(52,211,153,0.10)",
+          borderBottom: "1px solid rgba(52,211,153,0.10)",
         }}
       >
         <Link href="/contact" className="btn-primary text-lg px-8 py-4">

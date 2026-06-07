@@ -382,7 +382,7 @@ const spfCss = `
 .spf .spf-node:hover { border-color: var(--border-mid); }
 .spf .spf-node.is-active {
   border-color: var(--color-blue-bright);
-  box-shadow: 0 0 0 1px rgba(59,75,204,0.25), 0 0 36px rgba(59,75,204,0.10);
+  box-shadow: 0 0 0 1px rgba(52,211,153,0.25), 0 0 36px rgba(52,211,153,0.10);
   transform: scale(1.02);
   background: var(--surface-2);
 }
@@ -411,7 +411,7 @@ const spfCss = `
   border-color: transparent;
 }
 .spf .spf-node.is-active .spf-badge {
-  box-shadow: 0 0 16px rgba(59,75,204,0.30);
+  box-shadow: 0 0 16px rgba(52,211,153,0.30);
 }
 .spf .spf-node-text { display: flex; flex-direction: column; gap: 4px; }
 .spf .spf-node-name {
@@ -484,7 +484,7 @@ const spfCss = `
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-violet-bright);
-  background: rgba(107,63,168,0.18);
+  background: rgba(52,211,153,0.18);
   border-radius: 8px;
   padding: 6px 12px;
 }
@@ -560,7 +560,7 @@ const spfCss = `
   width: 38px;
   height: 38px;
   border-radius: 10px;
-  background: rgba(59,75,204,0.12);
+  background: rgba(52,211,153,0.12);
   color: var(--color-blue-bright);
   flex-shrink: 0;
 }
@@ -621,7 +621,7 @@ const spfCss = `
 .spf .spf-cta-primary:hover {
   opacity: 0.92;
   transform: translateY(-1px);
-  box-shadow: 0 10px 36px rgba(59,75,204,0.4);
+  box-shadow: 0 10px 36px rgba(52,211,153,0.4);
 }
 .spf .spf-cta-secondary {
   font-family: var(--font-body);
@@ -636,8 +636,8 @@ const spfCss = `
   transition: border-color 0.25s, background 0.25s, transform 0.2s;
 }
 .spf .spf-cta-secondary:hover {
-  border-color: rgba(59,75,204,0.45);
-  background: rgba(59,75,204,0.06);
+  border-color: rgba(52,211,153,0.45);
+  background: rgba(52,211,153,0.06);
   transform: translateY(-1px);
 }
 .spf .spf-cta-primary:focus-visible,
@@ -685,7 +685,7 @@ const spfCss = `
     border-radius: 14px;
     margin: 4px 0 16px;
   }
-  .spf .spf-detail-mobile.is-open { border-color: rgba(59,75,204,0.25); }
+  .spf .spf-detail-mobile.is-open { border-color: rgba(52,211,153,0.25); }
   .spf .spf-blocks { grid-template-columns: 1fr; gap: 18px; }
   .spf .spf-gov-band { padding: 28px 22px; }
   .spf .spf-detail-inner { padding: 22px; }

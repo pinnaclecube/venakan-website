@@ -56,7 +56,7 @@ export function NeuralCanvas({ opacity = 0.6 }: { opacity?: number }) {
         // Glow ring
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius * 3, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(52, 211, 153, 0.10)`;
+        ctx.fillStyle = `rgba(52, 211, 153, 0.08)`;
         ctx.fill();
 
         ctx.beginPath();
@@ -73,14 +73,14 @@ export function NeuralCanvas({ opacity = 0.6 }: { opacity?: number }) {
           const distance = Math.sqrt(dx * dx + dy * dy);
 
           if (distance < maxDistance) {
-            const lineOpacity = (1 - distance / maxDistance) * 0.15;
+            const lineOpacity = (1 - distance / maxDistance) * 0.12;
             ctx.beginPath();
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
             
             const gradient = ctx.createLinearGradient(nodes[i].x, nodes[i].y, nodes[j].x, nodes[j].y);
             gradient.addColorStop(0, `rgba(52, 211, 153, ${lineOpacity})`);
-            gradient.addColorStop(1, `rgba(59, 75, 204, ${lineOpacity})`);
+            gradient.addColorStop(1, `rgba(52, 211, 153, ${lineOpacity})`);
             
             ctx.strokeStyle = gradient;
             ctx.lineWidth = 1;

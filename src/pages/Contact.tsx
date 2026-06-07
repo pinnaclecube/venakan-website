@@ -30,7 +30,7 @@ export function Contact() {
               <div className="glass p-8 md:p-12 relative overflow-hidden">
                 {submitted ? (
                   <div className="absolute inset-0 flex flex-col items-center justify-center backdrop-blur-sm z-10 p-8 text-center animate-in fade-in duration-500" style={{ background: "rgba(15,23,42,0.95)" }}>
-                    <div className="w-16 h-16 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center mb-6">
+                    <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6" style={{ background: "var(--green-dim)", color: "var(--green)" }}>
                       <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
