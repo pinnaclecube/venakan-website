@@ -517,15 +517,18 @@ export function Home() {
       >
         <div className="container">
           <Reveal variant="heading">
-            <h2 className="text-4xl md:text-5xl font-display font-bold mb-16">We Don't Do IT. We Do AI.</h2>
+            <h2 className="text-4xl md:text-5xl font-display font-bold mb-5">Built for AI. Nothing else.</h2>
+            <p className="text-white/60 leading-relaxed text-lg max-w-2xl mb-16">
+              No legacy IT practice to unwind, no generalist playbook to adapt — every person and process here exists to ship AI.
+            </p>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <Reveal delay={0} variant="card">
               <div className="glass p-8 h-full flex flex-col">
                 <h3 className="text-xl font-display font-bold mb-4 text-white">AI-Only Focus</h3>
                 <p className="text-white/60 leading-relaxed text-sm">
-                  No legacy IT. No distraction. Every consultant, trainer, and developer on our team lives in AI — and has shipped it in production environments.
+                  No legacy IT, no distraction. Every consultant, trainer, and engineer here works in AI full-time and has shipped it in production.
                 </p>
               </div>
             </Reveal>
@@ -533,7 +536,7 @@ export function Home() {
               <div className="glass p-8 h-full flex flex-col">
                 <h3 className="text-xl font-display font-bold mb-4 text-white">Full-Stack Capability</h3>
                 <p className="text-white/60 leading-relaxed text-sm">
-                  From frontier research to enterprise deployment — we operate across the entire AI value chain without hand-offs between teams or vendors.
+                  From frontier research to enterprise deployment, we cover the entire AI value chain — no hand-offs between teams or vendors.
                 </p>
               </div>
             </Reveal>
@@ -541,7 +544,31 @@ export function Home() {
               <div className="glass p-8 h-full flex flex-col">
                 <h3 className="text-xl font-display font-bold mb-4 text-white">Outcome-Driven</h3>
                 <p className="text-white/60 leading-relaxed text-sm">
-                  We don't sell hours. We engineer outcomes. Every engagement is structured around measurable AI readiness milestones that the board can read.
+                  We don't sell hours, we engineer outcomes. Every engagement is structured around measurable readiness milestones leadership can read.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={180} variant="card">
+              <div className="glass p-8 h-full flex flex-col">
+                <h3 className="text-xl font-display font-bold mb-4 text-white">Research-Grounded</h3>
+                <p className="text-white/60 leading-relaxed text-sm">
+                  Our recommendations start from what the latest research proves is possible, not from what was trendy last quarter.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={240} variant="card">
+              <div className="glass p-8 h-full flex flex-col">
+                <h3 className="text-xl font-display font-bold mb-4 text-white">Production-Ready</h3>
+                <p className="text-white/60 leading-relaxed text-sm">
+                  A prototype that impresses in a demo is worthless if it breaks at scale. We build for the realities of production from day one.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={300} variant="card">
+              <div className="glass p-8 h-full flex flex-col">
+                <h3 className="text-xl font-display font-bold mb-4 text-white">Enterprise-Calibrated</h3>
+                <p className="text-white/60 leading-relaxed text-sm">
+                  Governance, compliance, and security aren't bolted on at the end. They're designed into every system we touch.
                 </p>
               </div>
             </Reveal>
