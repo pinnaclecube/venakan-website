@@ -202,31 +202,6 @@ export function Home() {
                 exit={cardMotion.exit}
                 transition={cardMotion.transition}
               >
-                {/* Live status indicator */}
-                <div className="inline-flex items-center gap-2">
-                  <span
-                    style={{
-                      width: 6,
-                      height: 6,
-                      borderRadius: "50%",
-                      background: "var(--green)",
-                      animation: "livePulse 2s infinite",
-                    }}
-                  />
-                  <span
-                    style={{
-                      fontFamily: "var(--mono)",
-                      fontSize: 10,
-                      fontWeight: 600,
-                      letterSpacing: "0.1em",
-                      textTransform: "uppercase",
-                      color: "var(--green)",
-                    }}
-                  >
-                    Pure AI · Research to Results
-                  </span>
-                </div>
-
                 <div className="flex flex-col gap-2 hero-h1-stack">
                   <h1
                     className="tracking-[-0.04em] leading-[1.05] hero-h1-line1"
@@ -370,26 +345,6 @@ export function Home() {
                   >
                     Start a conversation
                   </span>
-                  <div className="inline-flex items-center gap-2">
-                    <span
-                      style={{
-                        width: 6,
-                        height: 6,
-                        borderRadius: "50%",
-                        background: "var(--green)",
-                        animation: "livePulse 2s infinite",
-                      }}
-                    />
-                    <span
-                      style={{
-                        fontFamily: "var(--mono)",
-                        fontSize: 9,
-                        color: "var(--green)",
-                      }}
-                    >
-                      1-day response
-                    </span>
-                  </div>
                 </div>
 
                 <div className="p-6 md:p-7">
