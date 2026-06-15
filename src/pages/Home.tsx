@@ -148,11 +148,10 @@ export function Home() {
     <div className="w-full">
       {/* HERO */}
       <section className="hero-home relative min-h-[calc(100vh-56px)] flex items-center overflow-hidden pb-20">
-        {/* Pure-CSS animated background — Layers 1–5, no canvas/JS */}
+        {/* Photographic neural-network background + readability overlay */}
         <div aria-hidden className="hero-bg-base absolute inset-0 pointer-events-none" style={{ zIndex: 0 }} />
-        <div aria-hidden className="hero-orbs absolute inset-0 pointer-events-none" style={{ zIndex: 0 }} />
-        <div aria-hidden className="hero-dotgrid absolute inset-0 pointer-events-none" style={{ zIndex: 0 }} />
-        <div aria-hidden className="hero-shimmer absolute inset-0 pointer-events-none" style={{ zIndex: 0 }} />
+        <div aria-hidden className="hero-image absolute inset-0 pointer-events-none" style={{ zIndex: 0 }} />
+        <div aria-hidden className="hero-image-overlay absolute inset-0 pointer-events-none" style={{ zIndex: 0 }} />
         <div aria-hidden className="hero-vignette absolute inset-0 pointer-events-none" style={{ zIndex: 0 }} />
 
         <div className="container hero-grid relative grid grid-cols-1 lg:grid-cols-[1.85fr_1fr] gap-12 lg:gap-16 items-center" style={{ zIndex: 1 }}>

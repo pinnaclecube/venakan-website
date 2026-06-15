@@ -402,6 +402,19 @@
   background: radial-gradient(ellipse 100% 100% at 50% 50%, transparent 40%, rgba(15,23,42,0.60) 100%);
 }
 
+/* Hero photographic background (neural network image in public/images/) */
+.hero-image {
+  background-image: url("/images/hero-neural.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.hero-image-overlay {
+  background:
+    linear-gradient(90deg, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.62) 50%, rgba(15,23,42,0.84) 100%),
+    radial-gradient(ellipse 60% 55% at 24% 45%, rgba(52,211,153,0.06) 0%, transparent 70%);
+}
+
 @keyframes orbDriftSimple {
   0%   { transform: translate(0px, 0px) scale(1); }
   33%  { transform: translate(30px, -20px) scale(1.05); }
