@@ -1,6 +1,5 @@
 import { Link } from "wouter";
 import { Reveal } from "@/components/ui/Reveal";
-import { NeuralCanvas } from "@/components/ui/NeuralCanvas";
 import logoMark from "@/assets/venakan-logo.png";
 import { Fragment, useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
@@ -148,43 +147,13 @@ export function Home() {
   return (
     <div className="w-full">
       {/* HERO */}
-      <section className="hero-home relative min-h-[100dvh] flex items-center overflow-hidden pb-20">
-        {/* Layer 1 — animated gradient mesh */}
-        <div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            zIndex: 0,
-            background:
-              "radial-gradient(ellipse 80% 60% at 20% 40%, rgba(52,211,153,0.10) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 80% 20%, rgba(52,211,153,0.14) 0%, transparent 55%), radial-gradient(ellipse 40% 50% at 60% 80%, rgba(52,211,153,0.08) 0%, transparent 50%), var(--surface)",
-            animation: "meshDrift 10s ease-in-out infinite alternate",
-          }}
-        />
-        {/* Layer 2 — dot grid */}
-        <div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            zIndex: 0,
-            backgroundImage:
-              "radial-gradient(circle, rgba(52,211,153,0.12) 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-          }}
-        />
-        {/* Layer 3 — scan lines */}
-        <div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            zIndex: 0,
-            background:
-              "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(52,211,153,0.012) 3px, rgba(52,211,153,0.012) 4px)",
-          }}
-        />
-        {/* Layer 4 — NeuralCanvas */}
-        <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
-          <NeuralCanvas opacity={0.45} />
-        </div>
+      <section className="hero-home relative min-h-[calc(100vh-56px)] flex items-center overflow-hidden pb-20">
+        {/* Pure-CSS animated background — Layers 1–5, no canvas/JS */}
+        <div aria-hidden className="hero-bg-base absolute inset-0 pointer-events-none" style={{ zIndex: 0 }} />
+        <div aria-hidden className="hero-orbs absolute inset-0 pointer-events-none" style={{ zIndex: 0 }} />
+        <div aria-hidden className="hero-dotgrid absolute inset-0 pointer-events-none" style={{ zIndex: 0 }} />
+        <div aria-hidden className="hero-shimmer absolute inset-0 pointer-events-none" style={{ zIndex: 0 }} />
+        <div aria-hidden className="hero-vignette absolute inset-0 pointer-events-none" style={{ zIndex: 0 }} />
 
         <div className="container hero-grid relative grid grid-cols-1 lg:grid-cols-[1.85fr_1fr] gap-12 lg:gap-16 items-center" style={{ zIndex: 1 }}>
           {/* LEFT 65% — rotating hero cards */}
@@ -517,15 +486,18 @@ export function Home() {
       >
         <div className="container">
           <Reveal variant="heading">
-            <h2 className="text-4xl md:text-5xl font-display font-bold mb-16">We Don't Do IT. We Do AI.</h2>
+            <h2 className="text-4xl md:text-5xl font-display font-bold mb-5">Built for AI. Nothing else.</h2>
+            <p className="text-white/60 leading-relaxed text-lg max-w-2xl mb-16">
+              No legacy IT practice to unwind, no generalist playbook to adapt — every person and process here exists to ship AI.
+            </p>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <Reveal delay={0} variant="card">
               <div className="glass p-8 h-full flex flex-col">
                 <h3 className="text-xl font-display font-bold mb-4 text-white">AI-Only Focus</h3>
                 <p className="text-white/60 leading-relaxed text-sm">
-                  No legacy IT. No distraction. Every consultant, trainer, and developer on our team lives in AI — and has shipped it in production environments.
+                  No legacy IT, no distraction. Every consultant, trainer, and engineer here works in AI full-time and has shipped it in production.
                 </p>
               </div>
             </Reveal>
@@ -533,7 +505,7 @@ export function Home() {
               <div className="glass p-8 h-full flex flex-col">
                 <h3 className="text-xl font-display font-bold mb-4 text-white">Full-Stack Capability</h3>
                 <p className="text-white/60 leading-relaxed text-sm">
-                  From frontier research to enterprise deployment — we operate across the entire AI value chain without hand-offs between teams or vendors.
+                  From frontier research to enterprise deployment, we cover the entire AI value chain — no hand-offs between teams or vendors.
                 </p>
               </div>
             </Reveal>
@@ -541,7 +513,31 @@ export function Home() {
               <div className="glass p-8 h-full flex flex-col">
                 <h3 className="text-xl font-display font-bold mb-4 text-white">Outcome-Driven</h3>
                 <p className="text-white/60 leading-relaxed text-sm">
-                  We don't sell hours. We engineer outcomes. Every engagement is structured around measurable AI readiness milestones that the board can read.
+                  We don't sell hours, we engineer outcomes. Every engagement is structured around measurable readiness milestones leadership can read.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={180} variant="card">
+              <div className="glass p-8 h-full flex flex-col">
+                <h3 className="text-xl font-display font-bold mb-4 text-white">Research-Grounded</h3>
+                <p className="text-white/60 leading-relaxed text-sm">
+                  Our recommendations start from what the latest research proves is possible, not from what was trendy last quarter.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={240} variant="card">
+              <div className="glass p-8 h-full flex flex-col">
+                <h3 className="text-xl font-display font-bold mb-4 text-white">Production-Ready</h3>
+                <p className="text-white/60 leading-relaxed text-sm">
+                  A prototype that impresses in a demo is worthless if it breaks at scale. We build for the realities of production from day one.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={300} variant="card">
+              <div className="glass p-8 h-full flex flex-col">
+                <h3 className="text-xl font-display font-bold mb-4 text-white">Enterprise-Calibrated</h3>
+                <p className="text-white/60 leading-relaxed text-sm">
+                  Governance, compliance, and security aren't bolted on at the end. They're designed into every system we touch.
                 </p>
               </div>
             </Reveal>
