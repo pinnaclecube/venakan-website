@@ -1,6 +1,5 @@
 import { Link } from "wouter";
 import { Reveal } from "@/components/ui/Reveal";
-import { NeuralCanvas } from "@/components/ui/NeuralCanvas";
 import logoMark from "@/assets/venakan-logo.png";
 import { Fragment, useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
@@ -148,43 +147,13 @@ export function Home() {
   return (
     <div className="w-full">
       {/* HERO */}
-      <section className="hero-home relative min-h-[100dvh] flex items-center overflow-hidden pb-20">
-        {/* Layer 1 — animated gradient mesh */}
-        <div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            zIndex: 0,
-            background:
-              "radial-gradient(ellipse 80% 60% at 20% 40%, rgba(52,211,153,0.10) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 80% 20%, rgba(52,211,153,0.14) 0%, transparent 55%), radial-gradient(ellipse 40% 50% at 60% 80%, rgba(52,211,153,0.08) 0%, transparent 50%), var(--surface)",
-            animation: "meshDrift 10s ease-in-out infinite alternate",
-          }}
-        />
-        {/* Layer 2 — dot grid */}
-        <div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            zIndex: 0,
-            backgroundImage:
-              "radial-gradient(circle, rgba(52,211,153,0.12) 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-          }}
-        />
-        {/* Layer 3 — scan lines */}
-        <div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            zIndex: 0,
-            background:
-              "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(52,211,153,0.012) 3px, rgba(52,211,153,0.012) 4px)",
-          }}
-        />
-        {/* Layer 4 — NeuralCanvas */}
-        <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
-          <NeuralCanvas opacity={0.45} />
-        </div>
+      <section className="hero-home relative min-h-[calc(100vh-56px)] flex items-center overflow-hidden pb-20">
+        {/* Pure-CSS animated background — Layers 1–5, no canvas/JS */}
+        <div aria-hidden className="hero-bg-base absolute inset-0 pointer-events-none" style={{ zIndex: 0 }} />
+        <div aria-hidden className="hero-orbs absolute inset-0 pointer-events-none" style={{ zIndex: 0 }} />
+        <div aria-hidden className="hero-dotgrid absolute inset-0 pointer-events-none" style={{ zIndex: 0 }} />
+        <div aria-hidden className="hero-shimmer absolute inset-0 pointer-events-none" style={{ zIndex: 0 }} />
+        <div aria-hidden className="hero-vignette absolute inset-0 pointer-events-none" style={{ zIndex: 0 }} />
 
         <div className="container hero-grid relative grid grid-cols-1 lg:grid-cols-[1.85fr_1fr] gap-12 lg:gap-16 items-center" style={{ zIndex: 1 }}>
           {/* LEFT 65% — rotating hero cards */}

@@ -144,14 +144,17 @@ export function ServiceHero({
 
   return (
     <section
-      className="hero-service relative grid-bg-fine overflow-hidden"
+      className="hero-service relative overflow-hidden"
       style={{
-        background:
-          "radial-gradient(ellipse 60% 80% at 85% 50%, rgba(52,211,153,0.07) 0%, transparent 60%), radial-gradient(ellipse 40% 60% at 15% 30%, rgba(52,211,153,0.10) 0%, transparent 55%), var(--surface)",
+        background: "#0F172A",
         borderBottom: "1px solid var(--border)",
       }}
     >
-      <div className="container relative">
+      {/* Calm static background — base + dot grid + vignette (no animation) */}
+      <div aria-hidden className="hero-service-dotgrid absolute inset-0 pointer-events-none" style={{ zIndex: 0 }} />
+      <div aria-hidden className="hero-service-vignette absolute inset-0 pointer-events-none" style={{ zIndex: 0 }} />
+
+      <div className="container relative" style={{ zIndex: 1 }}>
         <div className="hero-service-grid grid grid-cols-1 lg:grid-cols-[58fr_42fr] gap-12 items-stretch">
           {/* LEFT */}
           <div className="flex flex-col">
