@@ -3,3 +3,4 @@ dist/
 .replit-artifact/
 .env
 .env.local
+.vercel

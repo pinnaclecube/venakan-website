@@ -58,6 +58,7 @@ export function Footer() {
             <h4 style={{ fontFamily: "var(--oswald)", fontWeight: 500, fontSize: "15px", color: "var(--white)", marginBottom: "16px" }}>Company</h4>
             <Link href="/about" className="transition-colors hover:!text-[var(--green)]" style={{ fontFamily: "var(--font)", fontSize: "13px", color: "var(--text-2)" }}>About Us</Link>
             <Link href="/resources" className="transition-colors hover:!text-[var(--green)]" style={{ fontFamily: "var(--font)", fontSize: "13px", color: "var(--text-2)" }}>Resources Hub</Link>
+            <Link href="/careers" className="transition-colors hover:!text-[var(--green)]" style={{ fontFamily: "var(--font)", fontSize: "13px", color: "var(--text-2)" }}>Careers</Link>
             <Link href="/contact" className="transition-colors hover:!text-[var(--green)]" style={{ fontFamily: "var(--font)", fontSize: "13px", color: "var(--text-2)" }}>Contact</Link>
             <a href="mailto:info@venakaninfo.com" className="transition-colors hover:!text-[var(--green)] mt-2" style={{ fontFamily: "var(--mono)", fontSize: "13px", color: "var(--text-2)" }}>info@venakaninfo.com</a>
           </div>
