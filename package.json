@@ -2,8 +2,8 @@
   "name": "@workspace/venakan",
   "version": "0.0.0",
   "engines": {
-  "node": "22.x"
-},
+    "node": "22.x"
+  },
   "private": true,
   "type": "module",
   "scripts": {
@@ -79,8 +79,4 @@
     "@supabase/supabase-js": "^2.108.2",
     "busboy": "^1.6.0"
   }
-<<<<<<< HEAD
- }
-=======
 }
->>>>>>> a589f3b8f4c90e53eabbe77b1032f85c564a97af
