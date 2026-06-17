@@ -93,7 +93,6 @@ export function Footer() {
           style={{ background: "var(--surface)", borderTop: "1px solid var(--border)" }}
         >
           <p style={{ fontFamily: "var(--mono)", fontSize: "11px", color: "var(--text-3)" }}>&copy; {new Date().getFullYear()} Venakan Info Solutions. All rights reserved.</p>
-          <p className="font-medium" style={{ fontFamily: "var(--mono)", color: "var(--green)" }}>Made with AI. Built for AI.</p>
           <div className="flex items-center gap-6">
             <Link href="/privacy" className="text-xs transition-colors hover:!text-[var(--green)]" style={{ color: "var(--text-3)" }}>Privacy</Link>
             <Link href="/disclaimer" className="text-xs transition-colors hover:!text-[var(--green)]" style={{ color: "var(--text-3)" }}>Disclaimer</Link>
