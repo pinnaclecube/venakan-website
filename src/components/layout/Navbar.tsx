@@ -29,6 +29,7 @@ export function Navbar() {
     { label: "AI Staffing", path: "/staffing" },
     { label: "Resources", path: "/resources" },
     { label: "About", path: "/about" },
+    { label: "Careers", path: "/careers" },
   ];
 
   return (

@@ -19,6 +19,7 @@ import { Development } from "@/pages/Development";
 import { Staffing } from "@/pages/Staffing";
 import { Resources } from "@/pages/Resources";
 import { About } from "@/pages/About";
+import { Careers } from "@/pages/Careers";
 import { Contact } from "@/pages/Contact";
 import { Privacy } from "@/pages/Privacy";
 import { Disclaimer } from "@/pages/Disclaimer";
@@ -54,6 +55,7 @@ function AppRouter() {
         <Route path="/resources/responsible-ai" component={Article6} />
 
         <Route path="/about" component={About} />
+        <Route path="/careers" component={Careers} />
         <Route path="/contact" component={Contact} />
         
         <Route path="/privacy" component={Privacy} />
