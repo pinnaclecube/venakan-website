@@ -4,6 +4,18 @@ This directory holds the database schema for the Careers feature. The careers
 serverless functions (`api/openings.ts`, `api/apply.ts`) talk to Supabase using
 the **service role key**, which bypasses Row Level Security.
 
+## Migrations — apply in order
+
+Apply **both** migrations (in the Supabase SQL editor or via the CLI) before the
+feature works. `0002` is additive and does not touch `0001`'s objects.
+
+- `migrations/0001_careers.sql` — `applications` table + private `resumes` bucket.
+- `migrations/0002_opening_content.sql` — `opening_content` table that caches the
+  AI-generated "witty" JD copy (one row per opening version). Without it, the
+  careers listing still renders (it falls back to the original Zinterview copy),
+  but every load would re-generate copy instead of using the cache. Same security
+  model: RLS enabled, no policies, service-role-only.
+
 ## What the migration does
 
 `migrations/0001_careers.sql`:

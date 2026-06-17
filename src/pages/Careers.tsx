@@ -11,6 +11,7 @@ type JobDetails = {
   educationIdeal?: string;
   totalOpenPositions?: number;
 };
+type Trait = { point: string; because?: string; dimension?: string };
 type Opening = {
   id: string;
   title: string;
@@ -19,6 +20,7 @@ type Opening = {
   maxExperience?: number;
   jobRequirementsAndResponsibilities?: string[];
   businessContext?: string;
+  behavioralTraits?: Trait[];
   skillsGroup?: SkillGroup[];
   jobDetails?: JobDetails | null;
 };
@@ -84,8 +86,24 @@ export function Careers() {
           </h1>
           <p className="text-white/60 leading-relaxed text-lg max-w-2xl">
             We hire practitioners who ship AI in production — not résumé keywords. If a role below
-            fits, apply directly; our team reviews every application.
+            fits, apply directly.
           </p>
+
+          {/* AI-agents review banner */}
+          <div
+            className="inline-flex items-center gap-2.5 mt-6"
+            style={{
+              background: "var(--green-dim)",
+              border: "1px solid var(--green-border)",
+              borderRadius: 9999,
+              padding: "8px 16px",
+            }}
+          >
+            <span aria-hidden style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--green)", flexShrink: 0 }} />
+            <span style={{ fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.03em", color: "var(--green)", lineHeight: 1.5 }}>
+              A team of AI agents reads every application around the clock — no résumé gathers dust here.
+            </span>
+          </div>
         </div>
       </section>
 
@@ -279,6 +297,25 @@ function OpeningCard({
             </div>
           )}
 
+          {opening.behavioralTraits && opening.behavioralTraits.length > 0 && (
+            <div style={{ marginBottom: 26 }}>
+              <h3 className="font-display text-lg mb-3">What we're really looking for</h3>
+              <ul className="flex flex-col gap-4">
+                {opening.behavioralTraits.map((t, i) => (
+                  <li key={i} className="flex flex-col gap-2">
+                    {t.dimension && (
+                      <span className="tag-green" style={{ alignSelf: "flex-start" }}>{t.dimension}</span>
+                    )}
+                    <span style={{ color: "var(--text-2)", fontSize: 14, lineHeight: 1.6 }}>
+                      {t.point}
+                      {t.because ? <span style={{ color: "var(--text-3)" }}> — {t.because}</span> : null}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           {!applying ? (
             <button type="button" className="btn-primary" onClick={() => setApplying(true)}>
               Apply for this role →
@@ -373,7 +410,8 @@ function ApplyForm({ opening, onCancel }: { opening: Opening; onCancel: () => vo
             Thanks — your application has been received.
           </p>
           <p style={{ color: "var(--text-2)", fontSize: 14 }}>
-            Our team reviews every application and will be in touch if there's a fit.
+            Our AI agents are already poring over it — tireless, thorough, and not the least bit
+            impressed by buzzwords. If there's a real fit, you'll hear from us.
           </p>
         </div>
       </div>
