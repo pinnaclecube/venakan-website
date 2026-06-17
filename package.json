@@ -1,6 +1,9 @@
 {
   "name": "@workspace/venakan",
   "version": "0.0.0",
+  "engines": {
+  "node": "22.x"
+}
   "private": true,
   "type": "module",
   "scripts": {
@@ -70,4 +73,4 @@
     "wouter": "^3.3.5",
     "zod": "^3.25.76"
   }
-}
+ }
