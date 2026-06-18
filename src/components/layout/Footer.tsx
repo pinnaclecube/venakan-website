@@ -31,14 +31,14 @@ export function Footer() {
               Built exclusively for AI. No legacy IT practice. No generalist consulting. Just AI &mdash; from day one.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full border flex items-center justify-center transition-all bg-[rgba(255,255,255,0.05)] border-[var(--border)] text-[var(--text-3)] hover:bg-[var(--blue-dim)] hover:border-[var(--blue-border)] hover:text-[#34D399]">
+              <a
+                href="https://www.linkedin.com/company/venakan/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Venakan on LinkedIn"
+                className="w-10 h-10 rounded-full border flex items-center justify-center transition-all bg-[rgba(255,255,255,0.05)] border-[var(--border)] text-[var(--text-3)] hover:bg-[var(--green-dim)] hover:border-[var(--green-border)] hover:text-[#34D399]"
+              >
                 in
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full border flex items-center justify-center transition-all bg-[rgba(255,255,255,0.05)] border-[var(--border)] text-[var(--text-3)] hover:bg-[var(--blue-dim)] hover:border-[var(--blue-border)] hover:text-[#34D399]">
-                x
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full border flex items-center justify-center transition-all bg-[rgba(255,255,255,0.05)] border-[var(--border)] text-[var(--text-3)] hover:bg-[var(--blue-dim)] hover:border-[var(--blue-border)] hover:text-[#34D399]">
-                gh
               </a>
             </div>
           </div>
