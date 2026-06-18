@@ -16,10 +16,10 @@ const INTERESTS = [
 
 const HERO_CARDS = [
   {
-    h1Line1: "Pure AI.",
-    h1Line2: "Research to Results.",
+    h1Line1: "Get AI-ready",
+    h1Line2: "before you spend a dollar building it.",
     subheading:
-      "Built exclusively for AI. No legacy IT practice, no generalist consulting. We go from the research that tells you what's possible to the engineering that makes it run in production.",
+      "Venakan is an AI-only firm helping mid-market organizations turn AI ambition into a clear, deployable strategy — then build it. No legacy baggage. No guesswork.",
     stats: [
       { value: "6", label: "Active R&D verticals" },
       { value: "5", label: "Integrated capabilities" },
