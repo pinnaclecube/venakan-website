@@ -31,7 +31,7 @@
 | Forms | React Hook Form `^7.55` + Zod `^3.25` (hero + Contact forms are local‑state mocks, see §12) |
 | Data | TanStack Query `^5.90` (provider mounted; minimal usage) |
 | Build out | `dist/` |
-| Node | 20.x |
+| Node | 22.x (pinned in `package.json` `engines`) |
 
 **Commands:** `npm run dev` (localhost:5173) · `npm run build` (production, also catches TS errors) · `npx tsc -p tsconfig.json --noEmit` (typecheck). This is a **Vite** project, not CRA.
 
