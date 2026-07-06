@@ -1,387 +1,347 @@
-# CLAUDE.md — Venakan Info Solutions Website
-# Read this file at the start of every session before making any changes.
+# Venakan Website — Project & UI/UX Guide
+
+> **Single source of truth** for the Venakan Info Solutions marketing site. Upload this to Claude as project knowledge. It describes the **current** state of the codebase — project facts, tech stack, routes, the full UI/UX design system, page/component specs, content rules, known issues, and deploy process.
+>
+> _Last updated: 2026‑07 · Branch: `claude/amazing-hypatia-7v2lT` · Live: https://venakaninfo.com_
+
+> **Theme in one line:** a **strict three‑colour dark system** — near‑black `#0F172A`, emerald green `#34D399` (the only accent), off‑white `#F1F5F9`. No blue, no violet, no UI gradients, no light/white surfaces. (Theme history: dark‑navy → light‑white → blue‑accent "RTM" → this green‑only system. Ignore any lingering blue/violet or light‑mode assumptions in older notes.)
 
 ---
 
-## Project Identity
+## 1. Project Identity
 
-**What this is:** Marketing website for Venakan Info Solutions LLC  
-**Live URL:** https://venakaninfo.com  
-**GitHub:** https://github.com/pinnaclecube/venakan-website  
-**Vercel:** venakan-main-website / venakan-website project  
-**Deploy:** Every push to `main` auto-deploys to venakaninfo.com via Vercel (~60 seconds)
+- **What it is:** Marketing website for **Venakan Info Solutions LLC**, an AI‑only firm.
+- **Live URL:** https://venakaninfo.com
+- **Repo:** https://github.com/pinnaclecube/venakan-website
+- **Hosting:** Vercel — every push to `main` auto‑deploys to venakaninfo.com (~60s). Framework: Vite, Output: `dist`, Root: `./`.
+- **Founder:** Arvind Kandula — Founder & CEO (also founder of DevCare Solutions and Pinnacle Cube).
+- **Company founded:** **2018.**
 
 ---
 
-## Tech Stack
+## 2. Tech Stack (actual versions in `package.json`)
 
 | Layer | Technology |
 |-------|-----------|
-| Framework | Vite + React 18 + TypeScript |
-| Routing | Wouter (not React Router) |
-| Styling | Tailwind CSS v4 + shadcn/ui components |
-| Animation | Framer Motion |
-| Icons | Lucide React |
-| Forms | React Hook Form + Zod validation |
-| Build output | dist/ |
-| Node | 20.x |
+| Framework | Vite `^7.3` + React `19.1.0` + TypeScript |
+| Routing | **Wouter** `^3.3` (not React Router) |
+| Styling | **Tailwind CSS v4** `^4.1` (via `@tailwindcss/vite`, **no `tailwind.config.js`**) + shadcn/ui |
+| Animation | **Framer Motion** `^12.23` + a custom `Reveal` scroll component |
+| Icons | Lucide React `^0.545` |
+| Forms | React Hook Form `^7.55` + Zod `^3.25` (hero + Contact forms are local‑state mocks, see §12) |
+| Data | TanStack Query `^5.90` (provider mounted; minimal usage) |
+| Build out | `dist/` |
+| Node | 22.x (pinned in `package.json` `engines`) |
 
-**Critical:** This is NOT Create React App. It is a Vite project.  
-Build command: `npm run build`  
-Output directory: `dist`  
-Dev command: `npm run dev`
+**Commands:** `npm run dev` (localhost:5173) · `npm run build` (production, also catches TS errors) · `npx tsc -p tsconfig.json --noEmit` (typecheck). This is a **Vite** project, not CRA.
 
 ---
 
-## Repository Structure
+## 3. Repository Structure
 
 ```
 /
-├── public/
-│   ├── logos/
-│   │   ├── Venakan_Logo-01.png   ← V mark icon only (favicon, hero)
-│   │   ├── Venakan_Logo-02.png   ← Full lockup V + wordmark ← PRIMARY
-│   │   ├── Venakan_Logo-03.png   ← White V + wordmark (backup)
-│   │   └── Venakan_Logo-04.png   ← Wordmark only
-│   └── images/
-│       └── arvind-kandula.jpg    ← Founder headshot (MISSING — needs upload)
+├── index.html                     ← meta tags + Google Fonts live here
+├── vercel.json                    ← SPA rewrite (see §11)
+├── public/                        ← favicon.svg, robots.txt, opengraph.jpg, images/
+├── api/                           ← serverless functions: apply.ts, openings.ts
 ├── src/
-│   ├── main.tsx                  ← Entry point
-│   ├── App.tsx                   ← Router + layout
-│   ├── index.css                 ← Global styles + CSS variables
+│   ├── main.tsx                   ← entry
+│   ├── App.tsx                    ← router + layout shell
+│   ├── index.css                  ← ALL global styles + CSS design tokens
+│   ├── assets/venakan-logo.png    ← BLACK wordmark; inverted to white via CSS (see §10)
 │   ├── components/
-│   │   ├── Navbar.tsx
-│   │   ├── Footer.tsx
-│   │   ├── NeuralCanvas.tsx      ← Animated canvas background
-│   │   ├── Reveal.tsx            ← Scroll animation wrapper
-│   │   ├── CookieBanner.tsx
-│   │   ├── ScrollProgress.tsx
-│   │   └── ServiceHero.tsx       ← Reusable hero for service pages
+│   │   ├── ServiceHero.tsx        ← reusable hero for service pages
+│   │   ├── StrategyProcessFlow.tsx← interactive process stepper (Strategy page)
+│   │   ├── layout/                ← Navbar, Footer, CookieBanner, ScrollProgress,
+│   │   │                            ScrollToTop, PageTransition, ArticleLayout
+│   │   └── ui/                    ← shadcn primitives + Reveal.tsx, NeuralCanvas.tsx
+│   ├── hooks/                     ← use-mobile, use-toast
+│   ├── lib/utils.ts
 │   └── pages/
-│       ├── Home.tsx
-│       ├── RD.tsx
-│       ├── Strategy.tsx
-│       ├── Training.tsx
-│       ├── Development.tsx
-│       ├── Staffing.tsx
-│       ├── Resources.tsx         ← Blog hub + 6 article components
-│       ├── About.tsx
-│       ├── Contact.tsx
-│       ├── Privacy.tsx
-│       ├── Disclaimer.tsx
-│       └── Terms.tsx
-├── index.html                    ← Meta tags live here
-├── package.json
-├── vite.config.ts
-├── tsconfig.json
-└── .gitignore
+│       ├── Home, RD, Strategy, Training, Development, Staffing
+│       ├── Resources, About, Careers, Contact
+│       ├── Privacy, Disclaimer, Terms, not-found
+│       └── resources/Article1..6.tsx
 ```
+
+> Layout components live under `src/components/layout/` and UI primitives under `src/components/ui/`.
 
 ---
 
-## Routes
+## 4. Routes
 
 ```
-/                    Home
-/rd                  AI R&D
-/strategy            AI Strategy
-/training            AI Training
-/development         AI Development
-/staffing            AI Staffing
-/resources           Resources hub
-/about               About
-/contact             Contact
-/privacy             Privacy Policy
-/disclaimer          Disclaimer
-/terms               Terms of Use
+/                Home
+/rd /strategy /training /development /staffing   Service pages
+/resources       Resources hub
+/about /careers /contact
+/privacy /disclaimer /terms   Legal
 
-/resources/why-ai-strategies-fail
-/resources/ai-readiness-scorecard
-/resources/agentic-vs-automation
-/resources/workforce-compliance-talent
-/resources/llm-production-survival
-/resources/responsible-ai
+/resources/why-ai-strategies-fail        Article1
+/resources/ai-readiness-scorecard        Article2
+/resources/agentic-vs-automation         Article3
+/resources/workforce-compliance-talent   Article4
+/resources/llm-production-survival       Article5
+/resources/responsible-ai                Article6
 ```
+
+App shell (`App.tsx`): `ScrollToTop` → `ScrollProgress` → `Navbar` → routed `main` (wrapped in `PageTransition`) → `Footer` → `CookieBanner`. Wouter `Switch`/`Route`; fallback → `NotFound`.
 
 ---
 
-## Brand — Never Deviate From These
+# UI/UX DESIGN SYSTEM
 
-### Tagline
-**"Pure AI. Research to Results."**  
-Old tagline "We Don't Adopt AI. We Build It." is permanently retired. Never reintroduce it.
+## 5. The One Rule
 
-### Eyebrow tag
-**"AI-First. Always."**
+**Three colours only, dark theme only.**
 
-### Colors
-```css
---navy:          #06070F   /* page background */
---navy-mid:      #0B0E1A
---navy-light:    #111626
---brand-blue:    #3B4BCC
---brand-violet:  #6B3FA8
---blue-bright:   #60A5FA
---violet-bright: #A78BFA
---cyan:          #06B6D4
---white:         #EEF2FF
---white-dim:     rgba(238,242,255,0.70)
---white-muted:   rgba(238,242,255,0.38)
---border:        rgba(238,242,255,0.07)
---border-mid:    rgba(238,242,255,0.13)
-```
+| | Hex | Role |
+|---|---|---|
+| Near‑black | `#0F172A` | Backgrounds & surfaces |
+| Emerald green | `#34D399` | The **single** accent — everything highlighted |
+| Off‑white | `#F1F5F9` | All text and hairline borders |
 
-### Typography
-```
-Display / Headings:  Syne 700 or 800
-Body:                Space Grotesk 300 / 400 / 500 / 600
-Labels / Mono:       JetBrains Mono
-```
-All loaded via Google Fonts in index.html.
+**No blue. No violet. No UI gradients. No light/white surfaces. No red** (the one sanctioned exception is amber `#FCD34D`, used *only* for the "pending/research" status badge).
+
+If a design instinct calls for a second accent colour, a light card, or a gradient button — it is wrong for this site. Express hierarchy with **depth** (three near‑black shades), **opacity** (off‑white steps), and **the green accent**, not with new hues. Green is a *single* accent — it is not split into "status vs CTA" (that was the previous blue‑accent system).
 
 ---
 
-## Key Design Patterns
+## 6. Colour Tokens
 
-### Glass card
-```css
-background: rgba(11,14,26,0.55);
-border: 1px solid rgba(238,242,255,0.07);
-backdrop-filter: blur(24px);
-border-radius: 16px;
+All tokens live in `:root` in `src/index.css`. Use these variables via inline `style={{ … var(--…) }}` or the global classes in §9 — **do not hard‑code hex values** in components.
+
+### Surfaces (three depths of near‑black)
+| Token | Value | Use |
+|---|---|---|
+| `--black` / `--bg` / `--surface` / `--bg-surface` | `#0F172A` | Base page background, deepest surface |
+| `--black-mid` / `--bg-base` | `#1E293B` | Raised surface — cards, alternating sections |
+| `--black-light` / `--bg-inset` | `#263348` | Hover depth / inset |
+
+### Accent (green — the only one)
+| Token | Value | Use |
+|---|---|---|
+| `--green` | `#34D399` | CTAs, active states, links, tags, stat values, status dots, focus rings, highlights |
+| `--green-dim` | `rgba(52,211,153,0.10)` | Green tint fills (hover, chips, callouts) |
+| `--green-border` | `rgba(52,211,153,0.20)` | Green hairline borders |
+
+### Text (off‑white at four opacities)
+| Token | Value | Use |
+|---|---|---|
+| `--text-1` / `--ink-primary` / `--white` | `#F1F5F9` | Primary text, headings |
+| `--text-2` / `--ink-secondary` | `rgba(241,245,249,0.70)` | Body copy |
+| `--text-3` / `--ink-tertiary` | `rgba(241,245,249,0.42)` | Labels, muted text, negative `✕` marks |
+| `--text-4` | `rgba(241,245,249,0.18)` | Inactive dots / disabled |
+
+### Borders
+| Token | Value | Use |
+|---|---|---|
+| `--border` | `rgba(241,245,249,0.08)` | Default hairline |
+| `--border-mid` | `rgba(241,245,249,0.14)` | Stronger hairline / inputs |
+
+### ⚠️ Tailwind v4 wiring — read before touching colours
+There is **no `tailwind.config.js`**. Colours are wired through `:root` + `@theme inline` in `index.css`.
+1. **`text-white` renders OFF‑WHITE.** `--color-white` is remapped to `#F1F5F9`, so existing `className="text-white"` / `text-white/70` and `bg-white/10`, `border-white/20` are **correct on the dark background — do not "fix" them.** (Any old note saying "text‑white renders dark ink" is stale.)
+2. **Legacy accent utilities are no‑ops.** `bg-navy`, `text-brand-blue`, `text-blue-bright`, `text-cyan`, `border-border-mid` emit no CSS (never registered in `@theme`). Real accents come from inline `style` vars and the global classes in §9. These dead class names remain in markup harmlessly — leave them to minimise churn.
+3. **Legacy aliases all collapse to the 3 colours** so old inline styles auto‑convert: `--brand-blue`, `--brand-violet`, `--cyan`, `--color-blue-bright`, `--color-violet-bright` → all `#34D399`; `--color-navy*` → the three blacks; `--white-dim/-muted` → off‑white @ .70/.42; `--light-base/-surface/-ink*` → remapped to dark (no light surfaces).
+4. shadcn tokens map straight through: `--color-primary: var(--green)`, `--color-primary-foreground: var(--black)`, `--color-ring: var(--green)`.
+
+---
+
+## 7. Typography
+
+Fonts are loaded in **both** `index.html` and `index.css`.
+
+| Family | Token | Role |
+|---|---|---|
+| **Oswald** (300–600) | `--oswald` / `--font-display` | Display & all headings (`h1–h4` are Oswald 500 globally) |
+| **Inter** (300–700) | `--font` / `--font-body` | Body copy, subheadings |
+| **JetBrains Mono** (400/600) | `--mono` | Labels, buttons, tags, badges, kickers, stat labels |
+
+**Heading defaults** (`h1–h4`): Oswald, weight 500, `letter-spacing: -0.01em`, `text-wrap: balance`, colour `--text-1`.
+
+**The mono micro‑label pattern** (buttons, tags, form labels, section kickers): JetBrains Mono, ~9–11px, weight 600–700, `letter-spacing: 0.08–0.12em`, `text-transform: uppercase`, colour green (or `--text-3` for muted labels). This is the site's signature "technical" texture — reach for it on any small metadata label.
+
+**Hero H1 two‑line pattern:** line 1 in off‑white (`--text-1`), line 2 in **`.gradient-text` (solid green)**. The green line carries the emphasis/differentiator. Both lines Oswald, tight tracking (`-0.04em`), `line-height: 1.05`.
+
+---
+
+## 8. Layout, Spacing & Motion
+
+| Element | Spec |
+|---|---|
+| Container | `.container` — `max-width: 1200px`, side padding `48px` (→ `24px` ≤768px) |
+| Section rhythm | `section { padding: 72px 0 }` (→ `48px` ≤768px) |
+| Hero top padding | `.hero-home` / `.hero-service` → `120px` top (→ `80px` ≤860px, `72px` ≤480px) |
+| Two‑column | `.two-col` grid, `gap: 64px`; variants `.two-col-55-45`, `.two-col-45-55`; collapses to 1 col + `gap: 32px` ≤700px |
+| Radius | `--r: 8px` (cards, buttons, inputs); pills use `9999px` |
+| Breakpoints | **860px** (hero grids → 1 col, hero right‑panel hidden), **768px** (container/section padding), **700px** (two‑col collapse), **480px** (hero line‑height) |
+| Scrollbar | 3px track (`--black`), **solid‑green** thumb |
+
+**Motion:**
+- **`Reveal`** (`components/ui/Reveal.tsx`) — scroll‑reveal wrapper with variants `heading` / `body` / `card`. Use it to stagger content into view. Respects `prefers-reduced-motion`.
+- **Framer Motion** drives the hero card crossfade (`AnimatePresence mode="wait"`) and `PageTransition`.
+- **`NeuralCanvas`** (`components/ui/NeuralCanvas.tsx`) — **green‑only** particle network (node `rgba(52,211,153,0.4)`, glow `0.08`, green lines, max line opacity 0.12). **Homepage hero only**, `opacity={0.45}`.
+- **Keyframes** in `index.css`: `orbDriftSimple` / `shimmer` (hero bg), `livePulse` / `pulse` (status dots), `scrollCue`, `orgPanelIn`, `meshDrift`.
+- **Reduced motion:** hero background animations stop; `.reveal` collapses to a 0.2s opacity fade with no transform. Always honour this when adding motion.
+
+---
+
+## 9. Component Specs (global classes in `index.css`)
+
+Prefer these classes over ad‑hoc styling so the system stays consistent.
+
+### Buttons
+- **`.btn-primary`** — **solid green** background, **black** text, JetBrains Mono 11px/700 uppercase, `letter-spacing: 0.08em`, padding `12px 22px`, radius 8. Hover: `opacity: 0.88` + `translateY(-1px)`. **Never a gradient.** The primary CTA everywhere ("Start the Conversation →", nav "Let's Talk AI →").
+- **`.btn-ghost`** — transparent, `1px solid var(--border-mid)`, off‑white text, same mono label style. Hover: green border + green text + `--green-dim` fill.
+
+### Cards
+- **`.glass`** — the default card: `background var(--black-mid)`, `1px solid var(--border)`, radius 8, `backdrop-filter: blur(16px)`. Hover: border → `--green-border`.
+- **`.bento-grid` / `.bento-cell`** — hairline‑separated grid (1px gaps over `--border`); cells `--black-mid`, hover `--black-light`. Featured cells can invert to **solid green with black text**.
+
+### Tags, badges & kickers
+- **`.tag` and every legacy variant** (`.tag-blue`, `.tag-green`, `.tag-violet`, `.tag-amber`, `.section-label`) all render the **same green pill**: `--green-dim` fill, `--green-border`, green mono 9px uppercase, radius pill.
+- **`.section-tag`** — green mono kicker (9px, `letter-spacing: 0.12em`), block, used above section headings.
+- **`.badge-active`** — green pill (live/active status).
+- **`.badge-pending`** — **amber `#FCD34D`** pill — the *only* sanctioned non‑palette colour, reserved for "pending / in‑research" status.
+- **`.badge-neutral`** — off‑white pill (`--border` fill, `--text-3` text).
+
+### Forms
+- **`.form-input`** — `rgba(241,245,249,0.05)` fill, `1px --border-mid`, radius 6, 13px Inter. Focus: green border, `--green-dim` fill, `box-shadow: 0 0 0 3px rgba(52,211,153,0.08)`. Placeholder `--text-3`.
+- **`.form-label`** — mono 9px uppercase, `--text-3`, `letter-spacing: 0.12em`.
+
+### Backgrounds & structure
+- **`.grid-bg` / `.grid-bg-fine`** — faint green line/dot grid (`rgba(52,211,153,0.05)`, 48px).
+- **`.section-dark` (`#0F172A`) / `.section-deep` (`#1E293B`)** — the two‑depth section alternation. **`.section-light` is neutralised to `#1E293B`** — there are no light surfaces.
+- **`.divider`** — 1px `--border` rule.
+- **`.gradient-text`** — despite the name, renders **solid green** (`color` + `-webkit-text-fill-color: var(--green)`). Used for hero/service H1 line 2.
+
+---
+
+## 10. Homepage Hero (`src/pages/Home.tsx`)
+
+**Layout:** left ~65% / right ~35% (`lg:grid-cols-[1.85fr_1fr]`); collapses to one column at ≤860px, where the right panel is hidden.
+
+**Layered dark background** (absolutely positioned, behind content):
+1. Green ambient‑glow radials + base (`.hero-orbs`, `orbDriftSimple` 20s)
+2. Green dot grid 28px (`.hero-dotgrid`)
+3. Diagonal green shimmer sweep (`.hero-shimmer`, 12s)
+4. Vignette (`.hero-vignette`); optional photographic `.hero-image` (neural network) with a green‑tinted overlay; plus green `NeuralCanvas` @0.45.
+
+**Left panel — auto‑rotating 5‑card carousel:**
+- Framer Motion `AnimatePresence mode="wait"` crossfade (reduced‑motion → 0.2s opacity).
+- **Auto‑advances every 2s; pauses on hover.** Dot indicators: active = green `24×6` pill, inactive = 6px `--text-4` dot; clicking a dot jumps and resets the timer.
+- A pulsing green **live‑status pill** sits above the H1.
+- Each card renders: **H1 line 1** (Oswald, off‑white) + **H1 line 2** (`.gradient-text`, solid green), an Oswald‑light subheading, a **3‑stat row** (green values, mono labels, hairline dividers), and `.btn-primary` + `.btn-ghost`.
+
+**The 5 cards (line 1 / line 2 → CTAs):**
+1. **"Get AI-ready" / "before you spend a dollar building it."** → /contact, /rd  *(latest copy; green line carries the "before you spend" differentiator)*
+2. "Enterprise AI." / "Built for the Midwest." → /strategy, /rd
+3. "AI Strategy." / "That Actually Ships." → /strategy
+4. "We Build AI." / "End to End." → /development
+5. "AI Talent." / "Vetted Against Real Delivery." → /staffing
+
+> Card 1 is shown on load, then the hero rotates 1→5 every 2s. When editing hero copy, change only the `HERO_CARDS` string values — the markup, timing, animation, and dot logic stay untouched.
+
+**Right panel — contact form card:** dark `.glass` with a **green 2px top border**, a green "live" badge header, green interest chips (active state), `.btn-primary` submit. Currently a **local‑state mock** (fake delay → success), not wired to a backend.
+
+**Sections below the hero:** two depths only (`--black` ↔ `--black-mid`). Capabilities use a **bento‑grid** with a green featured cell (AI R&D, black text). Article preview cards on `--black-mid`, green category tags.
+
+---
+
+## 11. Pages & Shared Components
+
+### Section headers / eyebrows — REMOVED
+All eyebrow kickers were removed site‑wide. `ServiceHero` has **no `eyebrow` prop, no breadcrumb, no card numbers**. Invariants: no `section-label`/`eyebrow` in markup. **Kept** (content): R&D status badges, interest chips, Resources filter pills, blog category tags, the hero "Live" badge.
+
+### Shared chrome
+- **Navbar** (`layout/Navbar.tsx`) — 56px frosted dark bar; **white logo** (black wordmark inverted via `filter: brightness(0) invert(1)`); hairline bottom separator; mono‑uppercase links (active = green); solid‑green **"Let's Talk AI →"** CTA (black text, hover opacity); Oswald mobile overlay.
+- **Footer** — dark (`--black`); Oswald column headings; links hover green; green newsletter `.btn-primary`; green "Made with AI."; dynamic `© {year}`. (No top logo/tagline banner — removed.)
+- **ScrollProgress** — **solid‑green** top bar (no gradient).
+- **CookieBanner** — dark glass, green link, green accept `.btn-primary`.
+- **ArticleLayout** — dark; green Oswald H2s; `text-2` prose; green left‑border callouts; green back link.
+
+### Pages
+- **`ServiceHero`** (RD/Strategy/Training/Development/Staffing/About). Props: `h1Line1`, `h1Line2` (green), `subhead`, `chips?` (green), `primaryCta` (→ /contact), `secondaryCta?` + `secondaryCtaTo?`, `rightPanel?` (hidden ≤860px), `stats?` (count‑up, green values). Layered green‑glow hero bg + `grid-bg-fine`; dark right‑panel card with green top accent. **No eyebrow / no card number.**
+- **`StrategyProcessFlow`** — interactive stepper (Strategy page), inline `<style>{spfCss}</style>`, fully dark with green accents.
+- **Resources** — dark hub; green‑tint featured card; article cards `--black-mid` → `--black-light` hover; green category tags; **solid‑green active filter pill (black text)**.
+- **About** — dark sections; founder quote card (green tint + green left border); values tiles (green "01–04"); **2‑column bento "What Venakan Is / Is Not"** — off‑white `✕` marks (no red) on the left, **green `✓` + green callout** on the right; "Founded **2018**" stat.
+- **Careers** — job openings + application flow; backed by `api/openings.ts` and `api/apply.ts`.
+- **Contact** — dark; `glass` form card; green success state; mock submit.
+- **Legal** (Privacy/Terms/Disclaimer) — dark hero band + prose; green H2s.
+
+### Routing note (SPA deep links)
+The site is a client‑side SPA (Wouter). `vercel.json` contains an SPA rewrite so direct URLs / refreshes on deep routes (e.g. `/careers`, `/about`) resolve to `index.html` and the router renders them — without it, only in‑app navigation works and direct hits 404. The rewrite **excludes `/api/*`** so serverless functions still resolve:
+
+```json
+{ "rewrites": [ { "source": "/((?!api/).*)", "destination": "/index.html" } ] }
 ```
 
-### Gradient text
-```css
-background: linear-gradient(135deg, #7DA3F8 0%, #9B7FEA 45%, #C084FC 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-```
-
-### Primary button
-```css
-background: linear-gradient(135deg, #3B4BCC, #6B3FA8);
-color: white;
-border-radius: 8px;
-padding: 14px 32px;
-```
-
-### Ghost button
-```css
-border: 1px solid rgba(238,242,255,0.13);
-border-radius: 8px;
-background: transparent;
-color: #EEF2FF;
-```
-
-### Section padding
-```css
-section { padding: 72px 0; }
-@media (max-width: 768px) { section { padding: 48px 0; } }
-```
-
-### Two-column grid
-```css
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 48px;
-/* collapses at 700px */
-@media (max-width: 700px) {
-  grid-template-columns: 1fr;
-  gap: 40px;
-}
-```
+Leave this in place; a missing SPA fallback is the usual cause of "works from the menu, 404 on direct link."
 
 ---
 
-## Homepage Hero — Critical Specs
+## 12. Positioning Language (current, stress‑tested)
 
-- **Layout:** 65% left (headline + content) / 35% right (contact form card)
-- **H1 line 1** "Pure AI." — `clamp(32px, 7vw, 104px)` — white — intentionally LARGER than line 2
-- **H1 line 2** "Research to Results." — `clamp(26px, 5.5vw, 80px)` — gradient-text class
-- **Grid collapses** to 1 column at `max-width: 860px`
-- **Right panel** (contact form) hidden on mobile below 860px
-- **paddingTop:** 120px desktop → 80px tablet → 72px mobile
+No "first and only" claims. Three approved lines, applied by context:
+- **Primary** — *"Built exclusively for AI. No legacy IT practice. No generalist consulting. Just AI — from day one."* → About Is/Is‑Not callout + hero.
+- **Secondary** — *"The only Midwest firm covering the full AI spectrum — R&D, Strategy, Training, Development, and Staffing — under one roof."* → hero Card 2 + About hero subhead.
+- **Market position** — *"Enterprise AI for organizations that global consulting firms price out and local IT firms underqualify for."* → About intro + Resources hero + hero Card 2.
 
----
-
-## ServiceHero Component
-
-All six service pages (RD, Strategy, Training, Development, Staffing, About) use the
-`ServiceHero` component. Props:
-
-```typescript
-eyebrow: string
-h1Line1: string
-h1Line2: string          // renders in gradient-text
-subhead: string
-chips: string[]          // max 3 proof/feature tags
-primaryCta: string       // always links to /contact
-secondaryCta: string     // ghost button
-secondaryCtaTo: string   // internal route or anchor
-rightPanel: ReactNode    // hidden on mobile
-stats: { value: string, label: string }[]  // count-up on scroll
-```
-
-Layout: 58% left / 42% right. Collapses at 860px. Right panel hidden on mobile.
+> **Legal note:** Named‑competitor references were removed — "McKinsey prices out…" → generic **"global consulting firms"**; the "McKinsey State of AI" citation → **"Industry State of AI research, 2024."** Two non‑company citations remain on About (*MIT Sloan Management Review, 2024*; *National Foundation for American Policy, 2023*).
 
 ---
 
-## Meta Tags — CONFIRMED LIVE AND CORRECT
+## 13. Brand Constants & Content Rules
 
-These are already fixed in index.html and live on the site. Do not change them
-unless specifically asked:
+- **Tagline:** "Pure AI. Research to Results." (Old "We Don't Adopt AI. We Build It." is permanently retired.)
+- **Five service lines:** AI R&D · AI Strategy · AI Training · AI Development · AI Staffing.
+- **Logo:** `src/assets/venakan-logo.png` is the **BLACK** wordmark, displayed **white** via CSS `filter: brightness(0) invert(1)`. Applied in Navbar, Home final‑CTA, and About. The footer logo banner was removed.
+- **Social/contact:** LinkedIn `linkedin.com/company/venakaninfo` · X `twitter.com/venakaninfo` · `info@venakaninfo.com`.
+- **Meta (`index.html`):** title "Venakan Info Solutions | Pure AI. Research to Results."; AI‑only description; canonical `https://venakaninfo.com`; **`theme-color #0F172A`**.
 
-```html
-<title>Venakan Info Solutions | Pure AI. Research to Results.</title>
-<meta name="description" content="Venakan Info Solutions is an AI-only company
-  specializing in R&D, Strategy, Training, Development, and Staffing.
-  We build the AI capability your organization runs on — from research to production.">
-<meta property="og:title" content="Venakan Info Solutions | Pure AI. Research to Results.">
-<meta property="og:url" content="https://venakaninfo.com">
-<meta property="og:image" content="https://venakaninfo.com/logos/Venakan_Logo-02.png">
-<meta name="twitter:site" content="@venakaninfo">
-<meta name="theme-color" content="#06070F">
-<link rel="canonical" href="https://venakaninfo.com">
-```
+**Content rules (in force):**
+1. **No immigration/visa language** — use "workforce compliance verification", "employment eligibility", "HR compliance".
+2. **No fake social proof** — no invented logos/testimonials/avatar rows.
+3. **No named‑competitor disparagement** (see §12).
+4. Compliance content carries: *"This is for engagement planning only. It is not legal advice."*
 
 ---
 
-## Outstanding Items (fix in this order)
+## 14. Design Do / Don't
 
-### CRITICAL — affects every visitor right now
-- [ ] **Calendly URL** — every "Schedule a Call" button links to `https://calendly.com`
-      (the Calendly homepage, not Arvind's booking link). Find all instances in
-      Contact.tsx, About.tsx, and any CTA sections. Replace with real URL.
-      Real URL: [Arvind to provide from calendly.com account]
+**Do**
+- Build hierarchy from the three near‑black depths + off‑white opacity steps + the green accent.
+- Reuse the global classes (`.btn-primary`, `.glass`, `.tag`, `.form-input`, …) and CSS tokens.
+- Use the mono‑uppercase micro‑label for any small metadata/label.
+- Keep the hero H1 two‑line pattern (off‑white line 1, green line 2).
+- Honour `prefers-reduced-motion` on anything animated.
 
-- [ ] **Formspree form ID** — Contact form has `YOUR_FORM_ID` placeholder.
-      Go to formspree.io → create account → New Form → copy ID.
-      Replace in Contact.tsx: `https://formspree.io/f/YOUR_FORM_ID`
-
-### HIGH — fix this week
-- [ ] **Hero social proof** — avatar row with fake initials (AK, RJ, MS, PL).
-      Replace entire row with:
-      `"Currently accepting new strategy and development engagements."`
-      Font: JetBrains Mono 12px, color white-muted. No avatar circles.
-
-- [ ] **Article publish dates + author** — all 6 articles have no date or byline.
-      Add to each: `"Arvind Kandula · Venakan Research · May 2025"`
-      Style: font-mono 11px white-muted, below the article title.
-
-- [ ] **About page headshot** — showing "AK" initials circle.
-      Upload photo to `public/images/arvind-kandula.jpg`
-      Update About.tsx to use `<img src="/images/arvind-kandula.jpg">`
-
-### MEDIUM — fix this month
-- [ ] **Homepage hero subheading** — still somewhat generic.
-      Replace with: "Most organizations have an AI strategy. Very few have an AI
-      capability. Venakan builds the capability — from the research that tells you
-      what's possible to the engineering that makes it run in production."
-
-- [ ] **"What Happens Next" section** — missing on all service pages.
-      Add above footer CTA on each service page:
-      Step 1: "We review your inquiry and respond within 1 business day."
-      Step 2: "30-minute AI readiness conversation — no slides, no pitch."
-      Step 3: "We share a proposed engagement scope within 5 business days."
-
-- [ ] **Engagement Models section** — missing on service pages.
-      Add 3 tiers: Diagnostic (fixed scope), Advisory (retainer), Enterprise (custom).
-      No dollar amounts needed — just the structure.
-
-- [ ] **LinkedIn company page** — not yet activated.
-      linkedin.com/company/venakaninfo needs to be set up and active.
-      Post all 6 blog articles there.
-
-- [ ] **Article share buttons** — no LinkedIn/X share buttons on articles.
-      Add at the bottom of each article.
-
-- [ ] **Blog article dates** — confirmed missing. See HIGH priority above.
+**Don't**
+- Introduce a second accent colour, a gradient on a UI element, a light/white surface, or red.
+- Hard‑code hex values in components — use the tokens.
+- "Fix" `text-white` / `bg-white/10` (they render off‑white on purpose) or add utilities for the no‑op legacy class names.
+- Re‑add eyebrow kickers, breadcrumbs, or hero card numbers.
+- Change hero timing, animation, or dot logic when only the copy needs to change.
 
 ---
 
-## Content Rules — Always Follow
+## 15. Known Issues / Open Items
 
-1. **No immigration/visa language anywhere** — no H-1B, LCA, I-9, OPT, visa,
-   immigration, work authorization. Use instead:
-   - "workforce compliance verification"
-   - "employment eligibility"
-   - "compliance-sensitive talent"
-   - "HR compliance"
-
-2. **No fake social proof** — no invented client logos, case studies, testimonials,
-   or avatar rows with made-up initials.
-
-3. **White text on dark backgrounds** — use `#EEF2FF` (--white), never opacity-reduced
-   text for main content. Muted text uses --white-muted for secondary/label content only.
-
-4. **Regulatory disclaimer** — any compliance-related content must include:
-   *"This is for engagement planning only. It is not legal advice."*
-
-5. **Tagline consistency** — "Pure AI. Research to Results." everywhere.
-   Never "We Don't Adopt AI. We Build It." — that is permanently retired.
+- **Contact / hero forms are front‑end mocks** — no backend wired (Formspree ID still a placeholder). The Careers apply flow uses `api/apply.ts`.
+- **"Schedule a Call" / Calendly** — real booking link still needed.
+- **Founder headshot** — About uses a placeholder; `public/images/arvind-kandula.jpg` not present.
+- **Dead no‑op colour utility class names** (`bg-navy*`, `text-brand-blue`, etc.) remain in markup (harmless; left to minimise churn).
+- **shadcn `toast` primitive** still carries its default red "destructive" styling (`ui/toast.tsx`); never triggered on the site, so left as‑is — strictly the one component that could show a non‑palette colour.
+- **Bundle size** — JS chunk >500 kB (Framer Motion); Vite prints a chunk‑size *warning* (not an error).
 
 ---
 
-## Deployment Workflow
+## 16. Working Agreement / Deploy
 
-```bash
-# Make changes locally
-npm run dev          # preview at localhost:5173
-
-# Ship to production
-git add .
-git commit -m "Description of what changed"
-git push             # Vercel auto-deploys, live in ~60 seconds
-```
-
-**Never push directly to main without testing locally first.**  
-Use `npm run build` to catch TypeScript errors before pushing.
-
----
-
-## DNS (GoDaddy — confirmed working — do not touch)
-
-| Type | Name | Value | Purpose |
-|------|------|-------|---------|
-| A | @ | 76.76.21.21 | Vercel |
-| CNAME | www | cname.vercel-dns.com | Vercel www |
-| TXT | _vercel | vc-domain-verify=... | Vercel ownership |
-| MX | @ | Microsoft 365 | Email — NEVER TOUCH |
-| TXT | @ | v=spf1 ... | Email SPF — NEVER TOUCH |
-
----
-
-## Venakan Company Context
-
-**Five service lines:**
-1. AI R&D — proprietary products across healthcare, legal, HR, finance, logistics, compliance
-2. AI Strategy — AI roadmaps that lead to deployed systems, not just presentations
-3. AI Training — role-specific from executive boardroom to developer sprint teams
-4. AI Development — AI-native apps, pipelines, agentic systems, documented handoffs
-5. AI Staffing — practitioners vetted against Venakan's own delivery benchmarks
-
-**Founder:** Arvind Kandula — Founder & CEO, Venakan Info Solutions LLC  
-Also founder of DevCare Solutions and Pinnacle Cube.  
-LinkedIn: https://linkedin.com/in/arvindkandula
-
-**Social:**
-- LinkedIn: https://linkedin.com/company/venakaninfo
-- Twitter/X: https://twitter.com/venakaninfo
-- Email: info@venakaninfo.com
-
----
-
-## What NOT to Change Without Being Asked
-
-- Meta tags in index.html (already correct and live)
-- DNS records
-- The `dist/` build output (generated automatically)
-- The `.gitignore` file
-- Vercel build settings (Framework: Vite, Output: dist, Root: ./)
-
----
-
-*Last updated: June 2026 — post Replit → Vercel migration*
-*Repo: github.com/pinnaclecube/venakan-website*
+- Develop locally, verify with `npm run build` (zero TS errors) before pushing.
+- Push → Vercel auto‑deploys to production in ~60s. **Never push untested to `main`.**
+- DNS (GoDaddy) and email (Microsoft 365 MX/SPF) records are configured — **do not touch**.
+- Do not change without being asked: meta tags, DNS, `dist/`, `.gitignore`, Vercel build settings.
+- **Colour rule going forward:** three colours only — `#0F172A`, `#34D399`, `#F1F5F9`. No blue/violet, no UI gradients, no light surfaces. (The amber `badge-pending` is the single sanctioned exception.)

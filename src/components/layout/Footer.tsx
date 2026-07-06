@@ -31,14 +31,14 @@ export function Footer() {
               Built exclusively for AI. No legacy IT practice. No generalist consulting. Just AI &mdash; from day one.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full border flex items-center justify-center transition-all bg-[rgba(255,255,255,0.05)] border-[var(--border)] text-[var(--text-3)] hover:bg-[var(--blue-dim)] hover:border-[var(--blue-border)] hover:text-[#34D399]">
+              <a
+                href="https://www.linkedin.com/company/venakan/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Venakan on LinkedIn"
+                className="w-10 h-10 rounded-full border flex items-center justify-center transition-all bg-[rgba(255,255,255,0.05)] border-[var(--border)] text-[var(--text-3)] hover:bg-[var(--green-dim)] hover:border-[var(--green-border)] hover:text-[#34D399]"
+              >
                 in
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full border flex items-center justify-center transition-all bg-[rgba(255,255,255,0.05)] border-[var(--border)] text-[var(--text-3)] hover:bg-[var(--blue-dim)] hover:border-[var(--blue-border)] hover:text-[#34D399]">
-                x
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full border flex items-center justify-center transition-all bg-[rgba(255,255,255,0.05)] border-[var(--border)] text-[var(--text-3)] hover:bg-[var(--blue-dim)] hover:border-[var(--blue-border)] hover:text-[#34D399]">
-                gh
               </a>
             </div>
           </div>
@@ -93,7 +93,6 @@ export function Footer() {
           style={{ background: "var(--surface)", borderTop: "1px solid var(--border)" }}
         >
           <p style={{ fontFamily: "var(--mono)", fontSize: "11px", color: "var(--text-3)" }}>&copy; {new Date().getFullYear()} Venakan Info Solutions. All rights reserved.</p>
-          <p className="font-medium" style={{ fontFamily: "var(--mono)", color: "var(--green)" }}>Made with AI. Built for AI.</p>
           <div className="flex items-center gap-6">
             <Link href="/privacy" className="text-xs transition-colors hover:!text-[var(--green)]" style={{ color: "var(--text-3)" }}>Privacy</Link>
             <Link href="/disclaimer" className="text-xs transition-colors hover:!text-[var(--green)]" style={{ color: "var(--text-3)" }}>Disclaimer</Link>
