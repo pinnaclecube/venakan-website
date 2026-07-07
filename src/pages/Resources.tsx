@@ -22,7 +22,7 @@ export function Resources() {
 
   return (
     <div className="pt-[90px]">
-      <section className="py-20 md:py-32 relative grid-bg-fine overflow-hidden" style={{ background: "radial-gradient(ellipse 60% 80% at 85% 50%, rgba(52,211,153,0.07), transparent 60%), radial-gradient(ellipse 40% 60% at 15% 30%, rgba(52,211,153,0.10), transparent 55%), var(--surface)" }}>
+      <section className="pt-20 md:pt-32 pb-[25px] relative grid-bg-fine overflow-hidden" style={{ background: "radial-gradient(ellipse 60% 80% at 85% 50%, rgba(52,211,153,0.07), transparent 60%), radial-gradient(ellipse 40% 60% at 15% 30%, rgba(52,211,153,0.10), transparent 55%), var(--surface)" }}>
         <div className="container relative z-10 text-center">
           <Reveal variant="heading">
             <h1 className="text-5xl md:text-7xl font-display font-bold mb-6">
@@ -38,7 +38,7 @@ export function Resources() {
         </div>
       </section>
 
-      <section className="py-12 border-b border-border-mid" style={{ background: "var(--bg-surface)" }}>
+      <section className="py-[25px] border-b border-border-mid" style={{ background: "var(--bg-surface)" }}>
         <div className="container">
           <Reveal variant="card">
             <div className="flex flex-wrap justify-center gap-3">
@@ -65,7 +65,7 @@ export function Resources() {
         </div>
       </section>
 
-      <section className="py-20" style={{ background: "var(--bg)" }}>
+      <section className="py-[25px]" style={{ background: "var(--bg)" }}>
         <div className="container">
           {activeFilter === "All" && (
             <Reveal delay={100} variant="card" className="mb-16">
@@ -113,7 +113,7 @@ export function Resources() {
         </div>
       </section>
 
-      <section className="py-24" style={{ background: "linear-gradient(135deg, rgba(52,211,153,0.05), rgba(52,211,153,0.05))", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
+      <section className="py-[25px]" style={{ background: "linear-gradient(135deg, rgba(52,211,153,0.05), rgba(52,211,153,0.05))", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
         <div className="container max-w-3xl text-center">
           <Reveal variant="heading">
             <h2 className="text-3xl font-display font-bold mb-8" style={{ color: "var(--ink-primary)" }}>Stay Ahead of the AI Curve.</h2>

@@ -111,12 +111,12 @@
     text-wrap: balance;
     color: var(--text-1);
   }
-  section { padding: 72px 0; }
-  @media (max-width: 768px) { section { padding: 48px 0; } }
+  /* Uniform 50px gap between sections → 25px top + 25px bottom per section */
+  section { padding: 25px 0; }
 
   /* Hero responsive padding-top */
   section.hero-service, section.hero-home { padding-top: 120px; }
-  section.hero-service { padding-bottom: 48px; }
+  section.hero-service { padding-bottom: 25px; }
   @media (max-width: 860px) {
     section.hero-service, section.hero-home { padding-top: 80px; }
   }

@@ -172,7 +172,7 @@ Fonts are loaded in **both** `index.html` and `index.css`.
 | Element | Spec |
 |---|---|
 | Container | `.container` — `max-width: 1200px`, side padding `48px` (→ `24px` ≤768px) |
-| Section rhythm | `section { padding: 72px 0 }` (→ `48px` ≤768px) |
+| Section rhythm | `section { padding: 25px 0 }` → a uniform **50px gap between sections** (25px top + 25px bottom stack). A page's first/hero section keeps its large top padding for navbar clearance; only its bottom is 25px. |
 | Hero top padding | `.hero-home` / `.hero-service` → `120px` top (→ `80px` ≤860px, `72px` ≤480px) |
 | Two‑column | `.two-col` grid, `gap: 64px`; variants `.two-col-55-45`, `.two-col-45-55`; collapses to 1 col + `gap: 32px` ≤700px |
 | Radius | `--r: 8px` (cards, buttons, inputs); pills use `9999px` |
