@@ -11,7 +11,7 @@ export function Contact() {
 
   return (
     <div className="pt-[90px]">
-      <section className="py-20 md:py-24 grid-bg-fine border-b border-border-mid" style={{ background: "var(--bg-surface)" }}>
+      <section className="pt-20 md:pt-24 pb-[25px] grid-bg-fine border-b border-border-mid" style={{ background: "var(--bg-surface)" }}>
         <div className="container">
           <Reveal variant="heading">
             <h1 className="text-5xl md:text-7xl font-display font-bold mb-6">Start the Conversation.</h1>
@@ -22,7 +22,7 @@ export function Contact() {
         </div>
       </section>
 
-      <section className="py-24" style={{ background: "var(--bg-base)" }}>
+      <section className="py-[25px]" style={{ background: "var(--bg-base)" }}>
         <div className="container">
           <div className="grid lg:grid-cols-[1.2fr_1fr] gap-16">
             

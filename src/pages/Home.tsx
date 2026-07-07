@@ -147,7 +147,7 @@ export function Home() {
   return (
     <div className="w-full">
       {/* HERO */}
-      <section className="hero-home relative min-h-[calc(100vh-56px)] flex items-center overflow-hidden pb-20">
+      <section className="hero-home relative min-h-[calc(100vh-56px)] flex items-center overflow-hidden pb-[25px]">
         {/* Photographic neural-network background + readability overlay */}
         <div aria-hidden className="hero-bg-base absolute inset-0 pointer-events-none" style={{ zIndex: 0 }} />
         <div aria-hidden className="hero-image absolute inset-0 pointer-events-none" style={{ zIndex: 0 }} />
@@ -480,7 +480,7 @@ export function Home() {
 
       {/* SEC 2: The Venakan Difference */}
       <section
-        className="py-24 md:py-32 relative z-10"
+        className="py-[25px] relative z-10"
         style={{ background: "var(--surface)" }}
       >
         <div className="container">
@@ -546,7 +546,7 @@ export function Home() {
 
       {/* SEC 3: Five Capabilities */}
       <section
-        className="py-24 md:py-32"
+        className="py-[25px]"
         style={{ background: "var(--bg)" }}
       >
         <div className="container">
@@ -590,7 +590,7 @@ export function Home() {
       </section>
 
       {/* SEC 4: Organization Spectrum */}
-      <section className="section-light py-24" style={{ background: "var(--light-base)" }}>
+      <section className="section-light py-[25px]" style={{ background: "var(--light-base)" }}>
         <div className="container">
           <Reveal variant="heading">
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-4 text-center">We Serve Every Layer of Your Organization</h2>
@@ -603,7 +603,7 @@ export function Home() {
       </section>
 
       {/* SEC 5: Resources Preview */}
-      <section className="py-24" style={{ background: "var(--surface)" }}>
+      <section className="py-[25px]" style={{ background: "var(--surface)" }}>
         <div className="container">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
             <Reveal variant="heading">
@@ -653,7 +653,7 @@ export function Home() {
 
       {/* SEC 6: Final CTA */}
       <section
-        className="py-32 relative overflow-hidden"
+        className="py-[25px] relative overflow-hidden"
         style={{
           background:
             "linear-gradient(135deg, rgba(52,211,153,0.06), rgba(52,211,153,0.08)), var(--surface)",
