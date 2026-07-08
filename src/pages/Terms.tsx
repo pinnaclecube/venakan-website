@@ -2,7 +2,7 @@ import { Reveal } from "@/components/ui/Reveal";
 
 export function Terms() {
   return (
-    <div className="pt-[96px]">
+    <div className="w-full">
       <section className="py-20 bg-[var(--bg-surface)] grid-bg border-b border-border-mid">
         <div className="container max-w-3xl text-center">
           <Reveal variant="heading">

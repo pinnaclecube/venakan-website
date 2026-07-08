@@ -49,7 +49,7 @@ export function Development() {
   ];
 
   return (
-    <div className="pt-[96px]">
+    <div className="w-full">
       <ServiceHero
         h1Line1="We Engineer AI."
         h1Line2="End to End."
