@@ -312,6 +312,9 @@
     box-shadow: 0 0 0 3px rgba(52,211,153,0.08);
   }
   .form-input::placeholder { color: var(--text-3); }
+  /* Native <select> options render in the OS popup; the translucent green focus
+     fill otherwise tints them. Force readable black text on an off-white popup. */
+  .form-input option { color: var(--black); background-color: var(--white); }
 
   .form-label {
     font-family: var(--mono);
