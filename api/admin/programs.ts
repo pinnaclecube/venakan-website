@@ -1,6 +1,31 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { createClient } from "@supabase/supabase-js";
-import { requireAdmin } from "../../lib/admin-auth";
+import { timingSafeEqual } from "node:crypto";
+
+// Inline admin gate (x-admin-key vs ADMIN_PASSWORD, constant-time). Kept inline
+// per file so Vercel doesn't need to resolve a shared module across api/ — an
+// external relative import isn't reliably bundled into the ESM function.
+function requireAdmin(req: VercelRequest, res: VercelResponse): boolean {
+  const expected = process.env.ADMIN_PASSWORD;
+  if (!expected) {
+    console.error("[admin] ADMIN_PASSWORD is not set");
+    res.status(500).json({ error: "Server is not configured." });
+    return false;
+  }
+  const raw = req.headers["x-admin-key"];
+  const provided = Array.isArray(raw) ? raw[0] : raw;
+  if (!provided) {
+    res.status(401).json({ error: "Unauthorized." });
+    return false;
+  }
+  const a = Buffer.from(provided, "utf8");
+  const b = Buffer.from(expected, "utf8");
+  if (a.length !== b.length || !timingSafeEqual(a, b)) {
+    res.status(401).json({ error: "Unauthorized." });
+    return false;
+  }
+  return true;
+}
 
 // Vercel serverless function (Node). Admin-only CRUD on training_programs.
 // GET (all, incl. drafts) · POST (create) · PATCH (update) · DELETE (FK-guarded).
