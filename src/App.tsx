@@ -16,6 +16,8 @@ import { RD } from "@/pages/RD";
 import { Strategy } from "@/pages/Strategy";
 import { Training } from "@/pages/Training";
 import { TrainingRegister } from "@/pages/TrainingRegister";
+import { TrainingProgram } from "@/pages/TrainingProgram";
+import { AdminTraining } from "@/pages/AdminTraining";
 import { Development } from "@/pages/Development";
 import { Staffing } from "@/pages/Staffing";
 import { Resources } from "@/pages/Resources";
@@ -45,6 +47,7 @@ function AppRouter() {
         <Route path="/strategy" component={Strategy} />
         <Route path="/training/register" component={TrainingRegister} />
         <Route path="/training" component={Training} />
+        <Route path="/training/:slug" component={TrainingProgram} />
         <Route path="/development" component={Development} />
         <Route path="/staffing" component={Staffing} />
         
@@ -60,6 +63,8 @@ function AppRouter() {
         <Route path="/careers" component={Careers} />
         <Route path="/contact" component={Contact} />
         
+        <Route path="/admin/training" component={AdminTraining} />
+
         <Route path="/privacy" component={Privacy} />
         <Route path="/disclaimer" component={Disclaimer} />
         <Route path="/terms" component={Terms} />
