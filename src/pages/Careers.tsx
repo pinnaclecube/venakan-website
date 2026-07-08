@@ -76,7 +76,7 @@ export function Careers() {
   }, []);
 
   return (
-    <div className="pt-[90px]">
+    <div className="pt-[96px]">
       {/* Header */}
       <section style={{ background: "var(--black-mid)", borderBottom: "1px solid var(--border)" }}>
         <div className="container">

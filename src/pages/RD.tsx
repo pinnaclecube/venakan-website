@@ -51,7 +51,7 @@ function VerticalsPanel() {
 
 export function RD() {
   return (
-    <div className="pt-[90px]">
+    <div className="pt-[96px]">
       <ServiceHero
         h1Line1="We Build"
         h1Line2="AI Products."

@@ -10,7 +10,7 @@ export function Contact() {
   };
 
   return (
-    <div className="pt-[90px]">
+    <div className="pt-[96px]">
       <section className="pt-20 md:pt-24 pb-[25px] grid-bg-fine border-b border-border-mid" style={{ background: "var(--bg-surface)" }}>
         <div className="container">
           <Reveal variant="heading">

@@ -39,7 +39,7 @@ function EntryPointsPanel() {
 
 export function Strategy() {
   return (
-    <div className="pt-[90px]">
+    <div className="pt-[96px]">
       <ServiceHero
         h1Line1="Turn AI from Buzzword"
         h1Line2="to Business Advantage."
