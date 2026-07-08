@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
 import { Reveal } from "@/components/ui/Reveal";
 import { ServiceHero } from "@/components/ServiceHero";
 
@@ -47,6 +48,49 @@ function TracksPanel() {
         Compare Both Tracks →
       </Link>
     </div>
+  );
+}
+
+// Teaser near the bottom of the Training page: pulls published tracks from
+// /api/programs and links to the registration flow.
+function TrainingInterestTeaser() {
+  const { data } = useQuery<{ programs: { slug: string; name: string }[] }>({
+    queryKey: ["training-programs"],
+    queryFn: async () => {
+      const res = await fetch("/api/programs");
+      if (!res.ok) throw new Error("Failed to load training programs");
+      return res.json();
+    },
+    staleTime: 5 * 60 * 1000,
+  });
+  const programs = data?.programs ?? [];
+
+  return (
+    <section style={{ background: "var(--black-mid)" }}>
+      <div className="container">
+        <Reveal variant="heading">
+          <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
+            Register your interest in a track.
+          </h2>
+          <p className="text-lg text-white/70 leading-relaxed max-w-2xl mb-7">
+            Pick the program that fits, share a few details, and we'll follow up with curriculum,
+            schedule, and next steps.
+          </p>
+        </Reveal>
+        {programs.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-8">
+            {programs.map((p) => (
+              <span key={p.slug} className="tag">
+                {p.name}
+              </span>
+            ))}
+          </div>
+        )}
+        <Link href="/training/register" className="btn-primary">
+          Register Your Interest &rarr;
+        </Link>
+      </div>
+    </section>
   );
 }
 
@@ -163,6 +207,8 @@ export function Training() {
           </Reveal>
         </div>
       </section>
+
+      <TrainingInterestTeaser />
     </div>
   );
 }
