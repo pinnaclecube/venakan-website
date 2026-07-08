@@ -15,6 +15,7 @@ import { Home } from "@/pages/Home";
 import { RD } from "@/pages/RD";
 import { Strategy } from "@/pages/Strategy";
 import { Training } from "@/pages/Training";
+import { TrainingRegister } from "@/pages/TrainingRegister";
 import { Development } from "@/pages/Development";
 import { Staffing } from "@/pages/Staffing";
 import { Resources } from "@/pages/Resources";
@@ -42,6 +43,7 @@ function AppRouter() {
         <Route path="/" component={Home} />
         <Route path="/rd" component={RD} />
         <Route path="/strategy" component={Strategy} />
+        <Route path="/training/register" component={TrainingRegister} />
         <Route path="/training" component={Training} />
         <Route path="/development" component={Development} />
         <Route path="/staffing" component={Staffing} />
