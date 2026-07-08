@@ -82,7 +82,7 @@ const ARE_LIST = [
 
 export function About() {
   return (
-    <div className="pt-[96px]">
+    <div className="w-full">
       {/* SECTION 1 — HERO */}
       <ServiceHero
         h1Line1="One Focus."

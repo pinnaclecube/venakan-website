@@ -50,7 +50,7 @@ export function Staffing() {
   ];
 
   return (
-    <div className="pt-[96px]">
+    <div className="w-full">
       <ServiceHero
         h1Line1="AI Talent."
         h1Line2="Vetted Against Real Delivery."

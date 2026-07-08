@@ -21,7 +21,7 @@ export function Resources() {
     : articles.filter(a => a.tag === activeFilter);
 
   return (
-    <div className="pt-[96px]">
+    <div className="w-full">
       <section className="pt-20 md:pt-32 pb-[25px] relative grid-bg-fine overflow-hidden" style={{ background: "radial-gradient(ellipse 60% 80% at 85% 50%, rgba(52,211,153,0.07), transparent 60%), radial-gradient(ellipse 40% 60% at 15% 30%, rgba(52,211,153,0.10), transparent 55%), var(--surface)" }}>
         <div className="container relative z-10 text-center">
           <Reveal variant="heading">

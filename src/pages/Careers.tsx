@@ -76,9 +76,9 @@ export function Careers() {
   }, []);
 
   return (
-    <div className="pt-[96px]">
+    <div className="w-full">
       {/* Header */}
-      <section style={{ background: "var(--black-mid)", borderBottom: "1px solid var(--border)" }}>
+      <section className="pt-24" style={{ background: "var(--black-mid)", borderBottom: "1px solid var(--border)" }}>
         <div className="container">
           <span className="section-tag">Careers</span>
           <h1 className="text-4xl md:text-6xl font-display font-bold mb-5">
