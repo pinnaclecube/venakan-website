@@ -111,12 +111,12 @@ function TracksGrid() {
   const programs = data?.programs ?? [];
 
   return (
-    <section id="tracks" className="scroll-mt-24" style={{ background: "var(--bg-surface)" }}>
+    <section id="programs" className="scroll-mt-24" style={{ background: "var(--bg-surface)" }}>
       <div className="container">
         <Reveal variant="heading">
-          <h2 className="text-3xl md:text-4xl font-display font-bold mb-3">Training programs</h2>
+          <h2 className="text-3xl md:text-4xl font-display font-bold mb-3">Current Open Programs</h2>
           <p className="text-lg text-white/70 max-w-2xl mb-10">
-            Purpose-built programs for leaders and builders. Explore each track's full specification.
+            Programs currently open for registration. Explore each one's full specification.
           </p>
         </Reveal>
         {isLoading ? (
@@ -164,6 +164,82 @@ export function Training() {
           { value: "1", label: "Day executive intensive" },
         ]}
       />
+
+      <section id="tracks" className="scroll-mt-24" style={{ background: "var(--bg-surface)" }}>
+        <div className="container">
+          <Reveal variant="heading">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-3">Program Tracks</h2>
+            <p className="text-lg text-white/70 max-w-2xl mb-10">
+              Two purpose-built tracks — executive decision-makers and technical builders.
+            </p>
+          </Reveal>
+          <div className="grid md:grid-cols-2 gap-7">
+            <Reveal delay={0} className="h-full" variant="card">
+              <div className="glass p-7 h-full border-t-4 border-t-brand-blue flex flex-col">
+                <div className="tag tag-blue mb-3 self-start">Track 1</div>
+                <h3 className="text-3xl font-display font-bold mb-2">Executive & Leadership</h3>
+                <p className="text-sm font-mono text-white/50 mb-6 uppercase tracking-widest">Audience: C-Suite, VPs, Directors</p>
+
+                <div className="mb-6 p-4 bg-[rgba(52,211,153,0.1)] rounded-lg text-blue-bright text-sm font-medium">
+                  1-2 Day Intensive Program
+                </div>
+
+                <ul className="flex flex-col gap-3 mb-7 flex-grow">
+                  {[
+                    "Separating AI capabilities from vendor hype",
+                    "Structuring organizational AI governance",
+                    "Evaluating ROI on Agentic vs Automation projects",
+                    "Risk modeling for LLM deployments",
+                    "Change management for AI adoption",
+                  ].map((t) => (
+                    <li key={t} className="flex items-start gap-3">
+                      <span className="text-brand-blue mt-1">✓</span>
+                      <span className="text-white/80 text-sm">{t}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="border border-border-mid rounded-lg p-5">
+                  <h4 className="font-display font-bold text-sm mb-2 text-white/60 uppercase tracking-wide">Outcome</h4>
+                  <p className="text-sm">Leaders capable of confidently sponsoring, evaluating, and governing enterprise AI initiatives.</p>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={60} className="h-full" variant="card">
+              <div className="glass p-7 h-full border-t-4 border-t-brand-violet flex flex-col">
+                <div className="tag tag-violet mb-3 self-start">Track 2</div>
+                <h3 className="text-3xl font-display font-bold mb-2">Technical & Engineering</h3>
+                <p className="text-sm font-mono text-white/50 mb-6 uppercase tracking-widest">Audience: Developers, Architects</p>
+
+                <div className="mb-6 p-4 bg-[rgba(52,211,153,0.1)] rounded-lg text-violet-bright text-sm font-medium">
+                  Multi-Week Project-Based Cohort
+                </div>
+
+                <ul className="flex flex-col gap-3 mb-7 flex-grow">
+                  {[
+                    "LLM architecture and prompt engineering",
+                    "Building robust RAG (Retrieval-Augmented Generation) pipelines",
+                    "Implementing evaluation metrics for probabilistic systems",
+                    "Agentic tool calling and reasoning loops",
+                    "Productionizing and monitoring AI services",
+                  ].map((t) => (
+                    <li key={t} className="flex items-start gap-3">
+                      <span className="text-brand-violet mt-1">✓</span>
+                      <span className="text-white/80 text-sm">{t}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="border border-border-mid rounded-lg p-5">
+                  <h4 className="font-display font-bold text-sm mb-2 text-white/60 uppercase tracking-wide">Outcome</h4>
+                  <p className="text-sm">Engineering teams equipped to independently build, deploy, and maintain production AI applications.</p>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
 
       <TracksGrid />
 
