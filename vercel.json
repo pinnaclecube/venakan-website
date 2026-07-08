@@ -1,5 +1,8 @@
 {
   "rewrites": [
     { "source": "/((?!api/).*)", "destination": "/index.html" }
-  ]
+  ],
+  "functions": {
+    "api/admin/save-spec.ts": { "memory": 1024, "maxDuration": 60 }
+  }
 }

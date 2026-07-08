@@ -76,7 +76,11 @@
     "zod": "^3.25.76"
   },
   "dependencies": {
+    "@sparticuz/chromium": "^149.0.0",
     "@supabase/supabase-js": "^2.108.2",
-    "busboy": "^1.6.0"
+    "busboy": "^1.6.0",
+    "marked": "^18.0.5",
+    "puppeteer-core": "^25.3.0",
+    "react-markdown": "^10.1.0"
   }
 }
