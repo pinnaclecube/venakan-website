@@ -12,7 +12,7 @@ interface ArticleLayoutProps {
 
 export function ArticleLayout({ tag, tagColor, title, time, children }: ArticleLayoutProps) {
   return (
-    <div className="pt-[90px]">
+    <div className="pt-[96px]">
       {/* Short hero */}
       <section className="py-20 grid-bg" style={{ background: "var(--surface)", borderBottom: "1px solid var(--border)" }}>
         <div className="container max-w-4xl">

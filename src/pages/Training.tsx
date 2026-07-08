@@ -52,7 +52,7 @@ function TracksPanel() {
 
 export function Training() {
   return (
-    <div className="pt-[90px]">
+    <div className="pt-[96px]">
       <ServiceHero
         h1Line1="AI Fluency."
         h1Line2="For Every Role."

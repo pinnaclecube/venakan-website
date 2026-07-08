@@ -174,6 +174,7 @@ Fonts are loaded in **both** `index.html` and `index.css`.
 | Container | `.container` — `max-width: 1200px`, side padding `48px` (→ `24px` ≤768px) |
 | Section rhythm | `section { padding: 25px 0 }` → a uniform **50px gap between sections** (25px top + 25px bottom stack). A page's first/hero section keeps its large top padding for navbar clearance; only its bottom is 25px. |
 | Hero top padding | `.hero-home` / `.hero-service` → `120px` top (→ `80px` ≤860px, `72px` ≤480px) |
+| Inner-page header→hero gap | Every non-home page (and `ArticleLayout`) wraps content in a **`pt-[96px]`** div → a **40px** gap below the fixed 56px navbar before the hero. (Home clears the navbar via its own hero padding.) |
 | Two‑column | `.two-col` grid, `gap: 64px`; variants `.two-col-55-45`, `.two-col-45-55`; collapses to 1 col + `gap: 32px` ≤700px |
 | Radius | `--r: 8px` (cards, buttons, inputs); pills use `9999px` |
 | Breakpoints | **860px** (hero grids → 1 col, hero right‑panel hidden), **768px** (container/section padding), **700px** (two‑col collapse), **480px** (hero line‑height) |
