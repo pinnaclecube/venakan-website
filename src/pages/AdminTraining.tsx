@@ -723,11 +723,167 @@ function OptionsPanel({ adminFetch }: { adminFetch: AdminFetch }) {
   );
 }
 
+// ── Registrations ───────────────────────────────────────────────────────────
+type Registration = {
+  id: string;
+  created_at: string | null;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  linkedin_url: string | null;
+  program_id: string;
+  program_name: string;
+  experience_label: string;
+  eligibility_label: string;
+  resume_url: string | null;
+};
+
+function RegistrationsPanel({ adminFetch }: { adminFetch: AdminFetch }) {
+  const [rows, setRows] = useState<Registration[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [programFilter, setProgramFilter] = useState("all");
+
+  const load = useCallback(async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await adminFetch("/api/admin/registrations");
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data?.error || "Failed to load registrations.");
+      setRows(data.registrations ?? []);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to load registrations.");
+    } finally {
+      setLoading(false);
+    }
+  }, [adminFetch]);
+
+  useEffect(() => {
+    load();
+  }, [load]);
+
+  const programNames = Array.from(new Set(rows.map((r) => r.program_name))).sort();
+  const filtered = programFilter === "all" ? rows : rows.filter((r) => r.program_name === programFilter);
+
+  const th: React.CSSProperties = {
+    textAlign: "left",
+    padding: "12px 14px",
+    fontFamily: "var(--mono)",
+    fontSize: 9,
+    letterSpacing: "0.12em",
+    textTransform: "uppercase",
+    color: "var(--text-3)",
+    whiteSpace: "nowrap",
+  };
+  const td: React.CSSProperties = { padding: "12px 14px", color: "var(--text-2)", whiteSpace: "nowrap" };
+
+  return (
+    <div className="flex flex-col gap-5">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <h2 className="text-xl font-display font-bold">
+          Registrations{!loading && !error ? ` (${filtered.length})` : ""}
+        </h2>
+        <div className="flex items-center gap-2">
+          <select
+            className="form-input"
+            style={{ width: "auto" }}
+            value={programFilter}
+            onChange={(e) => setProgramFilter(e.target.value)}
+          >
+            <option value="all">All programs</option>
+            {programNames.map((n) => (
+              <option key={n} value={n}>
+                {n}
+              </option>
+            ))}
+          </select>
+          <button onClick={load} className="btn-ghost" style={{ fontSize: 9 }} disabled={loading}>
+            Refresh
+          </button>
+        </div>
+      </div>
+
+      {loading && <p style={{ color: "var(--text-3)", fontFamily: "var(--mono)", fontSize: 12 }}>Loading…</p>}
+      {error && <p style={{ color: "var(--text-2)", fontSize: 13 }}>{error}</p>}
+
+      {!loading && !error && (
+        <div className="glass overflow-x-auto">
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+            <thead>
+              <tr style={{ borderBottom: "1px solid var(--border)" }}>
+                {["Date", "Name", "Email", "Phone", "Program", "Experience", "Eligibility", "LinkedIn", "Résumé"].map(
+                  (h) => (
+                    <th key={h} style={th}>
+                      {h}
+                    </th>
+                  )
+                )}
+              </tr>
+            </thead>
+            <tbody>
+              {filtered.map((r) => (
+                <tr key={r.id} style={{ borderBottom: "1px solid var(--border)" }}>
+                  <td style={td}>{fmtDate(r.created_at)}</td>
+                  <td style={{ ...td, color: "var(--text-1)", fontWeight: 600 }}>
+                    {r.first_name} {r.last_name}
+                  </td>
+                  <td style={td}>
+                    <a href={`mailto:${r.email}`} style={{ color: "var(--green)" }}>
+                      {r.email}
+                    </a>
+                  </td>
+                  <td style={td}>{r.phone}</td>
+                  <td style={td}>{r.program_name}</td>
+                  <td style={td}>{r.experience_label}</td>
+                  <td style={td}>{r.eligibility_label}</td>
+                  <td style={td}>
+                    {r.linkedin_url ? (
+                      <a href={r.linkedin_url} target="_blank" rel="noreferrer" style={{ color: "var(--green)" }}>
+                        Profile
+                      </a>
+                    ) : (
+                      "—"
+                    )}
+                  </td>
+                  <td style={td}>
+                    {r.resume_url ? (
+                      <a
+                        href={r.resume_url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn-ghost"
+                        style={{ fontSize: 9, padding: "6px 12px" }}
+                      >
+                        Download
+                      </a>
+                    ) : (
+                      "—"
+                    )}
+                  </td>
+                </tr>
+              ))}
+              {filtered.length === 0 && (
+                <tr>
+                  <td colSpan={9} style={{ padding: "20px 14px", color: "var(--text-3)" }}>
+                    No registrations{programFilter === "all" ? " yet" : " for this program"}.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Root ────────────────────────────────────────────────────────────────────
 export function AdminTraining() {
   const [adminKey, setAdminKey] = useState<string>(() => sessionStorage.getItem(KEY_STORAGE) || "");
   const [authed, setAuthed] = useState<boolean>(() => Boolean(sessionStorage.getItem(KEY_STORAGE)));
-  const [tab, setTab] = useState<"programs" | "options">("programs");
+  const [tab, setTab] = useState<"programs" | "registrations" | "options">("programs");
 
   const adminFetch = useCallback<AdminFetch>(
     async (path, options = {}) => {
@@ -779,6 +935,13 @@ export function AdminTraining() {
               Programs
             </button>
             <button
+              onClick={() => setTab("registrations")}
+              className={tab === "registrations" ? "btn-primary" : "btn-ghost"}
+              style={{ fontSize: 10 }}
+            >
+              Registrations
+            </button>
+            <button
               onClick={() => setTab("options")}
               className={tab === "options" ? "btn-primary" : "btn-ghost"}
               style={{ fontSize: 10 }}
@@ -791,7 +954,13 @@ export function AdminTraining() {
 
       <section className="py-[25px]" style={{ background: "var(--bg-base)" }}>
         <div className="container">
-          {tab === "programs" ? <ProgramsPanel adminFetch={adminFetch} /> : <OptionsPanel adminFetch={adminFetch} />}
+          {tab === "programs" ? (
+            <ProgramsPanel adminFetch={adminFetch} />
+          ) : tab === "registrations" ? (
+            <RegistrationsPanel adminFetch={adminFetch} />
+          ) : (
+            <OptionsPanel adminFetch={adminFetch} />
+          )}
         </div>
       </section>
     </div>
