@@ -132,17 +132,18 @@ function ProgramEditor({
   const [msg, setMsg] = useState("");
   const [err, setErr] = useState("");
 
-  // Generate path
-  const [brief, setBrief] = useState("");
-  const [generating, setGenerating] = useState(false);
-  const [genShort, setGenShort] = useState("");
-  const [genMd, setGenMd] = useState(program?.spec_markdown ?? "");
-  const [savingSpec, setSavingSpec] = useState(false);
-
-  // Upload path
+  // Upload path — a PDF is the source of truth for a program.
   const [uploadFile, setUploadFile] = useState<File | null>(null);
   const [uploadErr, setUploadErr] = useState("");
   const [uploading, setUploading] = useState(false);
+  const [hasPdf, setHasPdf] = useState<boolean>(
+    Boolean(program?.spec_doc_path && /\.pdf$/i.test(program.spec_doc_path))
+  );
+
+  // Course summary — a short, Coursera-style summary generated from the PDF.
+  const [summaryMd, setSummaryMd] = useState(program?.spec_markdown ?? "");
+  const [creatingSummary, setCreatingSummary] = useState(false);
+  const [savingSummary, setSavingSummary] = useState(false);
 
   const flash = (m: string) => {
     setMsg(m);
@@ -184,63 +185,61 @@ function ProgramEditor({
     }
   };
 
-  const generate = async () => {
+  const createSummary = async () => {
     if (!id) {
-      fail("Save the program basics first, then generate.");
+      fail("Save the program and upload a PDF first.");
       return;
     }
-    if (!brief.trim()) {
-      fail("Enter a brief to generate from.");
+    if (!hasPdf) {
+      fail("Upload a PDF first, then create the course summary.");
       return;
     }
-    setGenerating(true);
+    setCreatingSummary(true);
     setErr("");
     setMsg("");
     try {
-      const res = await adminFetch("/api/admin/generate-spec", {
+      const res = await adminFetch("/api/admin/generate-summary", {
         method: "POST",
-        body: JSON.stringify({ programId: id, brief }),
+        body: JSON.stringify({ programId: id }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        fail(data?.error || "Generation failed.");
+        fail(data?.error || "Could not create the summary.");
         return;
       }
-      setGenShort(data.short_description ?? "");
-      setGenMd(data.spec_markdown ?? "");
-      flash("Draft generated — review and edit below, then Save & Render PDF.");
+      setSummaryMd(data.summary ?? "");
+      flash("Course summary generated — review and edit, then publish.");
     } catch (e) {
-      fail(e instanceof Error ? e.message : "Generation failed.");
+      fail(e instanceof Error ? e.message : "Could not create the summary.");
     } finally {
-      setGenerating(false);
+      setCreatingSummary(false);
     }
   };
 
-  const saveSpec = async () => {
+  const publishSummary = async () => {
     if (!id) return;
-    if (!genShort.trim() || !genMd.trim()) {
-      fail("Both a short description and spec markdown are required.");
+    if (!summaryMd.trim()) {
+      fail("Generate or write a course summary first.");
       return;
     }
-    setSavingSpec(true);
+    setSavingSummary(true);
     setErr("");
     setMsg("");
     try {
-      const res = await adminFetch("/api/admin/save-spec", {
-        method: "POST",
-        body: JSON.stringify({ programId: id, short_description: genShort, spec_markdown: genMd }),
+      const res = await adminFetch("/api/admin/programs", {
+        method: "PATCH",
+        body: JSON.stringify({ id, spec_markdown: summaryMd }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        fail(data?.error || "Could not save the spec.");
+        fail(data?.error || "Could not publish the summary.");
         return;
       }
-      setShortDesc(genShort);
-      flash("Spec saved and PDF rendered.");
+      flash("Course summary published to the program.");
     } catch (e) {
-      fail(e instanceof Error ? e.message : "Could not save the spec.");
+      fail(e instanceof Error ? e.message : "Could not publish the summary.");
     } finally {
-      setSavingSpec(false);
+      setSavingSummary(false);
     }
   };
 
@@ -251,15 +250,12 @@ function ProgramEditor({
     }
     setUploadErr("");
     if (!uploadFile) {
-      setUploadErr("Choose a PDF or DOCX file.");
+      setUploadErr("Choose a PDF file.");
       return;
     }
-    const okType =
-      ["application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"].includes(
-        uploadFile.type
-      ) || /\.(pdf|docx)$/i.test(uploadFile.name);
+    const okType = uploadFile.type === "application/pdf" || /\.pdf$/i.test(uploadFile.name);
     if (!okType) {
-      setUploadErr("File must be a PDF or DOCX.");
+      setUploadErr("File must be a PDF.");
       return;
     }
     if (uploadFile.size > 5 * 1024 * 1024) {
@@ -276,7 +272,7 @@ function ProgramEditor({
           short_description: shortDesc,
           fileBase64,
           filename: uploadFile.name,
-          mimeType: uploadFile.type,
+          mimeType: uploadFile.type || "application/pdf",
         }),
       });
       const data = await res.json().catch(() => ({}));
@@ -284,7 +280,8 @@ function ProgramEditor({
         setUploadErr(data?.error || "Upload failed.");
         return;
       }
-      flash("Spec uploaded.");
+      setHasPdf(true);
+      flash("PDF uploaded. Now create the course summary.");
     } catch (e) {
       setUploadErr(e instanceof Error ? e.message : "Upload failed.");
     } finally {
@@ -356,80 +353,81 @@ function ProgramEditor({
 
       {!id && (
         <p style={{ color: "var(--text-3)", fontSize: 13 }}>
-          Create the program above to unlock spec generation and upload.
+          Create the program above to upload a PDF and create a course summary.
         </p>
       )}
 
       {id && (
         <>
-          {/* Generate path */}
+          {/* Step 1 — Upload the program PDF (source of truth) */}
           <div className="glass p-6 md:p-8 flex flex-col gap-4" style={{ borderTop: "2px solid var(--green)" }}>
             <div>
-              <span className="section-tag">Path A · Generate with AI</span>
-              <h3 className="text-lg font-display font-bold">Generate a spec from a brief</h3>
-            </div>
-            <div>
-              <label className="form-label">Brief</label>
-              <textarea
-                className="form-input"
-                rows={4}
-                value={brief}
-                onChange={(e) => setBrief(e.target.value)}
-                placeholder="Describe the audience, goals, level, duration, and any tools/topics to cover…"
-              />
-            </div>
-            <button onClick={generate} className="btn-primary self-start" disabled={generating}>
-              {generating ? "Generating…" : "Generate with AI"}
-            </button>
-
-            {(genShort || genMd) && (
-              <div className="flex flex-col gap-4">
-                <div>
-                  <label className="form-label">Short description (editable)</label>
-                  <input className="form-input" value={genShort} onChange={(e) => setGenShort(e.target.value)} />
-                </div>
-                <div>
-                  <label className="form-label">Spec markdown (raw / rendered)</label>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <textarea
-                      className="form-input font-mono"
-                      style={{ minHeight: 360, fontSize: 12 }}
-                      value={genMd}
-                      onChange={(e) => setGenMd(e.target.value)}
-                    />
-                    <div
-                      className="prose prose-invert max-w-none p-4 rounded-md overflow-auto"
-                      style={{ minHeight: 360, maxHeight: 480, background: "var(--black)", border: "1px solid var(--border)" }}
-                    >
-                      <ReactMarkdown>{genMd}</ReactMarkdown>
-                    </div>
-                  </div>
-                </div>
-                <button onClick={saveSpec} className="btn-primary self-start" disabled={savingSpec}>
-                  {savingSpec ? "Saving & rendering…" : "Save & Render PDF"}
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* Upload path */}
-          <div className="glass p-6 md:p-8 flex flex-col gap-4">
-            <div>
-              <span className="section-tag">Path B · Upload a document</span>
-              <h3 className="text-lg font-display font-bold">Upload an existing spec (PDF or DOCX)</h3>
+              <span className="section-tag">Step 1 · Upload PDF</span>
+              <h3 className="text-lg font-display font-bold">Upload the program PDF</h3>
             </div>
             <input
               type="file"
-              accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+              accept=".pdf,application/pdf"
               className="form-input"
               onChange={(e) => setUploadFile(e.target.files?.[0] ?? null)}
             />
-            <button onClick={upload} className="btn-ghost self-start" disabled={uploading}>
-              {uploading ? "Uploading…" : "Upload Spec"}
-            </button>
+            <div className="flex items-center gap-3">
+              <button onClick={upload} className="btn-primary self-start" disabled={uploading}>
+                {uploading ? "Uploading…" : "Upload PDF"}
+              </button>
+              {hasPdf && <span className="badge-active">PDF uploaded</span>}
+            </div>
             {uploadErr && (
               <span style={{ color: "var(--green)", fontFamily: "var(--mono)", fontSize: 11 }}>{uploadErr}</span>
             )}
+          </div>
+
+          {/* Step 2 — Course summary generated from the PDF */}
+          <div className="glass p-6 md:p-8 flex flex-col gap-4">
+            <div>
+              <span className="section-tag">Step 2 · Course Summary</span>
+              <h3 className="text-lg font-display font-bold">Create a course summary from the PDF</h3>
+              <p style={{ color: "var(--text-3)", fontSize: 13, marginTop: 4 }}>
+                A short, Coursera-style overview generated from the uploaded PDF. Edit it, then publish it to the
+                program.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <button
+                onClick={createSummary}
+                className="btn-ghost self-start"
+                disabled={creatingSummary || !hasPdf}
+              >
+                {creatingSummary ? "Creating…" : "Create Course Summary"}
+              </button>
+              {!hasPdf && (
+                <span style={{ color: "var(--text-3)", fontSize: 12 }}>Upload a PDF first to enable this.</span>
+              )}
+            </div>
+
+            <div>
+              <label className="form-label">Course summary (raw / rendered)</label>
+              <div className="grid md:grid-cols-2 gap-4">
+                <textarea
+                  className="form-input font-mono"
+                  style={{ minHeight: 320, fontSize: 12 }}
+                  value={summaryMd}
+                  onChange={(e) => setSummaryMd(e.target.value)}
+                  placeholder="Generate from the PDF, or write a summary here…"
+                />
+                <div
+                  className="prose prose-invert max-w-none p-4 rounded-md overflow-auto"
+                  style={{ minHeight: 320, maxHeight: 460, background: "var(--black)", border: "1px solid var(--border)" }}
+                >
+                  <ReactMarkdown>{summaryMd || "_Nothing yet._"}</ReactMarkdown>
+                </div>
+              </div>
+            </div>
+
+            <button onClick={publishSummary} className="btn-primary self-start" disabled={savingSummary}>
+              {savingSummary ? "Publishing…" : "Publish Course Summary"}
+            </button>
           </div>
         </>
       )}

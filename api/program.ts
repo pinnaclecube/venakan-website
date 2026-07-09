@@ -51,8 +51,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       name: p.name,
       short_description: p.short_description,
       spec_type: p.spec_type,
-      // spec_markdown is only meaningful for generated specs.
-      spec_markdown: p.spec_type === "generated" ? p.spec_markdown ?? null : null,
+      // spec_markdown holds the course summary (generated from the PDF or written
+      // by an admin); expose it whenever present.
+      spec_markdown: p.spec_markdown ?? null,
       doc_url: docUrl,
       doc_is_pdf: specDocPath ? /\.pdf$/i.test(specDocPath) : false,
     });

@@ -71,7 +71,7 @@ export function TrainingProgram() {
 
   const hasDoc = Boolean(data.doc_url);
   const showInlinePdf = hasDoc && data.doc_is_pdf;
-  const isGenerated = data.spec_type === "generated" && Boolean(data.spec_markdown);
+  const hasSummary = Boolean(data.spec_markdown && data.spec_markdown.trim());
 
   return (
     <div className="w-full">
@@ -112,17 +112,24 @@ export function TrainingProgram() {
       <section className="py-20" style={{ background: "var(--bg)" }}>
         <div className="container max-w-[820px] mx-auto">
           <Reveal delay={100} variant="body">
-            {isGenerated ? (
+            {/* Course summary (Coursera-style overview) */}
+            {hasSummary && (
               <div className={PROSE} style={{ color: "var(--text-2)", lineHeight: 1.85 }}>
                 <ReactMarkdown>{data.spec_markdown ?? ""}</ReactMarkdown>
               </div>
-            ) : hasDoc ? (
-              <div>
+            )}
+
+            {/* Full specification document */}
+            {hasDoc && (
+              <div className={hasSummary ? "mt-16" : ""}>
+                <h2
+                  className="text-2xl md:text-3xl font-bold mb-6"
+                  style={{ fontFamily: "var(--oswald)", color: "var(--green)" }}
+                >
+                  Full Specification
+                </h2>
                 {showInlinePdf ? (
-                  <div
-                    className="rounded-lg overflow-hidden"
-                    style={{ border: "1px solid var(--border)" }}
-                  >
+                  <div className="rounded-lg overflow-hidden" style={{ border: "1px solid var(--border)" }}>
                     <object
                       data={data.doc_url!}
                       type="application/pdf"
@@ -147,7 +154,9 @@ export function TrainingProgram() {
                   </div>
                 )}
               </div>
-            ) : (
+            )}
+
+            {!hasSummary && !hasDoc && (
               <p style={{ color: "var(--text-2)" }}>
                 {data.short_description || "Full details for this program are coming soon."}
               </p>
