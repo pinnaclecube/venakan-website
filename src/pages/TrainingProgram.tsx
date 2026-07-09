@@ -70,7 +70,6 @@ export function TrainingProgram() {
   }
 
   const hasDoc = Boolean(data.doc_url);
-  const showInlinePdf = hasDoc && data.doc_is_pdf;
   const hasSummary = Boolean(data.spec_markdown && data.spec_markdown.trim());
 
   return (
@@ -116,43 +115,6 @@ export function TrainingProgram() {
             {hasSummary && (
               <div className={PROSE} style={{ color: "var(--text-2)", lineHeight: 1.85 }}>
                 <ReactMarkdown>{data.spec_markdown ?? ""}</ReactMarkdown>
-              </div>
-            )}
-
-            {/* Full specification document */}
-            {hasDoc && (
-              <div className={hasSummary ? "mt-16" : ""}>
-                <h2
-                  className="text-2xl md:text-3xl font-bold mb-6"
-                  style={{ fontFamily: "var(--oswald)", color: "var(--green)" }}
-                >
-                  Full Specification
-                </h2>
-                {showInlinePdf ? (
-                  <div className="rounded-lg overflow-hidden" style={{ border: "1px solid var(--border)" }}>
-                    <object
-                      data={data.doc_url!}
-                      type="application/pdf"
-                      style={{ width: "100%", height: "80vh", display: "block" }}
-                    >
-                      <p className="p-6" style={{ color: "var(--text-2)" }}>
-                        Your browser can't display the PDF inline.{" "}
-                        <a href={data.doc_url!} className="text-[var(--green)]" target="_blank" rel="noreferrer">
-                          Download it instead.
-                        </a>
-                      </p>
-                    </object>
-                  </div>
-                ) : (
-                  <div className="glass p-8 text-center">
-                    <p className="mb-6" style={{ color: "var(--text-2)" }}>
-                      The full program specification is available as a document.
-                    </p>
-                    <a href={data.doc_url!} target="_blank" rel="noreferrer" className="btn-primary">
-                      Download Specification &darr;
-                    </a>
-                  </div>
-                )}
               </div>
             )}
 
