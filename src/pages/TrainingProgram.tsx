@@ -76,7 +76,7 @@ export function TrainingProgram() {
     <div className="w-full">
       {/* Hero */}
       <section
-        className="py-20 grid-bg"
+        className="pt-20 pb-[20px] grid-bg"
         style={{ background: "var(--surface)", borderBottom: "1px solid var(--border)" }}
       >
         <div className="container max-w-4xl">
@@ -108,7 +108,7 @@ export function TrainingProgram() {
       </section>
 
       {/* Body */}
-      <section className="py-20" style={{ background: "var(--bg)" }}>
+      <section className="pt-[20px] pb-20" style={{ background: "var(--bg)" }}>
         <div className="container max-w-[820px] mx-auto">
           <Reveal delay={100} variant="body">
             {/* Course summary (Coursera-style overview) */}
