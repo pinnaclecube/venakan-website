@@ -2,11 +2,16 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import Busboy from "busboy";
 import { createClient } from "@supabase/supabase-js";
 
-// Vercel serverless function (Node). Accepts multipart/form-data, so Vercel's
-// default JSON body parser MUST be disabled.
+// Vercel serverless function (Node). Accepts multipart/form-data (résumé +
+// fields), so Vercel's default JSON body parser MUST be disabled.
+//
+// Applications are accepted on our site: the résumé is uploaded to the private
+// Supabase "resumes" bucket, the application row is inserted into "applications"
+// (source of truth), and a notification email (with the résumé attached) is sent
+// via Resend. Interviews are scheduled in Zinterview manually — no candidate is
+// created here.
 export const config = { api: { bodyParser: false } };
 
-const ZINTERVIEW_BASE = "https://app.zinterview.ai/api/v1";
 const MAX_FILE_BYTES = 5 * 1024 * 1024; // 5 MB
 const ALLOWED_MIME = new Set([
   "application/pdf",
@@ -50,17 +55,25 @@ function parseMultipart(req: VercelRequest): Promise<ParsedForm> {
   });
 }
 
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const apiKey = process.env.ZINTERVIEW_API_KEY;
   const supabaseUrl = process.env.SUPABASE_URL;
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!apiKey || !supabaseUrl || !serviceKey) {
-    console.error("[apply] missing required env vars");
+  if (!supabaseUrl || !serviceKey) {
+    console.error("[apply] missing SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY");
     return res.status(500).json({ error: "Server is not configured." });
   }
 
@@ -105,52 +118,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ error: "Please fix the highlighted fields.", fieldErrors });
   }
 
-  // ── Dual write, in this exact order ──
+  const supabase = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false } });
 
-  // 1) Zinterview create-candidate (multipart/form-data with the resume file).
-  let candidateId: string | undefined;
+  // 1) Upload the résumé to the private bucket, then insert the application row.
+  const safeName = file!.filename.replace(/[^a-zA-Z0-9._-]/g, "_");
+  const resumePath = `${openingId}/${Date.now()}-${safeName}`;
   try {
-    const fd = new FormData();
-    fd.append("openingId", openingId);
-    fd.append("firstName", firstName);
-    fd.append("lastName", lastName);
-    fd.append("email", email);
-    fd.append("phoneNumber", phone);
-    if (experience !== undefined) fd.append("experience", String(experience));
-    fd.append("resume", new Blob([new Uint8Array(file!.buffer)], { type: file!.mimeType }), file!.filename);
-
-    const zr = await fetch(`${ZINTERVIEW_BASE}/candidates/create-candidate`, {
-      method: "POST",
-      headers: { Authorization: apiKey }, // raw key, no Bearer prefix
-      body: fd,
-    });
-
-    if (!zr.ok) {
-      const body = await zr.text().catch(() => "");
-      console.error(`[apply] Zinterview create-candidate ${zr.status}: ${body.slice(0, 500)}`);
-      // Zinterview failed → do NOT write to Supabase.
-      return res
-        .status(502)
-        .json({ error: "We couldn't submit your application, please try again." });
-    }
-
-    const zdata: any = await zr.json().catch(() => ({}));
-    candidateId = zdata?._id ?? zdata?.candidate?._id ?? zdata?.data?._id;
-  } catch (err) {
-    console.error("[apply] Zinterview request failed", err);
-    return res
-      .status(502)
-      .json({ error: "We couldn't submit your application, please try again." });
-  }
-
-  // 2) Supabase: upload resume to the private bucket, then insert the row.
-  //    The candidate already exists in Zinterview, so if this step fails we still
-  //    return success to the user and log for later reconciliation.
-  try {
-    const supabase = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false } });
-    const safeName = file!.filename.replace(/[^a-zA-Z0-9._-]/g, "_");
-    const resumePath = `${openingId}/${candidateId || crypto.randomUUID()}-${safeName}`;
-
     const up = await supabase.storage.from("resumes").upload(resumePath, file!.buffer, {
       contentType: file!.mimeType,
       upsert: false,
@@ -160,7 +133,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const ins = await supabase.from("applications").insert({
       opening_id: openingId,
       opening_title: openingTitle || null,
-      zinterview_candidate_id: candidateId || null,
+      zinterview_candidate_id: null,
       first_name: firstName,
       last_name: lastName,
       email,
@@ -170,16 +143,49 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
     if (ins.error) throw ins.error;
   } catch (err) {
-    // TODO: reconcile — candidate IS in Zinterview but the local row/storage write
-    // failed. Use the logged Zinterview candidate id to backfill the missing row.
-    console.error("[apply] Supabase write FAILED after Zinterview success", {
-      zinterviewCandidateId: candidateId,
-      openingId,
-      email,
-      error: err instanceof Error ? err.message : String(err),
-    });
-    // Do not surface failure to the user — they are already a Zinterview candidate.
-    return res.status(200).json({ ok: true });
+    console.error("[apply] Supabase write failed", err);
+    return res.status(502).json({ error: "We couldn't submit your application, please try again." });
+  }
+
+  // 2) Best-effort notification email (with the résumé attached) via Resend. A
+  //    failure here must NOT fail the request — the Supabase row is the record.
+  try {
+    const resendKey = process.env.RESEND_API_KEY;
+    const notifyEmail = process.env.CAREERS_NOTIFY_EMAIL;
+    if (resendKey && notifyEmail) {
+      const fromEmail = process.env.CAREERS_FROM_EMAIL || "Venakan Careers <onboarding@resend.dev>";
+      const rows: Array<[string, string]> = [
+        ["Role", openingTitle || openingId],
+        ["Name", `${firstName} ${lastName}`],
+        ["Email", email],
+        ["Phone", phone],
+      ];
+      if (experience !== undefined) rows.push(["Experience", `${experience} yrs`]);
+      const html = `<h2>New job application</h2><p>${rows
+        .map(([k, v]) => `<strong>${escapeHtml(k)}:</strong> ${escapeHtml(v)}`)
+        .join("<br>")}</p><p>Résumé attached.</p>`;
+      const text = rows.map(([k, v]) => `${k}: ${v}`).join("\n") + "\n\nRésumé attached.";
+
+      const er = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${resendKey}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          from: fromEmail,
+          to: [notifyEmail],
+          reply_to: email,
+          subject: `New application — ${openingTitle || openingId} — ${firstName} ${lastName}`,
+          html,
+          text,
+          attachments: [{ filename: file!.filename, content: file!.buffer.toString("base64") }],
+        }),
+      });
+      if (!er.ok) {
+        const body = await er.text().catch(() => "");
+        console.error(`[apply] Resend ${er.status}: ${body.slice(0, 300)}`);
+      }
+    }
+  } catch (err) {
+    console.error("[apply] notification email failed (application was saved)", err);
   }
 
   return res.status(200).json({ ok: true });
