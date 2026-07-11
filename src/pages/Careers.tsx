@@ -1,10 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-// ── Openings are defined statically here (source of truth). Applications are
-//    accepted on our site: the résumé + details are stored in Supabase and
-//    emailed to us; interviews are scheduled in Zinterview manually. ──
-type Opening = {
+// ── Openings come from two sources, both rendered here: ──
+//   1. STATIC_OPENINGS — finalized roles defined in this file (source of truth).
+//   2. Zinterview — fetched from /api/openings and appended (retained).
+// Applications are accepted on our site (résumé → Supabase + email); interviews
+// are scheduled in Zinterview manually — no candidate is created on apply.
+
+type SkillGroup = { skillGroupName?: string; skills?: string[] | string };
+type JobDetails = {
+  jobType?: string;
+  workmode?: string;
+  location?: string;
+  educationMinimum?: string;
+  educationIdeal?: string;
+  totalOpenPositions?: number;
+};
+type Trait = { point: string; because?: string; dimension?: string };
+
+type StaticOpening = {
+  kind: "static";
   id: string;
   title: string;
   meta: string[];
@@ -14,7 +29,23 @@ type Opening = {
   conditions: string[]; // first item = green "active" emphasis; rest neutral
 };
 
-const OPENINGS: Opening[] = [
+type ZinterviewOpening = {
+  kind: "zinterview";
+  id: string;
+  title: string;
+  isTechnical?: boolean;
+  minExperience?: number;
+  maxExperience?: number;
+  jobRequirementsAndResponsibilities?: string[];
+  businessContext?: string;
+  behavioralTraits?: Trait[];
+  skillsGroup?: SkillGroup[];
+  jobDetails?: JobDetails | null;
+};
+
+type Opening = StaticOpening | ZinterviewOpening;
+
+const STATIC_OPENINGS: Omit<StaticOpening, "kind">[] = [
   {
     id: "office-administrator",
     title: "Office Administrator",
@@ -96,8 +127,52 @@ const ALLOWED_MIME = new Set([
 ]);
 const MAX_FILE_BYTES = 5 * 1024 * 1024;
 
+function expLabel(o: ZinterviewOpening): string | null {
+  const min = o.minExperience;
+  const max = o.maxExperience;
+  if (min == null && max == null) return null;
+  if (min != null && max != null) return `${min}–${max} yrs exp`;
+  if (min != null) return `${min}+ yrs exp`;
+  return `up to ${max} yrs exp`;
+}
+
+function toSkillList(skills?: string[] | string): string[] {
+  if (Array.isArray(skills)) return skills.filter(Boolean);
+  if (typeof skills === "string") return skills.split(",").map((s) => s.trim()).filter(Boolean);
+  return [];
+}
+
 export function Careers() {
+  const [dynamicOpenings, setDynamicOpenings] = useState<ZinterviewOpening[]>([]);
+  const [status, setStatus] = useState<"loading" | "done">("loading");
   const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/openings")
+      .then(async (r) => {
+        if (!r.ok) throw new Error(`status ${r.status}`);
+        return r.json();
+      })
+      .then((data) => {
+        if (cancelled) return;
+        const list = Array.isArray(data?.openings) ? data.openings : [];
+        setDynamicOpenings(list.map((o: any) => ({ ...o, kind: "zinterview" as const })));
+        setStatus("done");
+      })
+      .catch(() => {
+        // Silently ignore — the static openings still render.
+        if (!cancelled) setStatus("done");
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const openings: Opening[] = [
+    ...STATIC_OPENINGS.map((o): StaticOpening => ({ ...o, kind: "static" })),
+    ...dynamicOpenings,
+  ];
 
   return (
     <div className="w-full">
@@ -135,7 +210,7 @@ export function Careers() {
       <section style={{ background: "var(--black)" }}>
         <div className="container">
           <div className="flex flex-col gap-5">
-            {OPENINGS.map((o, i) => (
+            {openings.map((o, i) => (
               <OpeningCard
                 key={o.id}
                 opening={o}
@@ -145,6 +220,15 @@ export function Careers() {
               />
             ))}
           </div>
+
+          {status === "loading" && (
+            <div className="flex items-center gap-3 mt-6" style={{ color: "var(--text-3)" }}>
+              <span className="careers-spinner" aria-hidden />
+              <span style={{ fontFamily: "var(--mono)", fontSize: 12, textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                Loading more roles…
+              </span>
+            </div>
+          )}
         </div>
       </section>
 
@@ -176,6 +260,13 @@ function OpeningCard({
 }) {
   const [applying, setApplying] = useState(false);
 
+  const meta =
+    opening.kind === "static"
+      ? opening.meta
+      : ([opening.jobDetails?.jobType, opening.jobDetails?.workmode, opening.jobDetails?.location, expLabel(opening)].filter(
+          Boolean
+        ) as string[]);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -196,12 +287,12 @@ function OpeningCard({
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
             <h2 className="text-2xl font-display font-bold mb-2">{opening.title}</h2>
-            {opening.meta.length > 0 && (
+            {meta.length > 0 && (
               <div
                 className="flex flex-wrap items-center gap-x-2 gap-y-1"
                 style={{ fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.04em", color: "var(--text-3)", textTransform: "uppercase" }}
               >
-                {opening.meta.map((m, i) => (
+                {meta.map((m, i) => (
                   <span key={i} className="flex items-center gap-2">
                     {i > 0 && <span style={{ opacity: 0.5 }}>·</span>}
                     {m}
@@ -232,40 +323,10 @@ function OpeningCard({
         <div style={{ padding: "0 28px 28px" }}>
           <div className="divider" style={{ marginBottom: 22 }} />
 
-          <p style={{ color: "var(--text-2)", lineHeight: 1.7, marginBottom: 22 }}>{opening.tagline}</p>
-
-          <div style={{ marginBottom: 22 }}>
-            <h3 className="font-display text-lg mb-3">Responsibilities</h3>
-            <ul className="flex flex-col gap-2">
-              {opening.responsibilities.map((r, i) => (
-                <li key={i} className="flex items-start gap-3" style={{ color: "var(--text-2)", fontSize: 14, lineHeight: 1.6 }}>
-                  <span style={{ color: "var(--green)", marginTop: 1, flexShrink: 0 }}>›</span>
-                  <span>{r}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div style={{ marginBottom: 22 }}>
-            <h3 className="font-display text-lg mb-3">Requirements</h3>
-            <ul className="flex flex-col gap-2">
-              {opening.requirements.map((r, i) => (
-                <li key={i} className="flex items-start gap-3" style={{ color: "var(--text-2)", fontSize: 14, lineHeight: 1.6 }}>
-                  <span style={{ color: "var(--green)", marginTop: 1, flexShrink: 0 }}>›</span>
-                  <span>{r}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {opening.conditions.length > 0 && (
-            <div className="flex flex-wrap gap-2" style={{ marginBottom: 26 }}>
-              {opening.conditions.map((c, i) => (
-                <span key={i} className={i === 0 ? "badge-active" : "badge-neutral"}>
-                  {c}
-                </span>
-              ))}
-            </div>
+          {opening.kind === "static" ? (
+            <StaticDetail opening={opening} />
+          ) : (
+            <ZinterviewDetail opening={opening} />
           )}
 
           {!applying ? (
@@ -278,6 +339,98 @@ function OpeningCard({
         </div>
       )}
     </motion.div>
+  );
+}
+
+function BulletList({ heading, items }: { heading: string; items: string[] }) {
+  return (
+    <div style={{ marginBottom: 22 }}>
+      <h3 className="font-display text-lg mb-3">{heading}</h3>
+      <ul className="flex flex-col gap-2">
+        {items.map((r, i) => (
+          <li key={i} className="flex items-start gap-3" style={{ color: "var(--text-2)", fontSize: 14, lineHeight: 1.6 }}>
+            <span style={{ color: "var(--green)", marginTop: 1, flexShrink: 0 }}>›</span>
+            <span>{r}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function StaticDetail({ opening }: { opening: StaticOpening }) {
+  return (
+    <>
+      <p style={{ color: "var(--text-2)", lineHeight: 1.7, marginBottom: 22 }}>{opening.tagline}</p>
+      <BulletList heading="Responsibilities" items={opening.responsibilities} />
+      <BulletList heading="Requirements" items={opening.requirements} />
+      {opening.conditions.length > 0 && (
+        <div className="flex flex-wrap gap-2" style={{ marginBottom: 26 }}>
+          {opening.conditions.map((c, i) => (
+            <span key={i} className={i === 0 ? "badge-active" : "badge-neutral"}>
+              {c}
+            </span>
+          ))}
+        </div>
+      )}
+    </>
+  );
+}
+
+function ZinterviewDetail({ opening }: { opening: ZinterviewOpening }) {
+  return (
+    <>
+      {opening.businessContext && (
+        <p style={{ color: "var(--text-2)", lineHeight: 1.7, marginBottom: 22 }}>{opening.businessContext}</p>
+      )}
+
+      {opening.jobRequirementsAndResponsibilities && opening.jobRequirementsAndResponsibilities.length > 0 && (
+        <BulletList heading="Responsibilities" items={opening.jobRequirementsAndResponsibilities} />
+      )}
+
+      {opening.skillsGroup && opening.skillsGroup.length > 0 && (
+        <div style={{ marginBottom: 26 }}>
+          <h3 className="font-display text-lg mb-3">Skills</h3>
+          <div className="flex flex-col gap-4">
+            {opening.skillsGroup.map((g, i) => {
+              const skills = toSkillList(g.skills);
+              if (skills.length === 0) return null;
+              return (
+                <div key={i}>
+                  {g.skillGroupName && (
+                    <div style={{ fontFamily: "var(--mono)", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-3)", marginBottom: 8 }}>
+                      {g.skillGroupName}
+                    </div>
+                  )}
+                  <div className="flex flex-wrap gap-2">
+                    {skills.map((s, j) => (
+                      <span key={j} className="tag-green">{s}</span>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {opening.behavioralTraits && opening.behavioralTraits.length > 0 && (
+        <div style={{ marginBottom: 26 }}>
+          <h3 className="font-display text-lg mb-3">What we're really looking for</h3>
+          <ul className="flex flex-col gap-4">
+            {opening.behavioralTraits.map((t, i) => (
+              <li key={i} className="flex flex-col gap-2">
+                {t.dimension && <span className="tag-green" style={{ alignSelf: "flex-start" }}>{t.dimension}</span>}
+                <span style={{ color: "var(--text-2)", fontSize: 14, lineHeight: 1.6 }}>
+                  {t.point}
+                  {t.because ? <span style={{ color: "var(--text-3)" }}> — {t.because}</span> : null}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </>
   );
 }
 
