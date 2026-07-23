@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Reveal } from "@/components/ui/Reveal";
 import { ServiceHero } from "@/components/ServiceHero";
+import { formatTuition } from "@/lib/utils";
 
 function TracksPanel() {
   return (
@@ -98,7 +99,13 @@ function TrainingInterestTeaser() {
 // full spec page at /training/{slug}.
 function TracksGrid() {
   const { data, isLoading } = useQuery<{
-    programs: { slug: string; name: string; short_description: string | null }[];
+    programs: {
+      slug: string;
+      name: string;
+      short_description: string | null;
+      tuition_cents: number;
+      currency: string;
+    }[];
   }>({
     queryKey: ["training-programs"],
     queryFn: async () => {
@@ -132,6 +139,16 @@ function TracksGrid() {
                   <p className="text-sm mb-6 flex-grow" style={{ color: "var(--text-2)", lineHeight: 1.7 }}>
                     {p.short_description}
                   </p>
+                  {p.tuition_cents > 0 && (
+                    <div className="flex items-baseline gap-2 mb-5">
+                      <span style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-3)" }}>
+                        Tuition
+                      </span>
+                      <span className="font-display font-bold text-lg" style={{ color: "var(--green)" }}>
+                        {formatTuition(p.tuition_cents, p.currency)}
+                      </span>
+                    </div>
+                  )}
                   <Link href={`/training/${p.slug}`} className="btn-ghost self-start">
                     View Program Details →
                   </Link>

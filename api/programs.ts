@@ -26,7 +26,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const { data, error } = await supabase
       .from("training_programs")
-      .select("slug, name, short_description, spec_type, spec_markdown, spec_doc_path")
+      .select("slug, name, short_description, spec_type, spec_markdown, spec_doc_path, tuition_cents, currency")
       .eq("status", "published")
       .order("sort_order", { ascending: true });
 
@@ -39,6 +39,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       spec_type: p.spec_type,
       has_spec: typeof p.spec_markdown === "string" && p.spec_markdown.trim().length > 0,
       has_pdf: typeof p.spec_doc_path === "string" && p.spec_doc_path.trim().length > 0,
+      tuition_cents: p.tuition_cents ?? 0,
+      currency: p.currency ?? "usd",
     }));
 
     res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate=600");
