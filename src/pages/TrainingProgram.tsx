@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import ReactMarkdown from "react-markdown";
 import { Reveal } from "@/components/ui/Reveal";
 import NotFound from "@/pages/not-found";
+import { formatTuition } from "@/lib/utils";
 
 type ProgramDetail = {
   slug: string;
@@ -12,6 +13,8 @@ type ProgramDetail = {
   spec_markdown: string | null;
   doc_url: string | null;
   doc_is_pdf: boolean;
+  tuition_cents: number;
+  currency: string;
 };
 
 // Same prose treatment as ArticleLayout: green Oswald H2s, text-2 body,
@@ -92,6 +95,16 @@ export function TrainingProgram() {
               <p className="text-lg leading-relaxed max-w-2xl" style={{ color: "var(--text-2)" }}>
                 {data.short_description}
               </p>
+            )}
+            {data.tuition_cents > 0 && (
+              <div className="flex items-baseline gap-3 mt-6">
+                <span style={{ fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-3)" }}>
+                  Tuition
+                </span>
+                <span className="text-3xl font-display font-bold" style={{ color: "var(--green)" }}>
+                  {formatTuition(data.tuition_cents, data.currency)}
+                </span>
+              </div>
             )}
             <div className="flex flex-wrap gap-3 mt-8">
               {hasDoc && (

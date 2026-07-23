@@ -27,7 +27,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const supabase = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false } });
     const { data, error } = await supabase
       .from("training_programs")
-      .select("slug, name, short_description, spec_type, spec_markdown, spec_doc_path, status")
+      .select("slug, name, short_description, spec_type, spec_markdown, spec_doc_path, status, tuition_cents, currency")
       .eq("slug", slug)
       .maybeSingle();
     if (error) throw error;
@@ -56,6 +56,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       spec_markdown: p.spec_markdown ?? null,
       doc_url: docUrl,
       doc_is_pdf: specDocPath ? /\.pdf$/i.test(specDocPath) : false,
+      tuition_cents: p.tuition_cents ?? 0,
+      currency: p.currency ?? "usd",
     });
   } catch (err) {
     console.error("[program] unexpected error", err);
