@@ -14,6 +14,10 @@ type Program = {
   status: "draft" | "published";
   sort_order: number;
   updated_at: string | null;
+  tuition_cents: number | null;
+  currency: string | null;
+  seats_total: number | null;
+  seats_enrolled: number | null;
 };
 
 type LookupRow = {
@@ -128,6 +132,11 @@ function ProgramEditor({
   const [sortOrder, setSortOrder] = useState(String(program?.sort_order ?? 0));
   const [shortDesc, setShortDesc] = useState(program?.short_description ?? "");
   const [status, setStatus] = useState<"draft" | "published">(program?.status ?? "draft");
+  const [tuitionUsd, setTuitionUsd] = useState(
+    program?.tuition_cents != null ? (program.tuition_cents / 100).toFixed(2) : "0"
+  );
+  const [seatsTotal, setSeatsTotal] = useState(program?.seats_total != null ? String(program.seats_total) : "");
+  const seatsEnrolled = program?.seats_enrolled ?? 0;
   const [savingBasics, setSavingBasics] = useState(false);
   const [msg, setMsg] = useState("");
   const [err, setErr] = useState("");
@@ -166,6 +175,8 @@ function ProgramEditor({
         short_description: shortDesc,
         status,
         sort_order: Number(sortOrder) || 0,
+        tuition_usd: Number(tuitionUsd) || 0,
+        seats_total: seatsTotal.trim() === "" ? null : Number(seatsTotal),
       };
       const res = await adminFetch("/api/admin/programs", {
         method: id ? "PATCH" : "POST",
@@ -331,6 +342,33 @@ function ProgramEditor({
               <option value="draft">Draft</option>
               <option value="published">Published</option>
             </select>
+          </div>
+          <div>
+            <label className="form-label">Tuition (USD)</label>
+            <input
+              type="number"
+              min={0}
+              step="0.01"
+              className="form-input"
+              value={tuitionUsd}
+              onChange={(e) => setTuitionUsd(e.target.value)}
+            />
+          </div>
+          <div>
+            <label className="form-label">Seats (total)</label>
+            <input
+              type="number"
+              min={0}
+              className="form-input"
+              value={seatsTotal}
+              onChange={(e) => setSeatsTotal(e.target.value)}
+              placeholder="unlimited"
+            />
+            {id && (
+              <span style={{ color: "var(--text-3)", fontFamily: "var(--mono)", fontSize: 10, marginTop: 4, display: "block" }}>
+                {seatsEnrolled} / {program?.seats_total ?? "∞"} enrolled
+              </span>
+            )}
           </div>
         </div>
         <div>
@@ -736,14 +774,66 @@ type Registration = {
   program_name: string;
   experience_label: string;
   eligibility_label: string;
+  is_program_eligible: boolean;
   resume_url: string | null;
+  status: string;
+  payment_status: string | null;
+  payment_amount_cents: number | null;
+  paid_at: string | null;
 };
+
+function Pill({ bg, border, color, label }: { bg: string; border: string; color: string; label: string }) {
+  return (
+    <span
+      style={{
+        background: bg,
+        border: `1px solid ${border}`,
+        color,
+        fontFamily: "var(--mono)",
+        fontSize: 9,
+        fontWeight: 600,
+        padding: "3px 8px",
+        borderRadius: 9999,
+        letterSpacing: "0.06em",
+        textTransform: "uppercase",
+        whiteSpace: "nowrap",
+      }}
+    >
+      {label}
+    </span>
+  );
+}
+
+// Two-tone palette + amber (pending) + a red for the failed state only (admin-only tool).
+function StatusBadge({ status }: { status: string }) {
+  const m: Record<string, { bg: string; border: string; color: string; label: string }> = {
+    submitted: { bg: "var(--black-light)", border: "var(--border-mid)", color: "var(--text-1)", label: "submitted" },
+    approved_pending_payment: { bg: "rgba(251,191,36,0.10)", border: "rgba(251,191,36,0.22)", color: "#FCD34D", label: "pending payment" },
+    enrolled: { bg: "var(--green-dim)", border: "var(--green-border)", color: "var(--green)", label: "enrolled" },
+    payment_failed: { bg: "rgba(239,68,68,0.12)", border: "rgba(239,68,68,0.28)", color: "#F87171", label: "payment failed" },
+    withdrawn: { bg: "var(--border)", border: "var(--border-mid)", color: "var(--text-3)", label: "withdrawn" },
+  };
+  return <Pill {...(m[status] ?? m.submitted)} />;
+}
+
+function PaymentBadge({ status }: { status: string | null }) {
+  if (!status) return <span style={{ color: "var(--text-4)" }}>—</span>;
+  const m: Record<string, { bg: string; border: string; color: string; label: string }> = {
+    paid: { bg: "var(--green-dim)", border: "var(--green-border)", color: "var(--green)", label: "paid" },
+    pending: { bg: "rgba(251,191,36,0.10)", border: "rgba(251,191,36,0.22)", color: "#FCD34D", label: "pending" },
+    expired: { bg: "var(--border)", border: "var(--border-mid)", color: "var(--text-3)", label: "expired" },
+    failed: { bg: "rgba(239,68,68,0.12)", border: "rgba(239,68,68,0.28)", color: "#F87171", label: "failed" },
+    refunded: { bg: "var(--border)", border: "var(--border-mid)", color: "var(--text-2)", label: "refunded" },
+  };
+  return <Pill {...(m[status] ?? m.pending)} />;
+}
 
 function RegistrationsPanel({ adminFetch }: { adminFetch: AdminFetch }) {
   const [rows, setRows] = useState<Registration[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [programFilter, setProgramFilter] = useState("all");
+  const [busy, setBusy] = useState("");
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -766,6 +856,29 @@ function RegistrationsPanel({ adminFetch }: { adminFetch: AdminFetch }) {
 
   const programNames = Array.from(new Set(rows.map((r) => r.program_name))).sort();
   const filtered = programFilter === "all" ? rows : rows.filter((r) => r.program_name === programFilter);
+
+  const act = async (r: Registration, action: "approve" | "resend-payment-link" | "mark-paid", confirmMsg?: string) => {
+    // Sponsorship review gate: flagged applicants require confirmation to approve.
+    if (action === "approve" && !r.is_program_eligible) {
+      if (!confirm("This applicant was flagged for sponsorship review. Approve anyway?")) return;
+    }
+    if (confirmMsg && !confirm(confirmMsg)) return;
+    setBusy(r.id + action);
+    try {
+      const res = await adminFetch(`/api/admin/applications/${r.id}/${action}`, { method: "POST", body: "{}" });
+      const d = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        alert(d?.error || "Action failed.");
+        return;
+      }
+      if (action === "resend-payment-link") alert("Payment link re-sent.");
+      await load(); // invalidate + refresh after the mutation
+    } catch {
+      alert("Network error. Please try again.");
+    } finally {
+      setBusy("");
+    }
+  };
 
   const th: React.CSSProperties = {
     textAlign: "left",
@@ -813,7 +926,7 @@ function RegistrationsPanel({ adminFetch }: { adminFetch: AdminFetch }) {
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
             <thead>
               <tr style={{ borderBottom: "1px solid var(--border)" }}>
-                {["Date", "Name", "Email", "Phone", "Program", "Experience", "Eligibility", "LinkedIn", "Résumé"].map(
+                {["Date", "Name", "Email", "Phone", "Program", "Experience", "Eligibility", "Status", "Payment", "LinkedIn", "Résumé", "Actions"].map(
                   (h) => (
                     <th key={h} style={th}>
                       {h}
@@ -837,7 +950,20 @@ function RegistrationsPanel({ adminFetch }: { adminFetch: AdminFetch }) {
                   <td style={td}>{r.phone}</td>
                   <td style={td}>{r.program_name}</td>
                   <td style={td}>{r.experience_label}</td>
-                  <td style={td}>{r.eligibility_label}</td>
+                  <td style={td}>
+                    {r.eligibility_label}
+                    {!r.is_program_eligible && (
+                      <span style={{ color: "#FCD34D", fontFamily: "var(--mono)", fontSize: 9, display: "block", marginTop: 2 }}>
+                        [NEEDS REVIEW]
+                      </span>
+                    )}
+                  </td>
+                  <td style={td}>
+                    <StatusBadge status={r.status} />
+                  </td>
+                  <td style={td}>
+                    <PaymentBadge status={r.payment_status} />
+                  </td>
                   <td style={td}>
                     {r.linkedin_url ? (
                       <a href={r.linkedin_url} target="_blank" rel="noreferrer" style={{ color: "var(--green)" }}>
@@ -862,11 +988,47 @@ function RegistrationsPanel({ adminFetch }: { adminFetch: AdminFetch }) {
                       "—"
                     )}
                   </td>
+                  <td style={td}>
+                    {r.status === "enrolled" ? (
+                      <span style={{ color: "var(--green)", fontFamily: "var(--mono)", fontSize: 9 }}>✓ enrolled</span>
+                    ) : (
+                      <div className="flex flex-wrap gap-2">
+                        {(r.status === "submitted" || r.status === "payment_failed") && (
+                          <button
+                            className="btn-ghost"
+                            style={{ fontSize: 9, padding: "6px 10px" }}
+                            disabled={busy === r.id + "approve"}
+                            onClick={() => act(r, "approve")}
+                          >
+                            Approve &amp; Send Payment Link
+                          </button>
+                        )}
+                        {r.status === "approved_pending_payment" && (
+                          <button
+                            className="btn-ghost"
+                            style={{ fontSize: 9, padding: "6px 10px" }}
+                            disabled={busy === r.id + "resend-payment-link"}
+                            onClick={() => act(r, "resend-payment-link")}
+                          >
+                            Resend Payment Link
+                          </button>
+                        )}
+                        <button
+                          className="btn-ghost"
+                          style={{ fontSize: 9, padding: "6px 10px" }}
+                          disabled={busy === r.id + "mark-paid"}
+                          onClick={() => act(r, "mark-paid", `Mark ${r.first_name} ${r.last_name} as paid manually and enroll them?`)}
+                        >
+                          Mark as Paid Manually
+                        </button>
+                      </div>
+                    )}
+                  </td>
                 </tr>
               ))}
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={9} style={{ padding: "20px 14px", color: "var(--text-3)" }}>
+                  <td colSpan={12} style={{ padding: "20px 14px", color: "var(--text-3)" }}>
                     No registrations{programFilter === "all" ? " yet" : " for this program"}.
                   </td>
                 </tr>
