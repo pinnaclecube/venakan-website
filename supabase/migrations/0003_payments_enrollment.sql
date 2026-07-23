@@ -73,8 +73,10 @@ $$;
 -- is the full definition. It preserves the base registration columns and the
 -- program/experience/eligibility joins, and adds the latest payment via a
 -- LEFT JOIN LATERAL (created_at desc, limit 1). If a different view already
--- exists in your DB, reconcile any extra columns you rely on.
-create or replace view v_training_registrations as
+-- exists in your DB, reconcile any extra columns you rely on. We DROP first
+-- because CREATE OR REPLACE can't reorder/rename an existing view's columns.
+drop view if exists v_training_registrations;
+create view v_training_registrations as
 select
   ti.id,
   ti.created_at,
