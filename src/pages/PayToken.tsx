@@ -60,7 +60,8 @@ export function PayToken() {
       const res = await fetch(`/api/pay/${encodeURIComponent(token)}/checkout`, { method: "POST" });
       const d = await res.json().catch(() => ({}));
       if (!res.ok) {
-        setErr(d?.error || "Could not start checkout. Please try again.");
+        const base = d?.error || "Could not start checkout. Please try again.";
+        setErr(d?.detail ? `${base} (${d.detail})` : base);
         setStarting(false);
         return;
       }
