@@ -18,6 +18,9 @@ import { Training } from "@/pages/Training";
 import { TrainingRegister } from "@/pages/TrainingRegister";
 import { TrainingProgram } from "@/pages/TrainingProgram";
 import { AdminTraining } from "@/pages/AdminTraining";
+import { Pay } from "@/pages/Pay";
+import { PayToken } from "@/pages/PayToken";
+import { EnrollmentSuccess } from "@/pages/EnrollmentSuccess";
 import { Development } from "@/pages/Development";
 import { Staffing } from "@/pages/Staffing";
 import { Resources } from "@/pages/Resources";
@@ -64,6 +67,10 @@ function AppRouter() {
         <Route path="/contact" component={Contact} />
         
         <Route path="/admin/training" component={AdminTraining} />
+
+        <Route path="/pay" component={Pay} />
+        <Route path="/pay/:token" component={PayToken} />
+        <Route path="/enrollment-success" component={EnrollmentSuccess} />
 
         <Route path="/privacy" component={Privacy} />
         <Route path="/disclaimer" component={Disclaimer} />

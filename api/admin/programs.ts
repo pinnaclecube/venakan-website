@@ -112,6 +112,26 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       if (b.spec_markdown !== undefined) patch.spec_markdown = b.spec_markdown;
       if (b.status !== undefined) patch.status = b.status === "published" ? "published" : "draft";
       if (b.sort_order !== undefined) patch.sort_order = Number(b.sort_order) || 0;
+      // Tuition stored in cents (UI sends dollars); seats/currency validated min 0.
+      if (b.tuition_usd !== undefined) {
+        const dollars = Number(b.tuition_usd);
+        if (!Number.isFinite(dollars) || dollars < 0) {
+          return res.status(400).json({ error: "Tuition must be 0 or more." });
+        }
+        patch.tuition_cents = Math.round(dollars * 100);
+      }
+      if (b.currency !== undefined) patch.currency = String(b.currency).trim().toLowerCase() || "usd";
+      if (b.seats_total !== undefined) {
+        if (b.seats_total === null || b.seats_total === "") {
+          patch.seats_total = null;
+        } else {
+          const seats = Number(b.seats_total);
+          if (!Number.isInteger(seats) || seats < 0) {
+            return res.status(400).json({ error: "Seats must be a whole number, 0 or more." });
+          }
+          patch.seats_total = seats;
+        }
+      }
 
       const { data, error } = await supabase
         .from("training_programs")
